@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaInformadoSobreSatelitesVenezolanosTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaInformadoSobreSatelitesVenezolanosTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_informado_sobre_satelites_venezolanos COMMENT = 'Pregunta #16. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_informado_sobre_satelites_venezolanos COMMENT = 'Pregunta #16. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

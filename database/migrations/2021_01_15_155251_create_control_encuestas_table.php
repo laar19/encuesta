@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateControlEncuestasTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateControlEncuestasTable extends Migration
             $table->integer('aperturada');
             $table->timestamps();
         });
-        DB:select("ALTER TABLE control_encuestas COMMENT = 'Controla la cantidad de veces que se apertura la encuesta al público'");
+        \DB::query("ALTER TABLE control_encuestas COMMENT = 'Controla la cantidad de veces que se apertura la encuesta al público'");
     }
 
     /**

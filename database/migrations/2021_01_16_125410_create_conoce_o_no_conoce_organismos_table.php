@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateConoceONoConoceOrganismosTable extends Migration
 {
@@ -32,7 +33,7 @@ class CreateConoceONoConoceOrganismosTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE conoce_o_no_conoce_organismos COMMENT = 'Pregunta #11. Señale para cada uno de los siguientes organismos, si usted conoce, Mucho, Algo, Poco, o No conoce:'");
+        \DB::query("ALTER TABLE conoce_o_no_conoce_organismos COMMENT = 'Pregunta #11. Señale para cada uno de los siguientes organismos, si usted conoce, Mucho, Algo, Poco, o No conoce:'");
     }
 
     /**

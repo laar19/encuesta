@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaEstudioEspacialContribuyeDesarrolloProductivosTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaEstudioEspacialContribuyeDesarrolloProductivosTable extend
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_considera_ciencia_espacial_contribuye_desarrollo_econo_pais COMMENT = 'Pregunta #9. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_considera_ciencia_espacial_contribuye_desarrollo_econo_pais COMMENT = 'Pregunta #9. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

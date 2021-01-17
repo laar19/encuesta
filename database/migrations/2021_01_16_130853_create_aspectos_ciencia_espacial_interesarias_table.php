@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateAspectosCienciaEspacialInteresariasTable extends Migration
 {
@@ -32,7 +33,7 @@ class CreateAspectosCienciaEspacialInteresariasTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE aspectos_ciencia_espacial_interesarias COMMENT = 'Pregunta #15. ¿En qué aspectos de la ciencia espacial usted se interesaría?'");
+        \DB::query("ALTER TABLE aspectos_ciencia_espacial_interesarias COMMENT = 'Pregunta #15. ¿En qué aspectos de la ciencia espacial usted se interesaría?'");
     }
 
     /**

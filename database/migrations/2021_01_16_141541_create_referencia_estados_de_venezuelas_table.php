@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaEstadosDeVenezuelasTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaEstadosDeVenezuelasTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_estados_de_venezuelas COMMENT = 'Tabla de referencia con los nombres de los estados de Venezuela precargados'");
+        \DB::query("ALTER TABLE referencia_estados_de_venezuelas COMMENT = 'Tabla de referencia con los nombres de los estados de Venezuela precargados'");
     }
 
     /**

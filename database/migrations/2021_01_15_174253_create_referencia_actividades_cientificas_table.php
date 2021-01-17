@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaActividadesCientificasTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateReferenciaActividadesCientificasTable extends Migration
             $table->string('descripcion');
             $table->timestamps();
         });
-        DB:select("ALTER TABLE actividades_cientificas COMMENT = 'Pregunta #1. De las siguientes actividades cuales considera usted que son Muy científicas, Nada científicas o Poco científicas:. Selección múltiple'");
+        \DB::query("ALTER TABLE actividades_cientificas COMMENT = 'Pregunta #1. De las siguientes actividades cuales considera usted que son Muy científicas, Nada científicas o Poco científicas:. Selección múltiple'");
     }
 
     /**

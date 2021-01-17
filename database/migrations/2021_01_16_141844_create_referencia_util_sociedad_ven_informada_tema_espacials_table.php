@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaUtilSociedadVenInformadaTemaEspacialsTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaUtilSociedadVenInformadaTemaEspacialsTable extends Migrati
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_util_sociedad_ven_informada_tema_espacials COMMENT = 'Pregunta #14. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_util_sociedad_ven_informada_tema_espacials COMMENT = 'Pregunta #14. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

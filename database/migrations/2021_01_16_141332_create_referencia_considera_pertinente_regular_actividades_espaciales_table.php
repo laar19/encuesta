@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaConsideraPertinenteRegularActividadesEspacialesTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaConsideraPertinenteRegularActividadesEspacialesTable exten
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_considera_pertinente_regular_actividades_espaciales COMMENT = 'Pregunta #22. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_considera_pertinente_regular_actividades_espaciales COMMENT = 'Pregunta #22. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateConociCientificoTecnologicoEspacialUtilsTable extends Migration
 {
@@ -32,7 +33,7 @@ class CreateConociCientificoTecnologicoEspacialUtilsTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE conoci_cientifico_tecnologico_espacial_utils COMMENT = 'Pregunta #6. Considera usted que el conocimiento científico y tecnológico en el tema espacial es útil para:'");
+        \DB::query("ALTER TABLE conoci_cientifico_tecnologico_espacial_utils COMMENT = 'Pregunta #6. Considera usted que el conocimiento científico y tecnológico en el tema espacial es útil para:'");
     }
 
     /**

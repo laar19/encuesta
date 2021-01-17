@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaConsideraVenInvestigaEspaciosTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaConsideraVenInvestigaEspaciosTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_considera_ven_investiga_espacios COMMENT = 'Pregunta #8. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_considera_ven_investiga_espacios COMMENT = 'Pregunta #8. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

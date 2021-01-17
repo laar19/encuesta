@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaSabiaTenemosDosSatelistesObservRemotasTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaSabiaTenemosDosSatelistesObservRemotasTable extends Migrat
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_sabia_tenemos_dos_satelistes_observ_remotas COMMENT = 'Pregunta #17. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_sabia_tenemos_dos_satelistes_observ_remotas COMMENT = 'Pregunta #17. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

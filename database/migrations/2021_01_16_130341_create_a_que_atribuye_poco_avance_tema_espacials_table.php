@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateAQueAtribuyePocoAvanceTemaEspacialsTable extends Migration
 {
@@ -36,7 +37,7 @@ class CreateAQueAtribuyePocoAvanceTemaEspacialsTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE a_que_atribuye_poco_avance_tema_espacials COMMENT = 'Pregunta #12. ¿A qué atribuye usted que en nuestro país no exista mayor avance en el tema espacial?'");
+        \DB::query("ALTER TABLE a_que_atribuye_poco_avance_tema_espacials COMMENT = 'Pregunta #12. ¿A qué atribuye usted que en nuestro país no exista mayor avance en el tema espacial?'");
     }
 
     /**

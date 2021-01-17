@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateCompHabiSisEducJovenesTable extends Migration
 {
@@ -30,7 +31,7 @@ class CreateCompHabiSisEducJovenesTable extends Migration
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE comp_habi_sis_educ_jovenes COMMENT = 'Pregunta #3. ¿Qué competencias o habilidades le gustaría que el sistema educativo desarrolle en los jóvenes? (Seleccione máximo dos).'");
+        \DB::query("ALTER TABLE comp_habi_sis_educ_jovenes COMMENT = 'Pregunta #3. ¿Qué competencias o habilidades le gustaría que el sistema educativo desarrolle en los jóvenes? (Seleccione máximo dos).'");
     }
 
     /**

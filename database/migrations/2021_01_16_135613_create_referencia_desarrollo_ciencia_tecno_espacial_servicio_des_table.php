@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaDesarrolloCienciaTecnoEspacialServicioDesTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaDesarrolloCienciaTecnoEspacialServicioDesTable extends Mig
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_desarrollo_ciencia_tecno_espacial_servicio_des COMMENT = 'Pregunta #7. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_desarrollo_ciencia_tecno_espacial_servicio_des COMMENT = 'Pregunta #7. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

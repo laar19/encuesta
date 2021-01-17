@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateReferenciaSatisfechoInformacionEspacialTrasmiteMediosTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateReferenciaSatisfechoInformacionEspacialTrasmiteMediosTable extends M
             
             $table->timestamps();
         });
-        DB:select("ALTER TABLE referencia_satisfecho_informacion_espacial_trasmite_medios COMMENT = 'Pregunta #13. Tabla de referencia con las opciones precargadas'");
+        \DB::query("ALTER TABLE referencia_satisfecho_informacion_espacial_trasmite_medios COMMENT = 'Pregunta #13. Tabla de referencia con las opciones precargadas'");
     }
 
     /**

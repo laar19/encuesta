@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateControlEncuestadosTable extends Migration
 {
@@ -20,7 +21,7 @@ class CreateControlEncuestadosTable extends Migration
             $table->integer('id_control_encuesta');
             $table->timestamps();
         });
-        DB:select("ALTER TABLE control_encuestados COMMENT = 'Controla que el encuestado responda la encuesta una sóla vez'");
+        \DB::query("ALTER TABLE control_encuestados COMMENT = 'Controla que el encuestado responda la encuesta una sóla vez'");
     }
 
     /**
