@@ -27,7 +27,8 @@ class CreateCompHabiSisEducJovenesTable extends Migration
 
             $table->integer('habito_lectura')->comment('El hábito por la lectura');
 
-            $table->integer('id_encuesta_principal');
+            $table->integer('id_encuesta_principal')->unsigned();
+            $table->foreign('id_encuesta_principal')->references('id')->on('encuesta_principals');
             
             $table->timestamps();
         });

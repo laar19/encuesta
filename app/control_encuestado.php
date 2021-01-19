@@ -8,8 +8,8 @@ class control_encuestado extends Model
 {
     public function encuestado() {
         //return $this->belongsTo('App\Encuestado');
-        return $this->belongsTo('App\Encuestado', 'id_enceustado');
-        //return $this->belongsTo('App\Encuestado', 'id_enceustado', 'id');
+        return $this->belongsTo('App\Encuestado', 'id_encuestado');
+        //return $this->belongsTo('App\Encuestado', 'id_encuestado', 'id');
     }
 
     public function control_encuesta() {

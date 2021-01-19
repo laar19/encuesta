@@ -17,8 +17,13 @@ class CreateControlEncuestadosTable extends Migration
         Schema::create('control_encuestados', function (Blueprint $table) {
             $table->id();
             $table->integer('respondio_encuesta');
-            $table->integer('id_encuestado');
-            $table->integer('id_control_encuesta');
+            
+            $table->integer('id_encuestado')->unsigned();
+            $table->foreign('id_encuestado')->references('id')->on('encuestados');
+            
+            $table->integer('id_control_encuesta')->unsigned();
+            $table->foreign('id_control_encuesta')->references('id')->on('control_encuestas');
+            
             $table->timestamps();
         });
         \DB::query("ALTER TABLE control_encuestados COMMENT = 'Controla que el encuestado responda la encuesta una sóla vez'");

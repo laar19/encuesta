@@ -29,7 +29,9 @@ class CreateConoceONoConoceOrganismosTable extends Migration
             $table->integer('cendit');
             $table->integer('cntq');
             $table->integer('intevep');
-            $table->integer('id_encuesta_principal');
+            
+            $table->integer('id_encuesta_principal')->unsigned();
+            $table->foreign('id_encuesta_principal')->references('id')->on('encuesta_principals');
             
             $table->timestamps();
         });

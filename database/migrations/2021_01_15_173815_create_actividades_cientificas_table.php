@@ -23,7 +23,10 @@ class CreateActividadesCientificasTable extends Migration
             $table->integer('exploracion_espacial');
             $table->integer('fisica');
             $table->integer('lanzamiento_de_cohetes');
-            $table->integer('id_encuesta_principal');
+            
+            $table->integer('id_encuesta_principal')->unsigned();
+            $table->foreign('id_encuesta_principal')->references('id')->on('encuesta_principals');
+            
             $table->timestamps();
         });
         \DB::query("ALTER TABLE actividades_cientificas COMMENT = 'Pregunta #1. De las siguientes actividades cuales considera usted que son Muy científicas, Nada científicas o Poco científicas. Selección múltiple'");
