@@ -58,10 +58,10 @@ class CreateEncuestaPrincipalsTable extends Migration
             $table->text('comentarios_sugerencias_encuesta')->comment('Pregunta #25. Comentarios o sugerencias para mejorar el instrumento de consulta');
 
             $table->integer('id_encuestado')->unsigned();
-            $table->foreign('id_encuestado')->references('id')->on('encuestados');
+            $table->foreign('id_encuestado')->references('id')->on('encuestados')->onUpdate('cascade')->onDelete('cascade');
             
             $table->integer('id_control_encuesta')->unsigned();
-            $table->foreign('id_control_encuesta')->references('id')->on('control_encuestas');
+            $table->foreign('id_control_encuesta')->references('id')->on('control_encuestas')->onUpdate('cascade')->onDelete('cascade');
             
             $table->timestamps();
         });

@@ -34,7 +34,7 @@ class CreateAQueAtribuyePocoAvanceTemaEspacialsTable extends Migration
             $table->integer('crisis_economica')->comment('La crisis económica');
 
             $table->integer('id_encuesta_principal')->unsigned();
-            $table->foreign('id_encuesta_principal')->references('id')->on('encuesta_principals');
+            $table->foreign('id_encuesta_principal')->references('id')->on('encuesta_principals')->onUpdate('cascade')->onDelete('cascade');
             
             $table->timestamps();
         });
