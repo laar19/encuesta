@@ -4,12 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class control_encuestado extends Model
+class respuestas extends Model
 {
+    public function preguntas() {
+        //return $this->belongsTo('App\Control_encuesta');
+        return $this->belongsTo('App\preguntas', 'id_preguntas');
+        //return $this->belongsTo('App\Control_encuesta', 'id_control_encuesta', 'id');
+    }
+
     public function encuestado() {
-        //return $this->belongsTo('App\Encuestado');
+        //return $this->belongsTo('App\Control_encuesta');
         return $this->belongsTo('App\encuestado', 'id_encuestado');
-        //return $this->belongsTo('App\Encuestado', 'id_encuestado', 'id');
+        //return $this->belongsTo('App\Control_encuesta', 'id_control_encuesta', 'id');
     }
 
     public function control_encuesta() {
