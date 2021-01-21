@@ -26,151 +26,175 @@ class opciones_preguntas_seeder extends Seeder
 
         /* RANGO DE EDADES */
         opciones_preguntas::create([
-            'opcion' => '<=18 años',
+            'opcion'       => '<=18 años',
             'id_preguntas' => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => '>18 y <=30 años',
+            'opcion'       => '>18 y <=30 años',
             'id_preguntas' => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => '>30 y <=50 años',
+            'opcion'       => '>30 y <=50 años',
             'id_preguntas' => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => '>50 años',
+            'opcion'       => '>50 años',
             'id_preguntas' => 'rango_edad'
         ]);
 
         /* NIVEL DE INSTRUCCIÓN */
         opciones_preguntas::create([
-            'opcion' => 'Primaria',
+            'opcion'       => 'Primaria',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Secundaria',
+            'opcion'       => 'Secundaria',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Estudios universitarios sin concluir',
+            'opcion'       => 'Estudios universitarios sin concluir',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Graduado universitario',
+            'opcion'       => 'Graduado universitario',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Estudios de postgrado sin concluir',
+            'opcion'       => 'Estudios de postgrado sin concluir',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Graduado de postgrado',
+            'opcion'       => 'Graduado de postgrado',
             'id_preguntas' => 'nivel_instruccion'
         ]);
 
         /* ESTADOS DE VENEZUELA */
         opciones_preguntas::create([
-            'opcion' => 'Amazonas'
+            'opcion'       => 'Amazonas',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Anzoátegui'
+            'opcion'       => 'Anzoátegui',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Apure'
+            'opcion'       => 'Apure',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Aragua'
+            'opcion'       => 'Aragua',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Barinas'
+            'opcion'       => 'Barinas',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Bolívar'
+            'opcion'       => 'Bolívar',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Carabobo'
+            'opcion'       => 'Carabobo',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Cojedes'
+            'opcion'       => 'Cojedes',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Delta Amacuro'
+            'opcion'       => 'Delta Amacuro',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Distrito Capital'
+            'opcion'       => 'Distrito Capital',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Falcón'
+            'opcion'       => 'Falcón',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Guárico'
+            'opcion'       => 'Guárico',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Lara'
+            'opcion'       => 'Lara',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'La Guaira'
+            'opcion'       => 'La Guaira',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Mérida'
+            'opcion'       => 'Mérida',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Miranda'
+            'opcion'       => 'Miranda',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Monagas'
+            'opcion'       => 'Monagas',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Nueva Esparta'
+            'opcion'       => 'Nueva Esparta',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Portuguesa'
+            'opcion'       => 'Portuguesa',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Sucre'
+            'opcion'       => 'Sucre',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Táchira'
+            'opcion'       => 'Táchira',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Trujillo'
+            'opcion'       => 'Trujillo',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Yaracuy'
+            'opcion'       => 'Yaracuy',
+            'id_preguntas' => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion' => 'Zulia'
+            'opcion'       => 'Zulia',
+            'id_preguntas' => 'region'
         ]);
 
         /* PREGUNTAS */

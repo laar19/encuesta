@@ -17,7 +17,7 @@ class CreateOpcionesPreguntasTable extends Migration
             $table->id();
             $table->string('opcion');
             
-            $table->integer('id_preguntas')->unsigned();
+            $table->string('id_preguntas');
             $table->foreign('id_preguntas')->references('id')->on('preguntas')->onUpdate('cascade')->onDelete('cascade');
             
             $table->timestamps();

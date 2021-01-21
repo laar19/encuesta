@@ -68,8 +68,8 @@
                               <label>Nivel de instrucción</label>
                               <select class="form-control" id="">
 
-                                @foreach($datas['referencia_nivel_instruccion'] as $i)
-                                    <option>{{ $i->descripcion }}</option>
+                                @foreach($datas['nivel_instruccion'] as $i)
+                                    <option>{{ $i->opcion }}</option>
                                 @endforeach
                                 
                               </select>
@@ -78,8 +78,8 @@
                               <label>Región</label>
                               <select class="form-control" id="">
 
-                                @foreach($datas['referencia_estados_de_venezuela'] as $i)
-                                    <option>{{ $i->nombre_estado }}</option>
+                                @foreach($datas['region'] as $i)
+                                    <option>{{ $i->opcion }}</option>
                                 @endforeach
                                 
                               </select>
@@ -90,41 +90,59 @@
                 </fieldset> 
                 <fieldset>
                     <h2>
+                        <!--
                         1.- De las siguientes actividades cuáles considera usted son Muy científicas, Nada científicas y Poco científicas
+                        -->
+                        1.-
+                        @foreach($datas['pregunta1'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
+
                     <hr>
                     <div class="row text-center">
-                          <div class="col-md-3"><p id="titulo">Actividad</p></div>
-                          <div class="col-md-3"><p id="titulo">Muy científica</p></div>
-                          <div class="col-md-3"><p id="titulo">Nada cietífica</p></div>
-                          <div class="col-md-3"><p id="titulo">Poco científica</p></div>
+                        <div class="col-md-3"><p id="titulo">Actividad</p></div>
+                        @foreach($datas['otras_opciones1'] as $i)
+                            <div class="col-md-3"><p id="titulo">{{ $i->opcion }}</p></div>
+                        @endforeach
                     </div>
                     <hr>
-
-                    @foreach($datas['referencia_actividades_cientificas'] as $i)
+                    <?php $row = 0; ?>
+                    @foreach($datas['opciones1'] as $i)
+                        <?php $row++ ?>
                         <div class="row text-center">
-                            <div class="col-md-3 text-left">{{ $i->descripcion }}</div>
-                            <div class="col-md-3"><input type="checkbox" name="muy_cientifica" id="" class="" /></div>
-                            <div class="col-md-3"><input type="checkbox" name="nada_cientifica" id="" class="" /></div>
-                            <div class="col-md-3"><input type="checkbox" name="poco_cientifica" id="" class="" /></div>
+                            <div class="col-md-3 text-left">{{ $i->opcion }}</div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
                         </div>
                     @endforeach
-
                     <hr>
+                    
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
 
                 <fieldset>
                     <h2>
+                        <!--
                         2.- Según su opinión, usted considera que el nivel de educación científica y técnica que ha recibido es:
+                        -->
+                        2.-
+                        @foreach($datas['pregunta2'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_nivel_educ_cientifica_tec_recibido'] as $i)
+                    @foreach($datas['opciones2'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones2" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -134,14 +152,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         3.- ¿Qué competencias o habilidades le gustaría que el sistema educativo desarrolle en los jóvenes? (Seleccione máximo dos)
+                        -->
+                        3.-
+                        @foreach($datas['pregunta3'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_comp_habi_sis_educ_jovenes'] as $i)
+                    @foreach($datas['opciones3'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="{{ $i->id }}" class="" /></div>
+                            <div class="col-md-11">
+                                <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -151,14 +179,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         4.- ¿Qué es para usted la ciencia y la tecnología espacial?. Seleccione una respuesta
+                        -->
+                        4.-
+                        @foreach($datas['pregunta4'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-
-                    @foreach($datas['referencia_defina_ciencia_tecnologia_espacial'] as $i)
+                    
+                    @foreach($datas['opciones4'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones4" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -168,14 +206,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         5.- ¿Cuál considera usted es el principal objetivo de la ciencia espacial?
+                        -->
+                        5.-
+                        @foreach($datas['pregunta5'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-
-                    @foreach($datas['referencia_cual_considera_objetivo_ciencia_espacial'] as $i)
+                    
+                    @foreach($datas['opciones5'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones5" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -185,14 +233,22 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         6.- Considera usted que el conocimiento científico y tecnológico en el tema espacial es útil para:
+                        -->
+                        6.-
+                        @foreach($datas['pregunta6'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_conoci_cientifico_tecnologico_espacial_util'] as $i)
+                    @foreach($datas['opciones6'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="{{ $i->id }}" class="" /></div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -202,14 +258,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         7.- En su opinión, considera usted que el desarrollo de la ciencia y la tecnología espacial deben estar al servicio de:
+                        -->
+                        7.-
+                        @foreach($datas['pregunta7'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_desarrollo_ciencia_tecno_espacial_servicio_de'] as $i)
+                    @foreach($datas['opciones7'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones7" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -219,14 +285,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         8.- ¿Usted considera que en la República Bolivariana de Venezuela se hace investigación en ciencia y tecnología espacial?
+                        -->
+                        8.-
+                        @foreach($datas['pregunta8'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_considera_ven_investiga_espacio'] as $i)
+                    @foreach($datas['opciones8'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones8" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -236,14 +312,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         9.- ¿Considera usted que en nuestro país el estudio y la investigación en ciencia espacial, puede contribuir al desarrollo de los sectores productivos y económicos de Venezuela?
+                        -->
+                        9.-
+                        @foreach($datas['pregunta9'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_estudio_espacial_contribuye_desarrollo_productivo'] as $i)
+                    @foreach($datas['opciones9'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones9" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -253,14 +339,24 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         10.- ¿Sabe usted si en nuestro país existe un organismo encargado de la gestión y la formulación de políticas públicas respecto al uso del espacio exterior?
+                        -->
+                        10.-
+                        @foreach($datas['pregunta10'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
 
-                    @foreach($datas['referencia_conoce_abae'] as $i)
+                    @foreach($datas['opciones10'] as $i)
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="" class="" /></div>
-                            <div class="col-md-11">{{ $i->descripcion }}</div>
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones10" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                         </div>
                     @endforeach
                     
@@ -274,381 +370,393 @@
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         11.- Señale para cada uno de los siguientes organismos, si usted conoce, Mucho, Algo, Poco, o No conoce:
+                        -->
+                        11.-
+                        @foreach($datas['pregunta1'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
                     <div class="row text-center">
-                          <div class="col-md-3"><p id="titulo">Organismo</p></div>
-                          <div class="col-md-2"><p id="titulo">Mucho</p></div>
-                          <div class="col-md-2"><p id="titulo">Algo</p></div>
-                          <div class="col-md-2"><p id="titulo">Poco</p></div>
-                          <div class="col-md-3"><p id="titulo">No conoce</p></div>
+                        <div class="col-md-3"><p id="titulo">Organismo</p></div>
+                        @foreach($datas['otras_opciones11'] as $i)
+                            <div class="col-md-3"><p id="titulo">{{ $i->opcion }}</p></div>
+                        @endforeach
                     </div>
                     <hr>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">MPPCT</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">IVIC</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">ABAE</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">IDEA</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">CIDA</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">FII</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">CIAE</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">DIDA</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">CENDITEL</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">CENDIT</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">CNTQ</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
-                    <div class="row text-center">
-                          <div class="col-md-3 text-left">INTEVEP</div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-2"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-3"><input type="checkbox" name="" id="" class="" /></div>
-                    </div>
+                    <?php $row = 0; ?>
+                    @foreach($datas['opciones11'] as $i)
+                        <?php $row++ ?>
+                        <div class="row text-center">
+                            <div class="col-md-3 text-left">{{ $i->opcion }}</div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->id }}"></div>
+                        </div>
+                    @endforeach
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         12.- ¿A qué atribuye usted que en nuestro país no exista mayor avance en el tema espacial?
+                        -->
+                        12.-
+                        @foreach($datas['pregunta12'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Poca inversión en el área</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Carencia de científicos e ingenieros en el área</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">La sociedad venezolana no está interesada en el tema espacial</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No se realiza investigación científica en el tema espacial</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No existe la infraestructura necesaria</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Las empresas privadas no apoyan la investigación en el área espacial</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">El bloqueo unilateral de los EE.UU</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">La crisis económica</div>
-                    </div>
+                    
+                    @foreach($datas['opciones12'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="{{ $i->id }}" class="" /></div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         13.- ¿Usted está satisfecho con la información en ciencia y tecnología espacial que se transmite por los diversos medios nacionales?
+                        -->
+                        13.-
+                        @foreach($datas['pregunta13'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+                    
+                    @foreach($datas['opciones13'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones13" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         14.- ¿Le parece útil que la sociedad venezolana esté más informada sobre el tema espacial?
+                        -->
+                        14.-
+                        @foreach($datas['pregunta14'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones14'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones14" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         15.- ¿En qué aspectos de la ciencia espacial usted se interesaría?
+                        -->
+                        15.-
+                        @foreach($datas['pregunta15'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Astronomía</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Ingeniería aeroespacial</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Puesta en órbita de satélites</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Exploración espacial</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Vuelos espaciales tripulados y no tripulados</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Observación de la Tierra</div>
-                    </div>
+
+                    @foreach($datas['opciones15'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" id="{{ $i->id }}" class="" /></div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         16.- Diga si usted está: Muy informado, Algo informado, Nada informado, sobre lo satélites venezolanos en órbita:
+                        -->
+                        16.-
+                        @foreach($datas['pregunta16'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
-                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Informado</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Algo informado</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Nada Informado</div>
-                    </div>
+                    <hr>
+
+                    @foreach($datas['opciones16'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones16" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                     
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         17.- ¿Sabía usted que nuestro país tiene en órbita dos satélites de observación remota?
+                        -->
+                        17.-
+                        @foreach($datas['pregunta17'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
-                     <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+                    <hr>
+
+                    @foreach($datas['opciones17'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones17" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         18.- ¿Usted considera que el satélite Simón Bolívar generó efectos positivos o negativos al país?
+                        -->
+                        18.-
+                        @foreach($datas['pregunta18'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Positivos</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Negativos</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Ninguna de las anteriores</div>
-                    </div>
+
+                    @foreach($datas['opciones18'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones18" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         19.- ¿Usted considera pertinente que el Gobierno Nacional promueva la investigación y desarrollo en el tema espacial?
+                        -->
+                        19.-
+                        @foreach($datas['pregunta19'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones19'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones19" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         20.- ¿Cree usted que el Gobierno apoya al financiamiento de las actividades científicas y tecnológicas en el área espacial?
+                        -->
+                        20.-
+                        @foreach($datas['pregunta20'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No sabe</div>
-                    </div>
+
+                    @foreach($datas['opciones20'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones20" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         21.- Si existiera más inversión pública en el tema espacial ¿Cree usted que se fortalecería el avance en ciencia y tecnología espacial?
+                        -->
+                        21.-
+                        @foreach($datas['pregunta21'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones21'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones21" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         22.- ¿Considera usted pertinente que en nuestro país se regulen las actividades espaciales?
+                        -->
+                        22.-
+                        @foreach($datas['pregunta22'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones22'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones22" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         23.- En su opinión ¿La creación de un fondo para la recaudación de aportes para financiar proyectos en el área espacial, impulsaría el desarrollo de la ciencia y la tecnología espacial?
+                        -->
+                        23.-
+                        @foreach($datas['pregunta23'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones23'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones23" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         24.- Así como existe un Plan de la Patria donde se establece la visión a largo plazo del país ¿Usted considera pertinente que se elabore un plan nacional en materia espacial?
+                        -->
+                        24.-
+                        @foreach($datas['pregunta24'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">Si</div>
-                    </div>
-                    <div class="row text-left">
-                          <div class="col-md-1"><input type="checkbox" name="" id="" class="" /></div>
-                          <div class="col-md-11">No</div>
-                    </div>
+
+                    @foreach($datas['opciones24'] as $i)
+                        <div class="row text-left">
+                            <div class="col-md-1">
+                                <input type="radio" id="{{ $i->id }}" name="opciones24" value="{{ $i->id }}">
+                            </div>
+                            <div class="col-md-11">
+                                <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
                 <fieldset>
                     <h2>
+                        <!--
                         25.- Comentarios o sugerencias para mejorar el instrumento de consulta
+                        -->
+                        25.-
+                        @foreach($datas['pregunta25'] as $i)
+                            {{ $i->pregunta }}
+                        @endforeach
                     </h2>
                      <hr>
                     <div class="row">

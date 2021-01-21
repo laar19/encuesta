@@ -19,4 +19,4 @@ Route::get('/', function () {
 });
 */
 
-Route::resource('/', 'EncuestaPrincipalController');
+Route::resource('/', 'PreguntasController');

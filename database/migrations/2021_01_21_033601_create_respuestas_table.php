@@ -18,14 +18,14 @@ class CreateRespuestasTable extends Migration
             $table->integer('opcion');
             $table->integer('respuesta');
 
-            $table->integer('id_preguntas')->unsigned();
+            $table->string('id_preguntas');
             $table->foreign('id_preguntas')->references('id')->on('preguntas')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('id_encuestado')->unsigned();
-            $table->foreign('id_encuestado')->references('id')->on('encuestado')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_encuestado')->references('id')->on('encuestados')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('id_control_encuesta')->unsigned();
-            $table->foreign('id_control_encuesta')->references('id')->on('control_encuesta')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_control_encuesta')->references('id')->on('control_encuestas')->onUpdate('cascade')->onDelete('cascade');
             
             $table->timestamps();
         });
