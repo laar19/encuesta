@@ -35,5 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(referencia_satisfecho_informacion_espacial_trasmite_medios_seeder::class);
         $this->call(referencia_si_existiera_mas_inversion_espacial_habria_avance_seeder::class);
         $this->call(referencia_util_sociedad_ven_informada_tema_espacial_seeder::class);
+        $this->call(referencia_comp_habi_sis_educ_jovenes_seeder::class);
+        $this->call(referencia_conoci_cientifico_tecnologico_espacial_util_seeder::class);
     }
 }
