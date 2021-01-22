@@ -14,38 +14,45 @@ class otras_opciones_preguntas_seeder extends Seeder
     public function run()
     {
         otras_opciones_preguntas::create([
-            'opcion' => 'Muy científica',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Muy científica',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'Nada científica',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Nada científica',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'Poco científica',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Poco científica',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'Mucho',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'Mucho',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'Algo',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'Algo',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'Poco',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'Poco',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         otras_opciones_preguntas::create([
-            'opcion' => 'No conoce',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'No conoce',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta11'
         ]);
     }
 }

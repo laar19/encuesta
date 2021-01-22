@@ -15,662 +15,795 @@ class opciones_preguntas_seeder extends Seeder
     {
         /* GÉNERO */
         opciones_preguntas::create([
-            'opcion'       => 'Masculino',
-            'id_preguntas' => 'genero'
+            'opcion'        => 'Masculino',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'genero'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Femenino',
-            'id_preguntas' => 'genero'
+            'opcion'        => 'Femenino',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'genero'
         ]);
 
         /* RANGO DE EDADES */
         opciones_preguntas::create([
-            'opcion'       => '<=18 años',
-            'id_preguntas' => 'rango_edad'
+            'opcion'        => '<=18 años',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => '>18 y <=30 años',
-            'id_preguntas' => 'rango_edad'
+            'opcion'        => '>18 y <=30 años',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => '>30 y <=50 años',
-            'id_preguntas' => 'rango_edad'
+            'opcion'        => '>30 y <=50 años',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'rango_edad'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => '>50 años',
-            'id_preguntas' => 'rango_edad'
+            'opcion'        => '>50 años',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'rango_edad'
         ]);
 
         /* NIVEL DE INSTRUCCIÓN */
         opciones_preguntas::create([
-            'opcion'       => 'Primaria',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Primaria',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Secundaria',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Secundaria',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Estudios universitarios sin concluir',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Estudios universitarios sin concluir',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Graduado universitario',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Graduado universitario',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Estudios de postgrado sin concluir',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Estudios de postgrado sin concluir',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Graduado de postgrado',
-            'id_preguntas' => 'nivel_instruccion'
+            'opcion'        => 'Graduado de postgrado',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'nivel_instruccion'
         ]);
 
         /* ESTADOS DE VENEZUELA */
         opciones_preguntas::create([
-            'opcion'       => 'Amazonas',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Amazonas',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Anzoátegui',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Anzoátegui',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Apure',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Apure',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Aragua',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Aragua',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Barinas',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Barinas',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Bolívar',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Bolívar',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Carabobo',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Carabobo',
+            'numero_opcion' => '7',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Cojedes',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Cojedes',
+            'numero_opcion' => '8',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Delta Amacuro',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Delta Amacuro',
+            'numero_opcion' => '9',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Distrito Capital',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Distrito Capital',
+            'numero_opcion' => '10',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Falcón',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Falcón',
+            'numero_opcion' => '11',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Guárico',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Guárico',
+            'numero_opcion' => '12',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Lara',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Lara',
+            'numero_opcion' => '13',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La Guaira',
-            'id_preguntas' => 'region'
+            'opcion'        => 'La Guaira',
+            'numero_opcion' => '14',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Mérida',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Mérida',
+            'numero_opcion' => '15',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Miranda',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Miranda',
+            'numero_opcion' => '16',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Monagas',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Monagas',
+            'numero_opcion' => '17',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Nueva Esparta',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Nueva Esparta',
+            'numero_opcion' => '18',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Portuguesa',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Portuguesa',
+            'numero_opcion' => '19',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Sucre',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Sucre',
+            'numero_opcion' => '20',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Táchira',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Táchira',
+            'numero_opcion' => '21',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Trujillo',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Trujillo',
+            'numero_opcion' => '22',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Yaracuy',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Yaracuy',
+            'numero_opcion' => '23',
+            'id_preguntas'  => 'region'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Zulia',
-            'id_preguntas' => 'region'
+            'opcion'        => 'Zulia',
+            'numero_opcion' => '24',
+            'id_preguntas'  => 'region'
         ]);
 
         /* PREGUNTAS */
+
+        /* PREGUNTA 1 */
         opciones_preguntas::create([
-            'opcion'       => 'Deporte',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Deporte',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Astronomía',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Astronomía',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Medicina',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Medicina',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Política',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Política',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Exploración espacial',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Exploración espacial',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Física',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Física',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Lanzamiento de cohetes',
-            'id_preguntas' => 'pregunta1'
+            'opcion'        => 'Lanzamiento de cohetes',
+            'numero_opcion' => '7',
+            'id_preguntas'  => 'pregunta1'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Bajo',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'Bajo',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Muy bajo',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'Muy bajo',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Alto',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'Alto',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Muy alto',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'Muy alto',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No recibió educación científica, ni técnica',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'No recibió educación científica, ni técnica',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No sabe',
-            'id_preguntas' => 'pregunta2'
+            'opcion'        => 'No sabe',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta2'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Dominar un lenguaje de programación',
-            'id_preguntas' => 'pregunta3'
+            'opcion'        => 'Dominar un lenguaje de programación',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta3'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Capacidad para resolver problemas complejos',
-            'id_preguntas' => 'pregunta3'
+            'opcion'        => 'Capacidad para resolver problemas complejos',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta3'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Habilidades para el diseño y construcción de robots',
-            'id_preguntas' => 'pregunta3'
+            'opcion'        => 'Habilidades para el diseño y construcción de robots',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta3'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Incentivar la curiosidad por la ciencia y la tecnología',
-            'id_preguntas' => 'pregunta3'
+            'opcion'        => 'Incentivar la curiosidad por la ciencia y la tecnología',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta3'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'El hábito por la lectura',
-            'id_preguntas' => 'pregunta3'
+            'opcion'        => 'El hábito por la lectura',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta3'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Un servicio',
-            'id_preguntas' => 'pregunta4'
+            'opcion'        => 'Un servicio',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta4'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Un bien',
-            'id_preguntas' => 'pregunta4'
+            'opcion'        => 'Un bien',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta4'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Una herramienta',
-            'id_preguntas' => 'pregunta4'
+            'opcion'        => 'Una herramienta',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta4'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Un área del conocimiento',
-            'id_preguntas' => 'pregunta4'
+            'opcion'        => 'Un área del conocimiento',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta4'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No sabe',
-            'id_preguntas' => 'pregunta4'
+            'opcion'        => 'No sabe',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta4'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Estudiar a los seres vivos',
-            'id_preguntas' => 'pregunta5'
+            'opcion'        => 'Estudiar a los seres vivos',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta5'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Estudiar, investigar e interpretar el espacio exterior',
-            'id_preguntas' => 'pregunta5'
+            'opcion'        => 'Estudiar, investigar e interpretar el espacio exterior',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta5'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Contribuir con el desarrollo del país',
-            'id_preguntas' => 'pregunta5'
+            'opcion'        => 'Contribuir con el desarrollo del país',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta5'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Ninguna de las anteriores',
-            'id_preguntas' => 'pregunta5'
+            'opcion'        => 'Ninguna de las anteriores',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta5'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La vida cotidiana',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'La vida cotidiana',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'El trabajo',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'El trabajo',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La comprensión del espacio exterior para el mejoramiento de la humanidad',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'La comprensión del espacio exterior para el mejoramiento de la humanidad',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Preservar el entorno y el ambiente',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'Preservar el entorno y el ambiente',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Seguridad y defensa de la nación',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'Seguridad y defensa de la nación',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Ninguna de las anteriores',
-            'id_preguntas' => 'pregunta6'
+            'opcion'        => 'Ninguna de las anteriores',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta6'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'El Gobierno',
-            'id_preguntas' => 'pregunta7'
+            'opcion'        => 'El Gobierno',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta7'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La sociedad',
-            'id_preguntas' => 'pregunta7'
+            'opcion'        => 'La sociedad',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta7'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La industria militar',
-            'id_preguntas' => 'pregunta7'
+            'opcion'        => 'La industria militar',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta7'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Las empresas privadas',
-            'id_preguntas' => 'pregunta7'
+            'opcion'        => 'Las empresas privadas',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta7'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Todas las anteriores',
-            'id_preguntas' => 'pregunta7'
+            'opcion'        => 'Todas las anteriores',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta7'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta8'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta8'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta8'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta8'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta9'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta9'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta9'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta9'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta10'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta10'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta10'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta10'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'MPPCT',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'MPPCT',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'IVIC',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'IVIC',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'ABAE',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'ABAE',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'IDEA',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'IDEA',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'CIDA',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'CIDA',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'FII',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'FII',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'CIAE',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'CIAE',
+            'numero_opcion' => '7',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'DIDA',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'DIDA',
+            'numero_opcion' => '8',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'CENDITEL',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'CENDITEL',
+            'numero_opcion' => '9',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'CENDIT',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'CENDIT',
+            'numero_opcion' => '10',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'CNTQ',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'CNTQ',
+            'numero_opcion' => '11',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'INTEVEP',
-            'id_preguntas' => 'pregunta11'
+            'opcion'        => 'INTEVEP',
+            'numero_opcion' => '12',
+            'id_preguntas'  => 'pregunta11'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Poca inversión en el área',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'Poca inversión en el área',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Carencia de científicos e ingenieros en el área',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'Carencia de científicos e ingenieros en el área',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La sociedad venezolana no está interesada en el tema espacial',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'La sociedad venezolana no está interesada en el tema espacial',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No se realiza investigación científica en el tema espacial',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'No se realiza investigación científica en el tema espacial',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No existe la infraestructura necesaria',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'No existe la infraestructura necesaria',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Las empresas privadas no apoyan la investigación en el área espacial',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'Las empresas privadas no apoyan la investigación en el área espacial',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'El bloqueo unilateral de los EE.UU',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'El bloqueo unilateral de los EE.UU',
+            'numero_opcion' => '7',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'La crisis económica',
-            'id_preguntas' => 'pregunta12'
+            'opcion'        => 'La crisis económica',
+            'numero_opcion' => '8',
+            'id_preguntas'  => 'pregunta12'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta13'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta13'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta13'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta13'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta14'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta14'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta14'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta14'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Astronomía',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Astronomía',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Ingeniería aeroespacial',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Ingeniería aeroespacial',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Puesta en órbita de satélites',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Puesta en órbita de satélites',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Exploración espacial',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Exploración espacial',
+            'numero_opcion' => '4',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Vuelos espaciales tripulados y no tripulados',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Vuelos espaciales tripulados y no tripulados',
+            'numero_opcion' => '5',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Observación de la Tierra',
-            'id_preguntas' => 'pregunta15'
+            'opcion'        => 'Observación de la Tierra',
+            'numero_opcion' => '6',
+            'id_preguntas'  => 'pregunta15'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Informado',
-            'id_preguntas' => 'pregunta16'
+            'opcion'        => 'Informado',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta16'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Algo informado',
-            'id_preguntas' => 'pregunta16'
+            'opcion'        => 'Algo informado',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta16'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Nada Informado',
-            'id_preguntas' => 'pregunta16'
+            'opcion'        => 'Nada Informado',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta16'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta17'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta17'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta17'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta17'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Positivos',
-            'id_preguntas' => 'pregunta18'
+            'opcion'        => 'Positivos',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta18'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Negativos',
-            'id_preguntas' => 'pregunta18'
+            'opcion'        => 'Negativos',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta18'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Ninguna de las anteriores',
-            'id_preguntas' => 'pregunta18'
+            'opcion'        => 'Ninguna de las anteriores',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta18'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta19'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta19'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta19'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta19'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta20'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta20'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta20'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta20'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No sabe',
-            'id_preguntas' => 'pregunta20'
+            'opcion'        => 'No sabe',
+            'numero_opcion' => '3',
+            'id_preguntas'  => 'pregunta20'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta21'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta21'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta21'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta21'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta22'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta22'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta22'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta22'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta23'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta23'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta23'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta23'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'Si',
-            'id_preguntas' => 'pregunta24'
+            'opcion'        => 'Si',
+            'numero_opcion' => '1',
+            'id_preguntas'  => 'pregunta24'
         ]);
 
         opciones_preguntas::create([
-            'opcion'       => 'No',
-            'id_preguntas' => 'pregunta24'
+            'opcion'        => 'No',
+            'numero_opcion' => '2',
+            'id_preguntas'  => 'pregunta24'
         ]);
     }
 }

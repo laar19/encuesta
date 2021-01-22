@@ -16,6 +16,7 @@ class CreateOtrasOpcionesPreguntasTable extends Migration
         Schema::create('otras_opciones_preguntas', function (Blueprint $table) {
             $table->id();
             $table->string('opcion');
+            $table->integer('numero_opcion');
             
             $table->string('id_preguntas');
             $table->foreign('id_preguntas')->references('id')->on('preguntas')->onUpdate('cascade')->onDelete('cascade');

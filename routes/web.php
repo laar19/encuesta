@@ -19,4 +19,6 @@ Route::get('/', function () {
 });
 */
 
-Route::resource('/', 'PreguntasController');
+Route::get('/', ['as' => 'index', 'uses' => 'Controller@index']);
+
+Route::resource('preguntas', 'PreguntasController');
