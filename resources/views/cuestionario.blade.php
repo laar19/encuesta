@@ -39,27 +39,31 @@
             <form id="register_form" novalidate action="multi_form_action.php"  method="post">  
                 <fieldset>
                     <h2>Datos del Encuestado</h2>
+
+                    <?php $registros = json_decode($datas['registros'], true); ?>
+                    
                     <hr>
                     <div class="row">
                           <div class="col-md-2">
                               <label>Cédula: </label>
-                              <p>15201838</p>
+                              <p>{{ $registros[0]['cedula'] }}</p>
                         </div>
                           <div class="col-md-3">
                               <label>Nombres: </label>
-                              <p>Jesús Salvador</p>
+                              <p>{{ $registros[0]['primer_nombre'] }} {{ $registros[0]['segundo_nombre'] }}</p>
                           </div>
                           <div class="col-md-3">
                               <label>Apellidos: </label>
-                              <p>Cardiel Garcia</p>
+                              <p>{{ $registros[0]['primer_apellido'] }} {{ $registros[0]['segundo_apellido'] }}</p>
                         </div>
                         <div class="col-md-2">
                               <label>Edad: </label>
-                              <p>41 años</p>
+                              <?php $age = (int)date("Y") - (int)date('Y', strtotime($registros[0]['fecha_nacimiento'])) ?>
+                              <p>{{ $age }}</p>
                         </div>
                         <div class="col-md-2">
                               <label>Género: </label>
-                              <p>Masculino</p>
+                              <p>{{ $registros[0]['genero'] }}</p>
                         </div>
                     </div>
                     <br><hr><br>

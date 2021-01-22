@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\preguntas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 use App\opciones_preguntas;
 use App\otras_opciones_preguntas;
@@ -18,7 +19,9 @@ class PreguntasController extends Controller
      */
     public function index()
     {
-        $datas = collect([]);
+        $datas = collect();
+
+        $datas->put('registros', $registros = DB::connection('pgsql2')->table("registros")->get());
 
         $datas->put('nivel_instruccion', $nivel_instruccion = opciones_preguntas::where('id_preguntas', 'nivel_instruccion')->get());
         $datas->put('region', $region = opciones_preguntas::where('id_preguntas', 'region')->get());
