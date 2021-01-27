@@ -44,37 +44,36 @@
                 <fieldset>
                     <h2>Datos del Encuestado</h2>
 
-                    <?php $registros = json_decode($datas['registros'], true); ?>
+                    <?php $registros = json_decode($datas['saime'], true); ?>
                     
                     <hr>
                     <div class="row">
                           <div class="col-md-2">
                               <label>Cédula: </label>
-                              <p>{{ $registros[0]['cedula'] }}</p>
-                              <!--input type="hidden" name="cedula" value="< ?php $registros[0]['cedula']; ?>"-->
-                              <input type="hidden" name="cedula" value="{{ $registros[0]['cedula'] }}">
+                              <p>{{ $registros[0]['tpers_cedul'] }}</p>
+                              <input type="hidden" name="cedula" value="{{ $registros[0]['tpers_cedul'] }}">
                         </div>
                           <div class="col-md-3">
                               <label>Nombres: </label>
-                              <p>{{ $registros[0]['primer_nombre'] }} {{ $registros[0]['segundo_nombre'] }}</p>
-                              <input type="hidden" name="primer_nombre" value="{{ $registros[0]['primer_nombre'] }}">
-                              <input type="hidden" name="segundo_nombre" value="{{ $registros[0]['segundo_nombre'] }}">
+                              <p>{{ $registros[0]['tpers_pnomb'] }} {{ $registros[0]['tpers_snomb'] }}</p>
+                              <input type="hidden" name="primer_nombre" value="{{ $registros[0]['tpers_pnomb'] }}">
+                              <input type="hidden" name="segundo_nombre" value="{{ $registros[0]['tpers_snomb'] }}">
                           </div>
                           <div class="col-md-3">
                               <label>Apellidos: </label>
-                              <p>{{ $registros[0]['primer_apellido'] }} {{ $registros[0]['segundo_apellido'] }}</p>
-                              <input type="hidden" name="primer_apellido" value="{{ $registros[0]['primer_apellido'] }}">
-                              <input type="hidden" name="segundo_apellido" value="{{ $registros[0]['segundo_apellido'] }}">
+                              <p>{{ $registros[0]['tpers_papel'] }} {{ $registros[0]['tpers_sapel'] }}</p>
+                              <input type="hidden" name="primer_apellido" value="{{ $registros[0]['tpers_papel'] }}">
+                              <input type="hidden" name="segundo_apellido" value="{{ $registros[0]['tpers_sapel'] }}">
                         </div>
                         <div class="col-md-2">
                               <label>Edad: </label>
-                              <?php $age = (int)date("Y") - (int)date('Y', strtotime($registros[0]['fecha_nacimiento'])); ?>
+                              <?php $age = (int)date("Y") - (int)date('Y', strtotime($registros[0]['tpers_fnaci'])); ?>
                               <p>{{ $age }}</p>
                         </div>
                         <div class="col-md-2">
                               <label>Género: </label>
-                              <p>{{ $registros[0]['genero'] }}</p>
-                            <input type="hidden" name="genero" value="{{ $registros[0]['genero'] }}">
+                              <p>{{ $registros[0]['tpers_gener'] }}</p>
+                            <input type="hidden" name="genero" value="{{ $registros[0]['tpers_gener'] }}">
                         </div>
                     </div>
                     <br><hr><br>

@@ -22,7 +22,8 @@ class Controller extends BaseController
     {
         $datas = collect();
 
-        $datas->put('registros', DB::connection('pgsql2')->table("registros")->get());
+        $ci = 000;
+        $datas->put('saime', DB::connection('pgsql2')->table("tsaime")->where('tpers_cedul', '=', $ci)->get());
 
         $datas->put('nivel_instruccion', opciones_preguntas::where('id_preguntas', 'nivel_instruccion')->get());
         $datas->put('region', opciones_preguntas::where('id_preguntas', 'region')->get());
