@@ -84,7 +84,7 @@ class preguntas_seeder extends Seeder
         ]);
 
         preguntas::create([
-            'id' => 'pregunta10.1',
+            'id' => 'pregunta10-1',
             'pregunta' => '¿Cuál?'
         ]);
 
