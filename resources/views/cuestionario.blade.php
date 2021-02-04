@@ -67,6 +67,23 @@
                               <?php $age = (int)date("Y") - (int)date('Y', strtotime($datas['saime']['fecha_nacimiento'])); ?>
                               <p>{{ $age }}</p>
                               <input type="hidden" name="fecha_nacimiento" value="{{ $datas['saime']['fecha_nacimiento'] }}">
+
+                              <?php
+                                    $rango_edad = 0;
+                                    if($age <= 18) {
+                                        $rango_edad = 1;
+                                    }
+                                    else if($age > 18 && $age <= 30) {
+                                        $rango_edad = 2;
+                                    }
+                                    else if($age > 30 && $age <= 50) {
+                                        $rango_edad = 3;
+                                    }
+                                    else if($age > 50) {
+                                        $rango_edad = 4;
+                                    }
+                              ?>
+                              <input type="hidden" name="rango_edad" value="{{ $rango_edad }}">
                         </div>
                         <div class="col-md-2">
                               <label>Género: </label>
@@ -108,6 +125,7 @@
                         1.-
                         @foreach($datas['pregunta1'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
 
@@ -124,11 +142,12 @@
                         <?php $row++ ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
+                            @foreach($datas['otras_opciones1'] as $j)
+                                <div class="col-md-3"><input type="radio" id="{{ $j->id }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                            @endforeach
                         </div>
                     @endforeach
+                    
                     <hr>
                     
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
@@ -388,6 +407,7 @@
                         11.-
                         @foreach($datas['pregunta11'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
@@ -403,10 +423,9 @@
                         <?php $row++ ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
-                            <div class="col-md-3"><input type="radio" id="{{ $i->id }}" name="{{ $row }}" value="{{ $i->numero_opcion }}"></div>
+                            @foreach($datas['otras_opciones11'] as $j)
+                                <div class="col-md-3"><input type="radio" id="{{ $j->id }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                            @endforeach
                         </div>
                     @endforeach
                     <hr>

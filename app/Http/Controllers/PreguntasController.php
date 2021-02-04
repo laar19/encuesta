@@ -49,32 +49,60 @@ class PreguntasController extends Controller
      */
     public function store(Request $request)
     {
-        $datas = collect();
+        // Obteniendo las respuestas dinámicamente
+        $preguntas = json_decode(preguntas::select('id')->get());
 
-        // Datos personales
-        $datas->put('cedula', $request->input('cedula'));
-        $datas->put('primer_nombre', $request->input('primer_nombre'));
-        $datas->put('segundo_nombre', $request->input('segundo_nombre'));
-        $datas->put('primer_apellido', $request->input('primer_apellido'));
-        $datas->put('segundo_apellido', $request->input('segundo_apellido'));
-        $datas->put('fecha_nacimiento', $request->input('fecha_nacimiento'));
-        $datas->put('genero', $request->input('genero'));
-        $datas->put('nivel_instruccion', $request->input('nivel_instruccion'));
-        $datas->put('region', $request->input('region'));
-
-        // Respuestas de las preguntas de selección simple
-        $respuestas_seleccion_simple = json_decode(preguntas::select('id')->get());
-
-        $respuestas = collect();
-        foreach(($respuestas_seleccion_simple) as $i) {
+        $respuestas_seleccion_simple  = collect(); // Respuestas de las preguntas de selección simple
+        $preguntas_seleccion_multiple = collect(); // Preguntas de selección múltiple
+        
+        foreach($preguntas as $i) {
             if($request->input($i->id) !== NULL) {
-                $respuestas->put($i->id, $request->input($i->id));
+                $respuestas_seleccion_simple->put($i->id, $request->input($i->id));
+            }
+            else {
+                $preguntas_seleccion_multiple->put($i->id, $i->id);
             }
         }
 
-        print_r($respuestas->all());
-        
-        //return $opciones_preguntas;
+        print_r($preguntas_seleccion_multiple->all());
+        echo '<br><br>';
+        print_r($respuestas_seleccion_simple->all());
+
+        $respuestas_seleccion_multiple = collect();
+        foreach($preguntas_seleccion_multiple as $i) {
+            $aux = collect();
+            //$aux->put('NADA', otras_opciones_preguntas::select('id')->where('id_preguntas', $i)->get());
+            $aux->put('otras_opciones_preguntas', otras_opciones_preguntas::where('id_preguntas', $i)->get());
+            //$aux = json_decode(otras_opciones_preguntas::select('id_preguntas')->where('id_preguntas', $i)->get());
+            //$aux = otras_opciones_preguntas::select('id')->where('id_preguntas', $i)->get();
+            $id_preguntas = $i;
+            //for($i=0; $i<=count($aux); $i++) {
+            for($i=0; $i<=$aux->count(); $i++) {
+            //foreach($aux as $j) {
+                //$aux = json_decode(opciones_preguntas::select('id')->where('id_preguntas', $i)->get());
+                $aux = opciones_preguntas::select('id')->where('id_preguntas', $id_preguntas)->get();
+                for($i=0; $i<=count($aux); $i++) {
+                    $respuestas_seleccion_multiple->put('PRUEBA', $request->input($i.$id_preguntas));
+                }
+            }
+        }
+        echo '<br><br>';
+        print_r($respuestas_seleccion_multiple->all());
+
+        // Datos personales
+        $datos_personales = collect();
+        $datos_personales->put('cedula', $request->input('cedula'));
+        $datos_personales->put('primer_nombre', $request->input('primer_nombre'));
+        $datos_personales->put('segundo_nombre', $request->input('segundo_nombre'));
+        $datos_personales->put('primer_apellido', $request->input('primer_apellido'));
+        $datos_personales->put('segundo_apellido', $request->input('segundo_apellido'));
+        $datos_personales->put('fecha_nacimiento', $request->input('fecha_nacimiento'));
+        $datos_personales->put('genero', $request->input('genero'));
+        $datos_personales->put('nivel_instruccion', $request->input('nivel_instruccion'));
+        $datos_personales->put('region', $request->input('region'));
+
+        echo '<br><br>';
+        //print_r($datos_personales->all());
     }
 
     /**
@@ -141,7 +169,7 @@ class PreguntasController extends Controller
         $datas->put('region', opciones_preguntas::where('id_preguntas', 'region')->get());
 
         /* PREGUNTA 1 */
-        $datas->put('pregunta1', preguntas::select('pregunta')->where('id', 'pregunta1')->get());
+        $datas->put('pregunta1', preguntas::select('id', 'pregunta')->where('id', 'pregunta1')->get());
         $datas->put('opciones1', opciones_preguntas::where('id_preguntas', 'pregunta1')->get());
         $datas->put('otras_opciones1', otras_opciones_preguntas::where('id_preguntas', 'pregunta1')->get());
 
@@ -182,7 +210,7 @@ class PreguntasController extends Controller
         $datas->put('opciones10', opciones_preguntas::where('id_preguntas', 'pregunta10')->get());
 
         /* PREGUNTA 11 */
-        $datas->put('pregunta11', preguntas::select('pregunta')->where('id', 'pregunta11')->get());
+        $datas->put('pregunta11', preguntas::select('id', 'pregunta')->where('id', 'pregunta11')->get());
         $datas->put('opciones11', opciones_preguntas::where('id_preguntas', 'pregunta11')->get());
         $datas->put('otras_opciones11', otras_opciones_preguntas::where('id_preguntas', 'pregunta11')->get());
 
