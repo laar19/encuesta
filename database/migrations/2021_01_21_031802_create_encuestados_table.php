@@ -21,8 +21,8 @@ class CreateEncuestadosTable extends Migration
             $table->string('primer_apellido');
             $table->string('segundo_apellido');
             $table->string('genero');
-            $table->time('fecha_nacimiento');
-            $table->integer('edad');
+            $table->date('fecha_nacimiento');
+            $table->integer('region');
             $table->integer('nivel_instruccion');
             $table->timestamps();
         });

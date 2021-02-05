@@ -139,11 +139,11 @@
                     <hr>
                     <?php $row = 0; ?>
                     @foreach($datas['opciones1'] as $i)
-                        <?php $row++ ?>
+                        <?php $row++; ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones1'] as $j)
-                                <div class="col-md-3"><input type="radio" id="{{ $j->id }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
                             @endforeach
                         </div>
                     @endforeach
@@ -189,13 +189,16 @@
                         3.-
                         @foreach($datas['pregunta3'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
 
+                    <?php $row = 0; ?>
                     @foreach($datas['opciones3'] as $i)
+                        <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
                             <div class="col-md-11">
                                 <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -270,15 +273,20 @@
                         6.-
                         @foreach($datas['pregunta6'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
 
+                    <?php $row = 0; ?>
                     @foreach($datas['opciones6'] as $i)
+                        <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
                             <div class="col-md-11">
+                                <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                             </div>
                         </div>
                     @endforeach
@@ -420,11 +428,11 @@
                     <hr>
                     <?php $row = 0; ?>
                     @foreach($datas['opciones11'] as $i)
-                        <?php $row++ ?>
+                        <?php $row++; ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones11'] as $j)
-                                <div class="col-md-3"><input type="radio" id="{{ $j->id }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
                             @endforeach
                         </div>
                     @endforeach
@@ -440,15 +448,20 @@
                         12.-
                         @foreach($datas['pregunta12'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
                     
+                    <?php $row = 0; ?>
                     @foreach($datas['opciones12'] as $i)
+                        <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
                             <div class="col-md-11">
+                                <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                             </div>
                         </div>
                     @endforeach
@@ -517,17 +530,22 @@
                         15.- ¿En qué aspectos de la ciencia espacial usted se interesaría?
                         -->
                         15.-
-                        @foreach($datas['pregunta15'] as $i)
+                         @foreach($datas['pregunta15'] as $i)
                             {{ $i->pregunta }}
+                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
-
+                    
+                    <?php $row = 0; ?>
                     @foreach($datas['opciones15'] as $i)
+                        <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $i->id }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
                             <div class="col-md-11">
+                                <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
+                            </div>
                             </div>
                         </div>
                     @endforeach

@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class encuestado extends Model
 {
+    protected $fillable = [
+        'cedula',
+        'primer_nombre',
+        'segundo_nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'genero',
+        'fecha_nacimiento',
+        'region',
+        'nivel_instruccion',
+    ];
+    
     public function control_encuestado() {
         //return $this->hasMany('App\control_encuestado');
         return $this->hasMany('App\control_encuestado', 'id_encuestado');
