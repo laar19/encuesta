@@ -12,6 +12,8 @@ use App\opciones_preguntas;
 use App\otras_opciones_preguntas;
 use App\encuestado;
 use App\respuestas;
+use App\control_encuesta;
+use App\control_encuestado;
 
 class PreguntasController extends Controller
 {
@@ -51,50 +53,49 @@ class PreguntasController extends Controller
      */
     public function store(Request $request)
     {
-        // Obteniendo las respuestas dinámicamente
+        // Obtiene el id de todas las preguntas
         $preguntas = json_decode(preguntas::select('id')->get());
 
-        $respuestas_seleccion_simple  = collect(); // Respuestas de las preguntas de selección simple
-        $preguntas_seleccion_multiple = collect(); // Preguntas de selección múltiple
-        
+        $respuestas_seleccion_simple   = collect(); // Variable que guarda las respuestas de las preguntas de selección simple
+        $respuestas_seleccion_multiple = collect(); // Variable que guarda las respuestas de las preguntas de selección múltiple
+        $preguntas_seleccion_multiple  = collect(); // variable que guarda las preguntas de selección múltiple
+
         foreach($preguntas as $i) {
             if($request->input($i->id) !== NULL) {
-                $respuestas_seleccion_simple->put($i->id, $request->input($i->id));
+                $respuestas_seleccion_simple->put($i->id, $request->input($i->id)); // Obtiene las respuestas de selección simple
             }
             else {
-                $preguntas_seleccion_multiple->put($i->id, $i->id);
+                $preguntas_seleccion_multiple->put($i->id, $i->id); // Obtiene las preguntas de selección múltiple
             }
         }
 
-        $respuestas_seleccion_multiple = collect();
+        // Obtiene las respuestas de selección múltiple
         foreach($preguntas_seleccion_multiple as $i) {
+            // Obtiene las opciones  de las preguntas
             $aux = json_decode(opciones_preguntas::select('id')->where('id_preguntas', $i)->get());
             $id_preguntas = $i;
 
             $aux2 = array();
             array_push($aux2, count($aux));
-            
+
+            // Obtiene la respuesta por cada opción
             foreach($aux2 as $j) {
                 $aux3 = collect();
                 for($k=0; $k<=$j; $k++) {
                     if($request->input($k.$id_preguntas) != NULL) {
-                        //$id_opcion = opciones_preguntas::select('id')->where('id_preguntas', $id_preguntas)->get());
-                        $id_opcion = json_decode(opciones_preguntas::select('id')->where([
+                        $id_opcion = opciones_preguntas::select('id')->where([
                             ['id_preguntas', '=', $id_preguntas],
                             ['numero_opcion', '=', $k],
-                            ])->get());
-                        //print_r($id_preguntas);
-                        //echo '<br><br>';
-                        //print_r($id_opcion[0]->id);
-                        //$aux3->put($k, $request->input($k.$id_preguntas));
-                        $aux3->put($id_opcion[0]->id, $request->input($k.$id_preguntas));
+                            ])->get()[0]->id;
+                        $aux3->put($id_opcion, $request->input($k.$id_preguntas));
                     }
                 }
                 $respuestas_seleccion_multiple->put($id_preguntas, $aux3);
             }
         }
 
-        //print_r($respuestas_seleccion_multiple->all());
+        // Última encuesta abierta
+        $id_control_encuesta = control_encuesta::select('id')->where('aperturada', 1)->get()[0]->id;
 
         // Datos personales
         $datos_personales = collect();
@@ -108,23 +109,50 @@ class PreguntasController extends Controller
         $datos_personales->put('nivel_instruccion', $request->input('nivel_instruccion'));
         $datos_personales->put('region', $request->input('region'));
 
+        // Guarda los datos personales
         $id_encuestado = encuestado::create(json_decode(json_encode($datos_personales), true))->id;
 
+        // Control de los encuestados
+        $control_encuestado = collect();
+        $control_encuestado->put('respondio_encuesta', 1);
+        $control_encuestado->put('id_encuestado', $id_encuestado);
+        $control_encuestado->put('id_control_encuesta', $id_control_encuesta);
+        control_encuestado::create(json_decode(json_encode($control_encuestado), true));
+
+        // Valores repetidos en los datos personales
         $respuestas_seleccion_simple->pull('genero');
         $respuestas_seleccion_simple->pull('rango_edad');
         $respuestas_seleccion_simple->pull('nivel_instruccion');
         $respuestas_seleccion_simple->pull('region');
-        $keys = $respuestas_seleccion_simple->keys();
 
+        // Guarda las respuestas de selección simple
+        $keys = $respuestas_seleccion_simple->keys();
         foreach(json_decode(json_encode($keys)) as $i) {
             respuestas::Create([
-                'respuesta' => $datos_personales[$i],
-                'id_preguntas' => $i,
-                'id_encuestado' => $id_encuestado,
+                'respuesta'           => $respuestas_seleccion_simple[$i],
+                'id_preguntas'        => $i,
+                'id_encuestado'       => $id_encuestado,
+                'id_control_encuesta' => $id_control_encuesta,
             ]);
         }
-        
-        //return redirect()->back()->with('success', 'Datos guardados correctamente');
+
+        // Guarda las respuestas de selección múltiple
+        $keys = $respuestas_seleccion_multiple->keys();
+        foreach(json_decode(json_encode($keys)) as $i) {
+            $aux = $respuestas_seleccion_multiple[$i]->keys();
+            foreach($aux as $j) {
+                respuestas::Create([
+                    'opcion'              => $j,
+                    'respuesta'           => $respuestas_seleccion_multiple->get($i)->get($j),
+                    'id_preguntas'        => $i,
+                    'id_encuestado'       => $id_encuestado,
+                    'id_control_encuesta' => $id_control_encuesta,
+                ]);
+            }
+        }
+
+        $success = 'Gracias por participar';
+        return view('success')->with('success', $success);
     }
 
     /**

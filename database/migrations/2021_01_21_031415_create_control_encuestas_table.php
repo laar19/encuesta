@@ -16,8 +16,8 @@ class CreateControlEncuestasTable extends Migration
     {
         Schema::create('control_encuestas', function (Blueprint $table) {
             $table->id();
-            $table->time('fecha_apertura');
-            $table->time('fecha_cierre');
+            $table->date('fecha_apertura');
+            $table->date('fecha_cierre');
             $table->integer('aperturada');
             $table->timestamps();
         });

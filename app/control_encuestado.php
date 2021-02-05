@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class control_encuestado extends Model
 {
+    protected $fillable = [
+        'respondio_encuesta',
+        'id_encuestado',
+        'id_control_encuesta'
+    ];
+    
     public function encuestado() {
         //return $this->belongsTo('App\Encuestado');
         return $this->belongsTo('App\encuestado', 'id_encuestado');
