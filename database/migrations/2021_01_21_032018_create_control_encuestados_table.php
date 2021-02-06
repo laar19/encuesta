@@ -16,7 +16,7 @@ class CreateControlEncuestadosTable extends Migration
     {
         Schema::create('control_encuestados', function (Blueprint $table) {
             $table->id();
-            $table->integer('respondio_encuesta');
+            $table->integer('cedula_encuestado');
             
             $table->integer('id_encuestado')->unsigned();
             $table->foreign('id_encuestado')->references('id')->on('encuestados')->onUpdate('cascade')->onDelete('cascade');

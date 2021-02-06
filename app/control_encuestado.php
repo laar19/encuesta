@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class control_encuestado extends Model
 {
     protected $fillable = [
-        'respondio_encuesta',
+        'cedula_encuestado',
         'id_encuestado',
         'id_control_encuesta'
     ];

@@ -7,14 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-/*
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-
-use App\preguntas;
-use App\opciones_preguntas;
-use App\otras_opciones_preguntas;
-*/
+use App\control_encuesta;
 
 class Controller extends BaseController
 {
@@ -22,6 +15,13 @@ class Controller extends BaseController
 
     public function index()
     {
-        return view('index');
+        $encuesta_aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
+
+        if (count($encuesta_aperturada) == 1) {
+            return view('index');
+        }
+        else {
+            return 'ERROR. NO HAY ENCUESTA';
+        }
     }
 }

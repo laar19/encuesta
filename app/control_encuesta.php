@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class control_encuesta extends Model
 {
+    protected $fillable = [
+        'fecha_apertura',
+        'fecha_cierre',
+        'aperturada'
+    ];
+    
     public function control_encuesta() {
         //return $this->hasMany('App\control_encuestado');
         return $this->hasMany('App\control_encuesta', 'id_control_encuesta');

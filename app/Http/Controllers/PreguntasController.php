@@ -16,14 +16,7 @@ use App\control_encuesta;
 use App\control_encuestado;
 
 class PreguntasController extends Controller
-{
-    private $ids_preguntas;
-
-    public function __construct()
-    {
-        $this->ids_preguntas = collect();
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -114,7 +107,7 @@ class PreguntasController extends Controller
 
         // Control de los encuestados
         $control_encuestado = collect();
-        $control_encuestado->put('respondio_encuesta', 1);
+        $control_encuestado->put('cedula_encuestado', $request->input('cedula'));
         $control_encuestado->put('id_encuestado', $id_encuestado);
         $control_encuestado->put('id_control_encuesta', $id_control_encuesta);
         control_encuestado::create(json_decode(json_encode($control_encuestado), true));
