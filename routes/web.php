@@ -20,5 +20,8 @@ Route::post('verificacion', ['as' => 'verificacion', 'uses' => 'ControlEncuestad
 Route::resource('preguntas', 'PreguntasController');
 Route::get('preguntas/{cedula}/{primer_nombre}/{segundo_nombre}/{primer_apellido}/{segundo_apellido}/{fecha_nacimiento}/{genero}', ['as' => 'preguntas', 'uses' => 'PreguntasController@preguntas']);
 
-Route::resource('dashboard', 'ControlEncuestaController');
-Route::post('close', ['as' => 'close', 'uses' => 'ControlEncuestaController@close']);
+//Route::resource('stats', 'ControlEncuestaController');
+Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ControlEncuestaController@dashboard']);
+Route::post('store_quest', ['as' => 'store_quest', 'uses' => 'ControlEncuestaController@store_quest']);
+Route::post('close_quest', ['as' => 'close_quest', 'uses' => 'ControlEncuestaController@close_quest']);
+Route::get('stats', ['as' => 'stats', 'uses' => 'ControlEncuestaController@stats']);

@@ -19,6 +19,14 @@ class ControlEncuestaController extends Controller
      */
     public function index()
     {
+        //
+    }
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+    public function stats()
+    {
         $estadisticas = collect();
         
         // Número de encuestados en la última encuesta
@@ -28,7 +36,7 @@ class ControlEncuestaController extends Controller
             $estadisticas->put('numero_encuestados', $numero_encuestados);
         }
         else {
-            $estadisticas->put('numero_encuestados', 0);
+            return 'NO HAY NADA';
         }
 
         // Número de encuestados masculinos
@@ -100,7 +108,7 @@ class ControlEncuestaController extends Controller
         }
         $estadisticas->put('porcentaje_region', $aux4);
         
-        return view('admin.dashboard')->with('estadisticas', $estadisticas);
+        return view('admin.stats')->with('estadisticas', $estadisticas);
     }
 
     /**
@@ -120,6 +128,10 @@ class ControlEncuestaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        //
+    }
+    public function store_quest(Request $request)
     {
         // Apertura una nueva encuesta, si ya hay una aperturada devuelve error
         $aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
@@ -182,7 +194,7 @@ class ControlEncuestaController extends Controller
         //
     }
 
-    public function close()
+    public function close_quest()
     {
         // Cierra la encuesta aperturada
         $id_aperturada = control_encuesta::select('id')->where('aperturada', 1);
