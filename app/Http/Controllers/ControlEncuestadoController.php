@@ -109,7 +109,6 @@ class ControlEncuestadoController extends Controller
                 ['cedula_encuestado', '=', $saime[0]->tpers_cedul],
                 ['id_control_encuesta', '=', $id_control_encuesta[0]->id],
             ])->get();
-                //])->get()[0]->id;
 
             // Si ya la respondió
             if(count($control_encuestados) > 0) {

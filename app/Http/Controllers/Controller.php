@@ -15,6 +15,7 @@ class Controller extends BaseController
 
     public function index()
     {
+        // Verifica si existe alguna encuesta aperturada para direccionar al usuario
         $encuesta_aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
 
         if (count($encuesta_aperturada) == 1) {

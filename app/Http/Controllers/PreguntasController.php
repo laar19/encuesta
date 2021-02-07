@@ -114,9 +114,11 @@ class PreguntasController extends Controller
 
         // Valores repetidos en los datos personales
         $respuestas_seleccion_simple->pull('genero');
+        /*
         $respuestas_seleccion_simple->pull('rango_edad');
         $respuestas_seleccion_simple->pull('nivel_instruccion');
         $respuestas_seleccion_simple->pull('region');
+        */
 
         // Guarda las respuestas de selección simple
         $keys = $respuestas_seleccion_simple->keys();
@@ -144,8 +146,7 @@ class PreguntasController extends Controller
             }
         }
 
-        $success = 'Gracias por participar';
-        return view('success')->with('success', $success);
+        return 'Gracias por participar';
     }
 
     /**
