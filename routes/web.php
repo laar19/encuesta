@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', ['as' => 'index', 'uses' => 'Controller@index']);
 
 Route::post('verificacion', ['as' => 'verificacion', 'uses' => 'ControlEncuestadoController@verificacion']);
+Route::post('registro', ['as' => 'registro', 'uses' => 'ControlEncuestadoController@registro']);
 
 Route::resource('preguntas', 'PreguntasController');
 Route::get('preguntas/{cedula}/{primer_nombre}/{segundo_nombre}/{primer_apellido}/{segundo_apellido}/{fecha_nacimiento}/{genero}', ['as' => 'preguntas', 'uses' => 'PreguntasController@preguntas']);
+
+Route::get('admin', ['as' => 'admin', 'uses' => 'ControlEncuestaController@index']);
 
 //Route::resource('stats', 'ControlEncuestaController');
 Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'ControlEncuestaController@dashboard']);

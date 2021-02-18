@@ -8,6 +8,9 @@ class control_encuestado extends Model
 {
     protected $fillable = [
         'cedula_encuestado',
+        'region',
+        'nivel_instruccion',
+        'rango_edad',
         'id_encuestado',
         'id_control_encuesta'
     ];

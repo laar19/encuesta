@@ -15,7 +15,7 @@
         <!-- MATERIAL DESIGN ICONIC FONT -->
         <link href="{{ asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css') }}" rel="stylesheet">
         <!-- STYLE CSS -->
-        <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">        
+        <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
     </head>
     <body>
     <style type="text/css">

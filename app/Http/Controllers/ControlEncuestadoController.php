@@ -97,7 +97,7 @@ class ControlEncuestadoController extends Controller
 
         // Si no existe
         if($saime->count() == 0) {
-            return "LA CÉDULA NO EXISTE";
+            return view('registro');
         }
         // Si existe
         elseif($saime->count() == 1) {
@@ -130,5 +130,18 @@ class ControlEncuestadoController extends Controller
         else {
             return "ERROR";
         }
+    }
+
+    public function registro(Request $request)
+    {
+        return redirect()->route('preguntas', [
+            'cedula'           => $request->input('cedula'),
+            'primer_nombre'    => $request->input('primer_nombre'),
+            'segundo_nombre'   => $request->input('segundo_nombre'),
+            'primer_apellido'  => $request->input('primer_apellido'),
+            'segundo_apellido' => $request->input('segundo_apellido'),
+            'fecha_nacimiento' => $request->input('fecha_nacimiento'),
+            'genero'           => $request->input('genero')
+        ]);
     }
 }
