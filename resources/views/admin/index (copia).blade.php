@@ -386,43 +386,6 @@
         </div>
         <!-- /# row -->
         <div id="main-content">
-
-            <?php
-                if(count($data) > 0) {
-                    print_r('Existe una encuesta abierta');
-                    echo '<br>';
-                    print_r('Fecha de apertura: ' . $data[0]->fecha_apertura);
-                    echo '<br>';
-                    print_r('Fecha de cierre: ' . $data[0]->fecha_apertura);
-                    ?>
-                    <form id="" method="post" action="{{ route('close_quest') }}">
-                        {!! csrf_field() !!}
-                        <input type="submit" name="submit" class="submit btn btn-outline-danger" value="Cerrar encuesta" />
-                    </form>
-                    <?php
-                }
-                else {
-                    ?>
-                    <form id="" method="post" action="{{ route('store_quest') }}">
-
-                        {!! csrf_field() !!}
-                        
-                        <label for="fecha_apertura">Fecha de apertura</label>
-                        <input type="date" name="fecha_apertura">
-                        
-                        <br>
-                        
-                        <label for="fecha_cierre">Fecha de cierre</label>        
-                        <input type="date" name="fecha_cierre">
-                        
-                        <br>
-                        
-                        <input type="submit" name="submit" class="submit btn btn-success" value="Aperturar encuesta" />
-                    </form>
-                    <?php
-                }
-            ?>
-            
           <div class="row">
             <div class="col-lg-3">
               <div class="card">

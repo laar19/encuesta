@@ -36,7 +36,7 @@
             </div>
             <div class="alert alert-success hide"></div>
             <br>
-            <form id="register_form" method="post" action="{{ route('preguntas.store') }}">
+            <form id="register_form" method="post" action="{{ route('preguntas_store') }}">
 
                 {!! csrf_field() !!}
                 
