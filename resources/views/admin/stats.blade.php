@@ -9,6 +9,19 @@
 
 <body>
     <div>
+        <h1>
+            <?php
+                $aux2 = stats();
+                $aux = $aux2['porcentaje_rango_edades'];
+                $keys = $aux->keys();
+                for($i=0; $i<=(count($keys)-1); $i++) {
+            ?>
+                <h4>{{ $keys[$i] }} : {{ $aux->get($keys[$i]) }} %</h4>
+        <?php } ?>
+        </h1>
+        
+        <h1>LISTO</h1>
+        
         <h3>- Número de encuestados: {{ $estadisticas['numero_encuestados'] }}</h3>
         <h4>Masculinos: {{ $estadisticas['numero_encuestados_masculinos'] }} {{ $estadisticas['porcentaje_encuestados_masculinos'] }} %</h4>
         
