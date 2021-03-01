@@ -41,7 +41,7 @@
             "database/factories"
         ],
         "files": [
-            "app/helpers/stats_helper.php"
+            "app/helpers/stats.php"
         ]
     },
     "autoload-dev": {

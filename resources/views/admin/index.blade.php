@@ -22,12 +22,16 @@
 
 
   <!-- Common -->  
-  <link href="{{ asset('/assets/css/lib/font-awesome.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/lib/themify-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/lib/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/lib/helper.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/themify-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/menubar/sidebar.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/helper.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/admin/css/style.css') }}" rel="stylesheet">
+
+  <script src="{{ asset('/assets/js/main.js') }}"></script>
+  <script src="{{ asset('/assets/chartjs/dist/Chart.js') }}"></script>
+  <script src="{{ asset('/assets/js/stats/functions.js') }}"></script>
 </head>
 
 <body>
@@ -387,387 +391,616 @@
         <!-- /# row -->
         <div id="main-content">
 
-            <?php
-                if(count($data) > 0) {
-                    print_r('Existe una encuesta abierta');
-                    echo '<br>';
-                    print_r('Fecha de apertura: ' . $data[0]->fecha_apertura);
-                    echo '<br>';
-                    print_r('Fecha de cierre: ' . $data[0]->fecha_apertura);
-                    ?>
-                    <form id="" method="post" action="{{ route('close_quest') }}">
-                        {!! csrf_field() !!}
-                        <input type="submit" name="submit" class="submit btn btn-outline-danger" value="Cerrar encuesta" />
-                    </form>
-                    <?php
-                }
-                else {
-                    ?>
-                    <form id="" method="post" action="{{ route('store_quest') }}">
 
-                        {!! csrf_field() !!}
-                        
-                        <label for="fecha_apertura">Fecha de apertura</label>
-                        <input type="date" name="fecha_apertura">
-                        
-                        <br>
-                        
-                        <label for="fecha_cierre">Fecha de cierre</label>        
-                        <input type="date" name="fecha_cierre">
-                        
-                        <br>
-                        
-                        <input type="submit" name="submit" class="submit btn btn-success" value="Aperturar encuesta" />
-                    </form>
-                    <?php
-                }
-            ?>
+
+
+
+
+
             
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-one">
-                  <div class="stat-icon dib">
-                    <i class="ti-money color-success border-success"></i>
-                  </div>
-                  <div class="stat-content dib">
-                    <div class="stat-text">Total Profit</div>
-                    <div class="stat-digit">1,012</div>
-                  </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <?php
+                            if(count($data) > 0) {
+                                print_r('Existe una encuesta abierta');
+                                echo '<br>';
+                                print_r('Fecha de apertura: ' . $data[0]->fecha_apertura);
+                                echo '<br>';
+                                print_r('Fecha de cierre: ' . $data[0]->fecha_apertura);
+                                ?>
+                                <form id="" method="post" action="{{ route('close_quest') }}">
+                                    {!! csrf_field() !!}
+                                    <input type="submit" name="submit" class="submit btn btn-outline-danger" value="Cerrar encuesta" />
+                                </form>
+                                <?php
+                            }
+                            else {
+                                ?>
+                                <form id="" method="post" action="{{ route('store_quest') }}">
+
+                                    {!! csrf_field() !!}
+                                    
+                                    <label for="fecha_apertura">Fecha de apertura</label>
+                                    <input type="date" name="fecha_apertura">
+                                    
+                                    <br>
+                                    
+                                    <label for="fecha_cierre">Fecha de cierre</label>        
+                                    <input type="date" name="fecha_cierre">
+                                    
+                                    <br>
+                                    
+                                    <input type="submit" name="submit" class="submit btn btn-success" value="Aperturar encuesta" />
+                                </form>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="col">
+                        
+                        <!-- ### Número de encuestados ###  -->
+            
+                        <div class="card">
+                            <?php $estadisticas = stats(); ?>
+
+                            <?php
+                                $id                                 = 'numero_encuestados';
+                                $numero_encuestados                 = $estadisticas['numero_encuestados'];
+                                $numero_encuestados_masculinos      = $estadisticas['numero_encuestados_masculinos'];
+                                $numero_encuestados_femeninos       = $estadisticas['numero_encuestados_femeninos'];
+                                $porcentaje_encuestados_masculinos  = $estadisticas['porcentaje_encuestados_masculinos'];
+                                $porcentaje_encuestados_femeninos   = $estadisticas['porcentaje_encuestados_femeninos'];
+                            ?>
+                            
+                            <script>
+                                var numero_encuestados_masculinos = <?php echo json_encode($numero_encuestados_masculinos); ?>;
+                                var numero_encuestados_femeninos  = <?php echo json_encode($numero_encuestados_femeninos); ?>;
+                                
+                                var porcentaje_encuestados_masculinos = <?php echo json_encode($porcentaje_encuestados_masculinos); ?>;
+                                var porcentaje_encuestados_femeninos  = <?php echo json_encode($porcentaje_encuestados_femeninos); ?>;
+
+                                var labels = [
+                                    'Masculinos ' + numero_encuestados_masculinos,
+                                    'Femeninos ' + numero_encuestados_femeninos
+                                ]
+
+                                var data = [porcentaje_encuestados_masculinos, porcentaje_encuestados_femeninos];
+
+                                var colors               = fill_background_hover_color(data.length);
+                                var backgroundColor      = colors[0];
+                                var hoverBackgroundColor = colors[1];
+
+                                var data = {
+                                    labels: labels,
+                                    datasets: [{
+                                        data: data,
+                                        backgroundColor: backgroundColor,
+                                        hoverBackgroundColor: hoverBackgroundColor
+                                    }]
+                                };
+
+                                var options = {
+                                    title: {
+                                        display: true,
+                                        text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
+                                    }
+                                };
+                            </script>
+                          
+                            <canvas id="<?php echo $id ?>"></canvas>
+
+                            <script>
+                                var type = "doughnut";
+                                var id   = document.getElementById('<?php echo $id; ?>');
+                                new_chart(id, type, data, options);
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+
+                        <!-- ### % De distribucón por rango de edades ###  -->
+                        
+                        <div class="card">
+                            <?php
+                                $id       = 'porcentaje_rango_edades';
+                                $stats    = $estadisticas['porcentaje_rango_edades'];
+                                $keys     = $stats->keys();
+                                $values   = collect();
+
+                                for($i=0; $i<=(count($keys)-1); $i++) {
+                                    $values->push($stats->get($keys[$i]));
+                                }
+                            ?>
+                            
+                            <script>
+                                var data   = <?php echo json_encode($values); ?>;
+                                var labels = <?php echo json_encode($keys); ?>;
+
+                                var colors               = fill_background_hover_color(data.length);
+                                var backgroundColor      = colors[0];
+                                var hoverBackgroundColor = colors[1];
+                                
+                                var data = {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: "Porcentaje",
+                                        fillColor: "#2E3436",
+                                        data: data,
+                                        backgroundColor: backgroundColor,
+                                        hoverBackgroundColor: hoverBackgroundColor
+                                    }]
+                                };
+
+                                var options = {
+                                    title: {
+                                        display: true,
+                                        text: "Distribucón por rango de edades"
+                                    }
+                                };
+                            </script>
+                          
+                            <canvas id="<?php echo $id ?>"></canvas>
+
+                            <script>
+                                var type = "horizontalBar";
+                                var id   = document.getElementById('<?php echo $id; ?>');
+                                new_chart(id, type, data, options);
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+
+                        <!-- ### % De distribucón por nivel de instrucción ###  -->
+                        
+                        <div class="card">
+                            <?php
+                                $id       = 'porcentaje_nivel_instruccion';
+                                $stats    = $estadisticas['porcentaje_nivel_instruccion'];
+                                $keys     = $stats->keys();
+                                $values   = collect();
+
+                                for($i=0; $i<=(count($keys)-1); $i++) {
+                                    $values->push($stats->get($keys[$i]));
+                                }
+                            ?>
+                            
+                            <script>
+                                var data   = <?php echo json_encode($values); ?>;
+                                var labels = <?php echo json_encode($keys); ?>;
+
+                                var colors               = fill_background_hover_color(data.length);
+                                var backgroundColor      = colors[0];
+                                var hoverBackgroundColor = colors[1];
+                                
+                                var data = {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: "Porcentaje",
+                                        fillColor: "#2E3436",
+                                        data: data,
+                                        backgroundColor: backgroundColor,
+                                        hoverBackgroundColor: hoverBackgroundColor
+                                    }]
+                                };
+
+                                var options = {
+                                    title: {
+                                        display: true,
+                                        text: "Distribucón por nivel de instrucción"
+                                    }
+                                };
+                            </script>
+                          
+                            <canvas id="<?php echo $id ?>"></canvas>
+
+                            <script>
+                                var type = "horizontalBar";
+                                var id   = document.getElementById('<?php echo $id; ?>');
+                                new_chart(id, type, data, options);
+                            </script>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-one">
-                  <div class="stat-icon dib">
-                    <i class="ti-user color-primary border-primary"></i>
-                  </div>
-                  <div class="stat-content dib">
-                    <div class="stat-text">New Customer</div>
-                    <div class="stat-digit">961</div>
-                  </div>
+                
+                <div class="row">
+                    <div class="col">
+
+                        <!-- ### % De distribucón por región ###  -->
+                        
+                        <div class="card">
+                            <?php
+                                $id       = 'porcentaje_region';
+                                $stats    = $estadisticas['porcentaje_region'];
+                                $keys     = $stats->keys();
+                                $values   = collect();
+
+                                for($i=0; $i<=(count($keys)-1); $i++) {
+                                    $values->push($stats->get($keys[$i]));
+                                }
+                            ?>
+                            
+                            <script>
+                                var data   = <?php echo json_encode($values); ?>;
+                                var labels = <?php echo json_encode($keys); ?>;
+
+                                var colors               = fill_background_hover_color(data.length);
+                                var backgroundColor      = colors[0];
+                                var hoverBackgroundColor = colors[1];
+                                
+                                var data = {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: "Porcentaje",
+                                        fillColor: "#2E3436",
+                                        data: data,
+                                        backgroundColor: backgroundColor,
+                                        hoverBackgroundColor: hoverBackgroundColor
+                                    }]
+                                };
+
+                                var options = {
+                                    title: {
+                                        display: true,
+                                        text: "Distribucón por región"
+                                    }
+                                };
+                            </script>
+                          
+                            <canvas id="<?php echo $id ?>"></canvas>
+
+                            <script>
+                                var type = "horizontalBar";
+                                var id   = document.getElementById('<?php echo $id; ?>');
+                                new_chart(id, type, data, options);
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col">                        
+                        <div class="card">
+                            <h2>AQUÍ PUEDE IR OTRA COSA</h2>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-one">
-                  <div class="stat-icon dib">
-                    <i class="ti-layout-grid2 color-pink border-pink"></i>
-                  </div>
-                  <div class="stat-content dib">
-                    <div class="stat-text">Active Projects</div>
-                    <div class="stat-digit">770</div>
-                  </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h2> Distribución de respuestas por preguntas </h2>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-                                <div class="card" style="min-height: 422px;">
-                                    <div class="card-header"><h3>Donut chart</h3></div>
-                                    <div class="card-body">
-                                        <div id="c3-donut-chart"></div>
-                                    </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h5> Preguntas de selección simple </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- ### % Distribución de respuestas por preguntas de selección simple ###  -->
+
+                    <?php
+                        $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_simple');
+                        $keys   = $stats->keys();
+
+                        $count = 0;
+                        foreach($keys as $i) {
+                            $count++;
+                            $id = 'porcentaje_respuestas_seleccion_simple'.$count;
+                            $aux = json_decode($stats->get($i));
+
+                            $data     = collect();
+                            $labels   = collect();
+                            $pregunta = collect();
+                                
+                            foreach($aux as $j) {
+                                $data->push($j->porcentaje);
+                                $labels->push($j->opcion . ' ' . $j->total);
+                                $pregunta->push($j->pregunta);
+                            }
+                            ?>
+
+                            <div class="col-6">
+                                <div class="card">
+                                    <script>
+                                        var data   = <?php echo json_encode($data); ?>;
+                                        var labels = <?php echo json_encode($labels); ?>;                                        
+
+                                        var colors               = fill_background_hover_color(data.length);
+                                        var backgroundColor      = colors[0];
+                                        var hoverBackgroundColor = colors[1];
+
+                                        var data = {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: "Porcentaje",
+                                                data: data,
+                                                backgroundColor: backgroundColor,
+                                                hoverBackgroundColor: hoverBackgroundColor
+                                            }]
+                                        };
+
+                                        var options = {
+                                            title: {
+                                                display: true,
+                                                text: '<?php echo $pregunta[0]; ?>'
+                                            }
+                                        };
+                                    </script>
+                                  
+                                    <canvas id="<?php echo $id ?>"></canvas>
+
+                                    <script>
+                                        var type = "pie";
+                                        var id   = document.getElementById('<?php echo $id; ?>');
+                                        new_chart(id, type, data, options);
+                                    </script>
                                 </div>
                             </div>
+                    <?php } ?>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h5> Preguntas de selección múltiple </h5>
                         </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-two">
-                  <div class="stat-content">
-                    <div class="stat-text">Today Expenses </div>
-                    <div class="stat-digit">
-                      <i class="fa fa-usd"></i>8500</div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-two">
-                  <div class="stat-content">
-                    <div class="stat-text">Income Detail</div>
-                    <div class="stat-digit">
-                      <i class="fa fa-usd"></i>7800</div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-two">
-                  <div class="stat-content">
-                    <div class="stat-text">Task Completed</div>
-                    <div class="stat-digit">
-                      <i class="fa fa-usd"></i> 500</div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-two">
-                  <div class="stat-content">
-                    <div class="stat-text">Task Completed</div>
-                    <div class="stat-digit">
-                      <i class="fa fa-usd"></i>650</div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-              <!-- /# card -->
-            </div>
-            <!-- /# column -->
-          </div>
-          <!-- /# row -->
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card p-0">
-                <div class="stat-widget-three">
-                  <div class="stat-icon bg-primary">
-                    <i class="ti-user"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-digit">123</div>
-                    <div class="stat-text">New User</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card p-0">
-                <div class="stat-widget-three">
-                  <div class="stat-icon bg-success">
-                    <i class="ti-user"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-digit">123</div>
-                    <div class="stat-text">New User</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card p-0">
-                <div class="stat-widget-three">
-                  <div class="stat-icon bg-warning">
-                    <i class="ti-user"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-digit">123</div>
-                    <div class="stat-text">New User</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card p-0">
-                <div class="stat-widget-three">
-                  <div class="stat-icon bg-danger">
-                    <i class="ti-user"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-digit">123</div>
-                    <div class="stat-text">New User</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /# row -->
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-four">
-                  <div class="stat-icon">
-                    <i class="ti-server"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Database</div>
-                      <div class="stat-text">Total: 765</div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-four">
-                  <div class="stat-icon">
-                    <i class="ti-user"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Users</div>
-                      <div class="stat-text">Total: 24720</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-four">
-                  <div class="stat-icon">
-                    <i class="ti-stats-up"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Daily sales</div>
-                      <div class="stat-text">Total: 765</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-four">
-                  <div class="stat-icon">
-                    <i class="ti-pulse"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Bandwidth</div>
-                      <div class="stat-text">Total: 24720</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-five">
-                  <div class="stat-icon">
-                    <i class="ti-home bg-primary"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-heading color-primary">New User</div>
-                    <div class="stat-text">2700</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-five">
-                  <div class="stat-icon">
-                    <i class="ti-file bg-success"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-heading color-success">Profit</div>
-                    <div class="stat-text">3600000</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-five">
-                  <div class="stat-icon">
-                    <i class="ti-info bg-danger"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-heading color-primary">Growth</div>
-                    <div class="stat-text">200%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card">
-                <div class="stat-widget-five">
-                  <div class="stat-icon bg-warning">
-                    <i class="ti-world"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="stat-heading color-primary">Revenue</div>
-                    <div class="stat-text">226000</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card bg-warning">
-                <div class="stat-widget-six">
-                  <div class="stat-icon">
-                    <i class="ti-stats-up"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Daily sales</div>
-                      <div class="stat-text">Total: 765</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="stat-widget-six">
-                  <div class="stat-icon">
-                    <i class="ti-bolt-alt"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Bandwidth</div>
-                      <div class="stat-text">167.32 GB/s</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card bg-warning">
-                <div class="stat-widget-six">
-                  <div class="stat-icon">
-                    <i class="ti-stats-up"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Progress</div>
-                      <div class="stat-text">Total: 765</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="stat-widget-six">
-                  <div class="stat-icon">
-                    <i class="ti-bolt-alt"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-heading">Connection</div>
-                      <div class="stat-text">167.32 GB/s</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                <div class="row">
 
+                    <!-- ### % Distribución de respuestas por preguntas de selección múltiple ###  -->
+
+                    <?php
+                        $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
+                        $keys   = $stats->keys();
+
+                        $count = 0;
+                        foreach($keys as $i) {
+                            $count++;
+                            $id = 'porcentaje_respuestas_seleccion_multiple'.$count;
+                            $aux = json_decode($stats->get($i));
+
+                            $data     = collect();
+                            $labels   = collect();
+                            $pregunta = collect();
+
+                            foreach($aux as $j) {
+                                $data->push($j->porcentaje);
+                                $labels->push($j->opcion . ' ' . $j->total);
+                                $pregunta->push($j->pregunta);
+                            }
+                            ?>
+                            <div class="col">
+                                <div class="card">
+                                    <script>
+                                        var data   = <?php echo json_encode($data); ?>;
+                                        var labels = <?php echo json_encode($labels); ?>;                                        
+
+                                        var colors               = fill_background_hover_color(data.length);
+                                        var backgroundColor      = colors[0];
+                                        var hoverBackgroundColor = colors[1];
+
+                                        var data = {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: "Porcentaje",
+                                                data: data,
+                                                backgroundColor: backgroundColor,
+                                                hoverBackgroundColor: hoverBackgroundColor
+                                            }]
+                                        };
+
+                                        var options = {
+                                            title: {
+                                                display: true,
+                                                text: '<?php echo $pregunta[0]; ?>'
+                                            }
+                                        };
+                                    </script>
+                                  
+                                    <canvas id="<?php echo $id ?>"></canvas>
+
+                                    <script>
+                                        var type = "pie";
+                                        var id   = document.getElementById('<?php echo $id; ?>');
+                                        new_chart(id, type, data, options);
+                                    </script>
+                                </div>
+                            </div>
+                    <?php } ?>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h2> Distribución de respuestas por preguntas por género </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h5> Preguntas de selección simple </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- ### % Distribución de respuestas por preguntas de selección simple ###  -->
+
+                    <?php
+                        $stats  = $estadisticas['porcentaje_respuestas_genero']->get('respuestas_seleccion_simple');
+                        $keys   = $stats->keys();
+
+                        //print_r($stats->get('pregunta2')->get('F')[0]['porcentaje']);
+                        //print_r(json_decode($stats->get('pregunta2')->get('labels')));
+                        //exit;
+
+                        $count = 0;
+                        foreach($keys as $i) {
+                            $count++;
+                            $id = 'porcentaje_respuestas_genero_seleccion_simple'.$count;
+
+                            $male_data   = collect();
+                            $female_data = collect();
+                            $labels      = collect();
+                            $pregunta    = $i;
+                            
+                            $aux   = $stats->get($i);
+                            $keys2 = $aux->keys();
+
+                            foreach($aux->get('labels') as $j){
+                                $labels->push($j->opcion);
+                            }
+
+                            foreach($aux->get('M') as $j){
+                                $male_data->push(json_decode($j)->porcentaje);
+                            }
+
+                            foreach($aux->get('F') as $j){
+                                $male_data->push(json_decode($j)->porcentaje);
+                            }
+                            ?>
+
+                            <div class="col">
+                                <div class="card">
+                                    <script>
+                                        var male_data     = <?php echo json_encode($male_data); ?>;
+                                        var female_data   = <?php echo json_encode($female_data); ?>;
+                                        var labels        = <?php echo json_encode($labels); ?>;
+                                        var pregunta      = <?php echo json_encode($pregunta); ?>;
+
+                                        console.log('MALE DATA:');
+                                        console.log(male_data);
+                                        console.log('FEMALE DATA:');
+                                        console.log(female_data);
+                                        
+                                        var colors               = fill_background_hover_color(data.length);
+                                        var backgroundColor      = colors[0];
+                                        var hoverBackgroundColor = colors[1];
+
+                                        var data = {
+                                            labels: labels,
+                                            datasets: [
+                                                {
+                                                    label: "Masculinos",
+                                                    data: male_data,
+                                                    backgroundColor: "#3e95cd",
+                                                },
+                                                {
+                                                    label: "Femeninos",
+                                                    data: female_data,
+                                                    backgroundColor: "#8e5ea2",
+                                                }
+                                            ]
+                                        };
+
+                                        var options = {
+                                            title: {
+                                                display: true,
+                                                //text: '<?php echo $pregunta[0]; ?>'
+                                                text: pregunta
+                                            }
+                                        };
+                                    </script>
+                                  
+                                    <canvas id="<?php echo $id ?>"></canvas>
+
+                                    <script>
+                                        var type = "bar";
+                                        var id   = document.getElementById('<?php echo $id; ?>');
+                                        new_chart(id, type, data, options);
+                                    </script>
+                                </div>
+                            </div>
+                    <?php break;} ?>
+                </div>
+                <div class="row">
+                    <div class="col">                        
+                        <div class="card">
+                            <h5> Preguntas de selección múltiple </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- ### % Distribución de respuestas por preguntas de selección múltiple ###  -->
+
+                    <?php
+                        exit;
+                        $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
+                        $keys   = $stats->keys();
+
+                        $count = 0;
+                        foreach($keys as $i) {
+                            $count++;
+                            $id = 'porcentaje_respuestas_genero_seleccion_multiple'.$count;
+                            $aux = json_decode($stats->get($i));
+
+                            $data     = collect();
+                            $labels   = collect();
+                            $pregunta = collect();
+
+                            foreach($aux as $j) {
+                                $data->push($j->porcentaje);
+                                $labels->push($j->opcion . ' ' . $j->total);
+                                $pregunta->push($j->pregunta);
+                            }
+                            ?>
+                            <div class="col">
+                                <div class="card">
+                                    <script>
+                                        var data   = <?php echo json_encode($data); ?>;
+                                        var labels = <?php echo json_encode($labels); ?>;                                        
+
+                                        var colors               = fill_background_hover_color(data.length);
+                                        var backgroundColor      = colors[0];
+                                        var hoverBackgroundColor = colors[1];
+
+                                        var data = {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: "Porcentaje",
+                                                data: data,
+                                                backgroundColor: backgroundColor,
+                                                hoverBackgroundColor: hoverBackgroundColor
+                                            }]
+                                        };
+
+                                        var options = {
+                                            title: {
+                                                display: true,
+                                                text: '<?php echo $pregunta[0]; ?>'
+                                            }
+                                        };
+                                    </script>
+                                  
+                                    <canvas id="<?php echo $id ?>"></canvas>
+
+                                    <script>
+                                        var type = "pie";
+                                        var id   = document.getElementById('<?php echo $id; ?>');
+                                        new_chart(id, type, data, options);
+                                    </script>
+                                </div>
+                            </div>
+                    <?php } ?>
+                </div>
+                
+
+
+
+
+
+
+
+
+                
           <div class="row">
             <div class="col-lg-12">
               <div class="footer">
@@ -782,16 +1015,14 @@
     </div>
   </div>
 
-
-
-
     <!-- Common -->
-    <script src="{{ asset('/assets/js/lib/jquery.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/lib/jquery.nanoscroller.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/lib/menubar/sidebar.js') }}"></script>
-    <script src="{{ asset('/assets/js/lib/preloader/pace.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/lib/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/assets/admin/js/jquery.nanoscroller.min.js') }}"></script>
+    <script src="{{ asset('/assets/admin/js/menubar/sidebar.js') }}"></script>
+    <script src="{{ asset('/assets/admin/js/preloader/pace.min.js') }}"></script>
+    <script src="{{ asset('/assets/admin/js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ asset('/assets/js/stats/main.js') }}"></script>
 </body>
 
 </html>

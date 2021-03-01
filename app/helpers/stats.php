@@ -2,14 +2,13 @@
 
 use App\control_encuesta;
 use App\control_encuestado;
-use App\encuestado;
 use App\preguntas;
 use App\respuestas;
 use App\opciones_preguntas;
 use App\otras_opciones_preguntas;
 
     function stats()
-    {
+    {        
         $estadisticas = collect();
 
         // Obtiene la encuesta abierta
@@ -117,6 +116,7 @@ use App\otras_opciones_preguntas;
         $respuestas_seleccion_simple = collect();
         // Selecciona todas las opciones disponibles de las preguntas de selección simple
         foreach($preguntas_seleccion_simple as $i){
+            $tmp = collect();
             $id_pregunta = $i->id;
             $opciones = opciones_preguntas::select('opcion', 'numero_opcion')->where('id_preguntas', $id_pregunta)->get();
             for($j=0; $j<=$opciones->count()-1; $j++) {
@@ -130,28 +130,28 @@ use App\otras_opciones_preguntas;
                 $aux2 = collect();
                 $aux2->put('pregunta', $id_pregunta);
                 $aux2->put('opcion', $opciones[$j]['opcion']);
-                $aux2->put('numero_opcion', $opciones[$j]['numero_opcion']);
+                //$aux2->put('numero_opcion', $opciones[$j]['numero_opcion']);
                 $aux2->put('total', $aux->count());
                 $aux2->put('porcentaje', ($aux->count() * 100) / $numero_encuestados);
-                $respuestas_seleccion_simple->push($aux2);
+                $tmp->push($aux2);
             }
+            $respuestas_seleccion_simple->put($id_pregunta, $tmp);
         }
         $respuestas->put('respuestas_seleccion_simple', $respuestas_seleccion_simple);
 
         // Selecciona las preguntas de selección múltiple
         $preguntas_seleccion_multiple   = json_decode(preguntas::select('id')->where('tipo_pregunta', 2)->get());
-        $respuestas_seleccion_multiple = collect();
+        $respuestas_seleccion_multiple  = collect();
 
         foreach($preguntas_seleccion_multiple as $i) {
+            $tmp = collect();
             $id_pregunta = $i->id;
             // Selecciona las opciones
             $opciones = json_decode(opciones_preguntas::select('id', 'opcion', 'numero_opcion')->where('id_preguntas', $id_pregunta)->get());
             // Selecciona las sub opciones
-            $otras_opciones = json_decode(otras_opciones_preguntas::select('id', 'opcion', 'numero_opcion', 'id_preguntas')->where('id_preguntas', $id_pregunta)->get());
-
+            $otras_opciones = json_decode(otras_opciones_preguntas::select('id')->where('id_preguntas', $id_pregunta)->get());
             foreach($opciones as $j) {
-                $aux = json_decode(otras_opciones_preguntas::select('id_preguntas')->where('id_preguntas', $id_pregunta)->get());
-                if(count($aux) > 0) {
+                if(count($otras_opciones) > 0) {
                     foreach($otras_opciones as $k) {
                         // Obtiene las respuestas
                         $aux = respuestas::select('opcion', 'respuesta')->where([
@@ -164,12 +164,13 @@ use App\otras_opciones_preguntas;
                         $aux2 = collect();
                         $aux2->put('pregunta', $id_pregunta);
                         $aux2->put('opcion', $j->opcion);
-                        $aux2->put('respuesta', $k->opcion);
+                        //$aux2->put('respuesta', $k->opcion);
                         //$aux2->put('numero_opcion', $k->id);
                         $aux2->put('total', count($aux));
                         $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
-                        $respuestas_seleccion_multiple->push($aux2);
+                        $tmp->push($aux2);
                     }
+                    $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
                 }
                 else {
                     // Obtiene las respuestas
@@ -186,11 +187,12 @@ use App\otras_opciones_preguntas;
                     $aux2->put('opcion', $j->opcion);
                     //$aux2->put('respuesta', $k->opcion);
                     //$aux2->put('numero_opcion', $j->numero_opcion);
-                    $aux2->put('respuesta', $j->numero_opcion);
+                    //$aux2->put('respuesta', $j->numero_opcion);
                     $aux2->put('total', count($aux));
                     $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
-                    $respuestas_seleccion_multiple->push($aux2);
+                    $tmp->push($aux2);
                 }
+                $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
             }
         }
         $respuestas->put('respuestas_seleccion_multiple', $respuestas_seleccion_multiple);
@@ -206,19 +208,13 @@ use App\otras_opciones_preguntas;
                 ['id_control_encuesta', $id_encuesta_abierta]
                 ])->get();
 
-            /*
-            $aux2 = collect();
-            $aux2->put($id_pregunta, $aux);
-            $respuestas_redaccion->push($aux2);
-            */
-
             $aux2 = collect();
             $aux2->put('pregunta', $id_pregunta);
             //$aux2->put('opcion', $j->id);
-            $aux2->put('respuesta', $aux[0]->respuesta);
+            //$aux2->put('respuesta', $aux[0]->respuesta);
             //$aux2->put('numero_opcion', $j->numero_opcion);
-            //$aux2->put('total', count($aux));
-            //$aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
+            $aux2->put('total', count($aux));
+            $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
             $respuestas_redaccion->push($aux2);
         }
         $respuestas->put('respuestas_redaccion', $respuestas_redaccion);
@@ -227,14 +223,17 @@ use App\otras_opciones_preguntas;
         //----------------------------------------------------------------------------------------//
 
         // % Districbución de respuestas por preguntas por género
-        $respuestas = collect();
+        $respuestas   = collect();
 
         // Selecciona las preguntas de selección simple
         $preguntas_seleccion_simple  = json_decode(preguntas::select('id')->where('tipo_pregunta', 1)->get());
         $respuestas_seleccion_simple = collect();
         // Selecciona todas las opciones disponibles de las preguntas de selección simple
         foreach($preguntas_seleccion_simple as $i){
-            $id_pregunta = $i->id;
+            $male_data    = collect();
+            $female_data  = collect();
+            $tmp          = collect();
+            $id_pregunta  = $i->id;
             $opciones = opciones_preguntas::select('opcion', 'numero_opcion')->where('id_preguntas', $id_pregunta)->get();
             for($j=0; $j<=$opciones->count()-1; $j++) {
                 $generos = collect(['M', 'F']);
@@ -256,9 +255,18 @@ use App\otras_opciones_preguntas;
                     $aux2->put('genero', $k);
                     $aux2->put('total', $aux->count());
                     $aux2->put('porcentaje', ($aux->count() * 100) / $numero_encuestados);
-                    $respuestas_seleccion_simple->push($aux2);
+                    if($k == 'M') {
+                        $male_data->push($aux2);
+                    }
+                    else {
+                        $female_data->push($aux2);
+                    }
                 }
+                $tmp->put('M', $male_data);
+                $tmp->put('F', $female_data);
+                $tmp->put('labels', $opciones);
             }
+            $respuestas_seleccion_simple->put($id_pregunta, $tmp);
         }
         $respuestas->put('respuestas_seleccion_simple', $respuestas_seleccion_simple);
 
@@ -297,8 +305,16 @@ use App\otras_opciones_preguntas;
                             $aux2->put('genero', $l);
                             $aux2->put('total', count($aux));
                             $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
-                            $respuestas_seleccion_multiple->push($aux2);
+                            if($l == 'M') {
+                                $male_data->push($aux2);
+                            }
+                            else {
+                                $female_data->push($aux2);
+                            }
                         }
+                        $respuestas_seleccion_multiple->put('M', $male_data);
+                        $respuestas_seleccion_multiple->put('F', $female_data);
+                        $respuestas_seleccion_multiple->put('labels', $opciones);
                     }
                 }
                 else {
@@ -325,14 +341,23 @@ use App\otras_opciones_preguntas;
                             $aux2->put('genero', $l);
                             $aux2->put('total', count($aux));
                             $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
-                            $respuestas_seleccion_multiple->push($aux2);
+                            if($l == 'M') {
+                                $male_data->push($aux2);
+                            }
+                            else {
+                                $female_data->push($aux2);
+                            }
                         }
+                        $respuestas_seleccion_multiple->put('M', $male_data);
+                        $respuestas_seleccion_multiple->put('F', $female_data);
+                        $respuestas_seleccion_multiple->put('labels', $opciones);
                     }
                 }
             }
         }
         $respuestas->put('respuestas_seleccion_multiple', $respuestas_seleccion_multiple);        
         $estadisticas->put('porcentaje_respuestas_genero', $respuestas);
+
 
         //----------------------------------------------------------------------------------------//
 

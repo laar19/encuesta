@@ -9,7 +9,7 @@
   <!-- MATERIAL DESIGN ICONIC FONT -->
   <link href="{{ asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css') }}" rel="stylesheet">
   <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('/assets/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
   <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap-datepicker.css.css') }}" rel="stylesheet">
 
   <script type="text/javascript">
@@ -103,7 +103,7 @@
   <script src="{{ asset('/assets/js/jquery/jquery.steps.js') }}"></script>
 
   <!-- JQUERY BOOTSTRAP -->
-  <script src="{{ asset('/assets/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('/assets/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/assets/js/bootstrap-datepicker.min.js') }}"></script>
   <!-- Template created and distributed by Colorlib -->
 </body>

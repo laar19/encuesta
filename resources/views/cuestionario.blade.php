@@ -7,10 +7,7 @@
         <meta name="author" content="colorlib.com">
 
         <!-- Bootstrap Core CSS -->
-        <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
-        <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script-->
+        <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
         
         <!-- MATERIAL DESIGN ICONIC FONT -->
         <link href="{{ asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css') }}" rel="stylesheet">
@@ -34,7 +31,7 @@
             <div class="progress">
                 <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="alert alert-success hide"></div>
+            <!--div class="alert alert-success hide"></div-->
             <br>
             <form id="register_form" method="post" action="{{ route('preguntas_store') }}">
 
@@ -826,7 +823,7 @@
         <script src="{{ asset('/assets/js/jquery/main.js') }}"></script>
 
         <!-- Bootstrap Core JavaScript -->
-        <script src="{{ asset('/assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/assets/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
 
         <!-- Template created and distributed by Colorlib -->
     </body>
