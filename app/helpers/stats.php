@@ -121,7 +121,8 @@ use App\otras_opciones_preguntas;
             $opciones = opciones_preguntas::select('opcion', 'numero_opcion')->where('id_preguntas', $id_pregunta)->get();
             for($j=0; $j<=$opciones->count()-1; $j++) {
                 // Obtiene las respuestas
-                $aux = respuestas::select('respuesta')->where([
+                //$aux = respuestas::select('respuesta')->where([
+                $aux = respuestas::select('id')->where([
                     ['id_preguntas', $id_pregunta],
                     ['respuesta', $opciones[$j]['numero_opcion']],
                     ['id_control_encuesta', $id_encuesta_abierta]
@@ -154,7 +155,8 @@ use App\otras_opciones_preguntas;
                 if(count($otras_opciones) > 0) {
                     foreach($otras_opciones as $k) {
                         // Obtiene las respuestas
-                        $aux = respuestas::select('opcion', 'respuesta')->where([
+                        //$aux = respuestas::select('opcion', 'respuesta')->where([
+                        $aux = respuestas::select('id')->where([
                             ['id_preguntas', $id_pregunta],
                             ['opcion', $j->id],
                             ['respuesta', $k->id],
@@ -174,7 +176,8 @@ use App\otras_opciones_preguntas;
                 }
                 else {
                     // Obtiene las respuestas
-                    $aux = respuestas::select('opcion', 'respuesta')->where([
+                    //$aux = respuestas::select('opcion', 'respuesta')->where([
+                    $aux = respuestas::select('id')->where([
                         ['id_preguntas', $id_pregunta],
                         ['opcion', $j->id],
                         ['respuesta', $j->numero_opcion],
@@ -239,7 +242,9 @@ use App\otras_opciones_preguntas;
                 $generos = collect(['M', 'F']);
                 foreach($generos as $k) {
                     // Obtiene las respuestas
-                    $aux = respuestas::select('respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                    //$aux = respuestas::select('respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                    //$aux = respuestas::select('respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                    $aux = respuestas::select('respuestas.id')
                         ->join('encuestados', 'encuestados.id', '=', 'respuestas.id_encuestado')
                         ->where([
                             ['id_preguntas', $id_pregunta],
@@ -249,11 +254,11 @@ use App\otras_opciones_preguntas;
                         ])->get();
 
                     $aux2 = collect();
-                    $aux2->put('pregunta', $id_pregunta);
+                    //$aux2->put('pregunta', $id_pregunta);
                     $aux2->put('opcion', $opciones[$j]['opcion']);
-                    $aux2->put('numero_opcion', $opciones[$j]['numero_opcion']);
-                    $aux2->put('genero', $k);
-                    $aux2->put('total', $aux->count());
+                    //$aux2->put('numero_opcion', $opciones[$j]['numero_opcion']);
+                    //$aux2->put('genero', $k);
+                    //$aux2->put('total', $aux->count());
                     $aux2->put('porcentaje', ($aux->count() * 100) / $numero_encuestados);
                     if($k == 'M') {
                         $male_data->push($aux2);
@@ -264,7 +269,7 @@ use App\otras_opciones_preguntas;
                 }
                 $tmp->put('M', $male_data);
                 $tmp->put('F', $female_data);
-                $tmp->put('labels', $opciones);
+                $tmp->put('labels', $opciones . ' '. $aux->count());
             }
             $respuestas_seleccion_simple->put($id_pregunta, $tmp);
         }
@@ -275,7 +280,11 @@ use App\otras_opciones_preguntas;
         $respuestas_seleccion_multiple = collect();
 
         foreach($preguntas_seleccion_multiple as $i) {
-            $id_pregunta = $i->id;
+            $male_data    = collect();
+            $female_data  = collect();
+            $tmp          = collect();
+            $id_pregunta  = $i->id;
+            
             $generos = collect(['M', 'F']);
             // Selecciona las opciones
             $opciones = json_decode(opciones_preguntas::select('id', 'opcion', 'numero_opcion')->where('id_preguntas', $id_pregunta)->get());
@@ -283,12 +292,12 @@ use App\otras_opciones_preguntas;
             $otras_opciones = json_decode(otras_opciones_preguntas::select('id', 'opcion', 'numero_opcion', 'id_preguntas')->where('id_preguntas', $id_pregunta)->get());
 
             foreach($opciones as $j) {
-                $aux = json_decode(otras_opciones_preguntas::select('id_preguntas')->where('id_preguntas', $id_pregunta)->get());
-                if(count($aux) > 0) {
+                if(count($otras_opciones) > 0) {
                     foreach($otras_opciones as $k) {
                         foreach($generos as $l) {
                             // Obtiene las respuestas
-                            $aux = respuestas::select('respuestas.opcion', 'respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                            //$aux = respuestas::select('respuestas.opcion', 'respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                            $aux = respuestas::select('respuestas.id')
                                 ->join('encuestados', 'encuestados.id', '=', 'respuestas.id_encuestado')
                                 ->where([
                                     ['id_preguntas', $id_pregunta],
@@ -299,47 +308,11 @@ use App\otras_opciones_preguntas;
                                 ])->get();
                                 
                             $aux2 = collect();
-                            $aux2->put('pregunta', $id_pregunta);
-                            $aux2->put('opcion', $j->opcion);
-                            $aux2->put('respuesta', $k->opcion);
-                            $aux2->put('genero', $l);
-                            $aux2->put('total', count($aux));
-                            $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
-                            if($l == 'M') {
-                                $male_data->push($aux2);
-                            }
-                            else {
-                                $female_data->push($aux2);
-                            }
-                        }
-                        $respuestas_seleccion_multiple->put('M', $male_data);
-                        $respuestas_seleccion_multiple->put('F', $female_data);
-                        $respuestas_seleccion_multiple->put('labels', $opciones);
-                    }
-                }
-                else {
-                    foreach($opciones as $m) {
-                        foreach($generos as $l) {
-                            // Obtiene las respuestas
-                            $aux = respuestas::select('respuestas.opcion', 'respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
-                                ->join('encuestados', 'encuestados.id', '=', 'respuestas.id_encuestado')
-                                ->where([
-                                    ['id_preguntas', $id_pregunta],
-                                    ['opcion', $j->id],
-                                    ['respuesta', $m->numero_opcion],
-                                    ['encuestados.genero', '=', $l],
-                                    ['id_control_encuesta', $id_encuesta_abierta]
-                                ])->get();
-                                    
-                            $aux2 = collect();
-                            $aux2->put('pregunta', $id_pregunta);
-                            //$aux2->put('opcion', $j->id);
+                            //$aux2->put('pregunta', $id_pregunta);
                             $aux2->put('opcion', $j->opcion);
                             //$aux2->put('respuesta', $k->opcion);
-                            //$aux2->put('numero_opcion', $j->numero_opcion);
-                            $aux2->put('respuesta', $j->numero_opcion);
-                            $aux2->put('genero', $l);
-                            $aux2->put('total', count($aux));
+                            //$aux2->put('genero', $l);
+                            //$aux2->put('total', count($aux));
                             $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
                             if($l == 'M') {
                                 $male_data->push($aux2);
@@ -348,11 +321,48 @@ use App\otras_opciones_preguntas;
                                 $female_data->push($aux2);
                             }
                         }
-                        $respuestas_seleccion_multiple->put('M', $male_data);
-                        $respuestas_seleccion_multiple->put('F', $female_data);
-                        $respuestas_seleccion_multiple->put('labels', $opciones);
+                        $tmp->put('M', $male_data);
+                        $tmp->put('F', $female_data);
+                        $tmp->put('labels', $opciones . ' '. $aux->count());
                     }
+                    $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
                 }
+                else {
+                    foreach($generos as $l) {
+                        // Obtiene las respuestas
+                        //$aux = respuestas::select('respuestas.opcion', 'respuestas.respuesta', 'respuestas.id_encuestado', 'encuestados.genero')
+                        $aux = respuestas::select('respuestas.id')
+                            ->join('encuestados', 'encuestados.id', '=', 'respuestas.id_encuestado')
+                            ->where([
+                                ['id_preguntas', $id_pregunta],
+                                ['opcion', $j->id],
+                                ['respuesta', $j->numero_opcion],
+                                ['encuestados.genero', '=', $l],
+                                ['id_control_encuesta', $id_encuesta_abierta]
+                            ])->get();
+                                    
+                        $aux2 = collect();
+                        //$aux2->put('pregunta', $id_pregunta);
+                        //$aux2->put('opcion', $j->id);
+                        $aux2->put('opcion', $j->opcion);
+                        //$aux2->put('respuesta', $k->opcion);
+                        //$aux2->put('numero_opcion', $j->numero_opcion);
+                        //$aux2->put('respuesta', $j->numero_opcion);
+                        //$aux2->put('genero', $l);
+                        //$aux2->put('total', count($aux));
+                        $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
+                        if($l == 'M') {
+                            $male_data->push($aux2);
+                        }
+                        else {
+                            $female_data->push($aux2);
+                        }
+                    }
+                    $tmp->put('M', $male_data);
+                    $tmp->put('F', $female_data);
+                    $tmp->put('labels', $opciones . ' '. $aux->count());
+                }
+                $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
             }
         }
         $respuestas->put('respuestas_seleccion_multiple', $respuestas_seleccion_multiple);        

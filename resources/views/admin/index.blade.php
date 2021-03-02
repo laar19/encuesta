@@ -837,10 +837,6 @@
                         $stats  = $estadisticas['porcentaje_respuestas_genero']->get('respuestas_seleccion_simple');
                         $keys   = $stats->keys();
 
-                        //print_r($stats->get('pregunta2')->get('F')[0]['porcentaje']);
-                        //print_r(json_decode($stats->get('pregunta2')->get('labels')));
-                        //exit;
-
                         $count = 0;
                         foreach($keys as $i) {
                             $count++;
@@ -855,7 +851,8 @@
                             $keys2 = $aux->keys();
 
                             foreach($aux->get('labels') as $j){
-                                $labels->push($j->opcion);
+                                //$labels->push($j->opcion);
+                                $labels->push($j->opcion . ' ' . $j->total);
                             }
 
                             foreach($aux->get('M') as $j){
@@ -863,7 +860,7 @@
                             }
 
                             foreach($aux->get('F') as $j){
-                                $male_data->push(json_decode($j)->porcentaje);
+                                $female_data->push(json_decode($j)->porcentaje);
                             }
                             ?>
 
@@ -874,11 +871,6 @@
                                         var female_data   = <?php echo json_encode($female_data); ?>;
                                         var labels        = <?php echo json_encode($labels); ?>;
                                         var pregunta      = <?php echo json_encode($pregunta); ?>;
-
-                                        console.log('MALE DATA:');
-                                        console.log(male_data);
-                                        console.log('FEMALE DATA:');
-                                        console.log(female_data);
                                         
                                         var colors               = fill_background_hover_color(data.length);
                                         var backgroundColor      = colors[0];
@@ -918,7 +910,7 @@
                                     </script>
                                 </div>
                             </div>
-                    <?php break;} ?>
+                    <?php } ?>
                 </div>
                 <div class="row">
                     <div class="col">                        
@@ -932,50 +924,69 @@
                     <!-- ### % Distribución de respuestas por preguntas de selección múltiple ###  -->
 
                     <?php
-                        exit;
-                        $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
+                        $stats  = $estadisticas['porcentaje_respuestas_genero']->get('respuestas_seleccion_multiple');
                         $keys   = $stats->keys();
 
                         $count = 0;
                         foreach($keys as $i) {
                             $count++;
                             $id = 'porcentaje_respuestas_genero_seleccion_multiple'.$count;
-                            $aux = json_decode($stats->get($i));
 
-                            $data     = collect();
-                            $labels   = collect();
-                            $pregunta = collect();
+                            $male_data   = collect();
+                            $female_data = collect();
+                            $labels      = collect();
+                            $pregunta    = $i;
+                            
+                            $aux   = $stats->get($i);
+                            $keys2 = $aux->keys();
 
-                            foreach($aux as $j) {
-                                $data->push($j->porcentaje);
-                                $labels->push($j->opcion . ' ' . $j->total);
-                                $pregunta->push($j->pregunta);
+                            foreach($aux->get('labels') as $j){
+                                //$labels->push($j->opcion);
+                                $labels->push($j->opcion);
+                            }
+
+                            foreach($aux->get('M') as $j){
+                                $male_data->push(json_decode($j)->porcentaje);
+                            }
+
+                            foreach($aux->get('F') as $j){
+                                $female_data->push(json_decode($j)->porcentaje);
                             }
                             ?>
+
                             <div class="col">
                                 <div class="card">
                                     <script>
-                                        var data   = <?php echo json_encode($data); ?>;
-                                        var labels = <?php echo json_encode($labels); ?>;                                        
-
+                                        var male_data     = <?php echo json_encode($male_data); ?>;
+                                        var female_data   = <?php echo json_encode($female_data); ?>;
+                                        var labels        = <?php echo json_encode($labels); ?>;
+                                        var pregunta      = <?php echo json_encode($pregunta); ?>;
+                                        
                                         var colors               = fill_background_hover_color(data.length);
                                         var backgroundColor      = colors[0];
                                         var hoverBackgroundColor = colors[1];
 
                                         var data = {
                                             labels: labels,
-                                            datasets: [{
-                                                label: "Porcentaje",
-                                                data: data,
-                                                backgroundColor: backgroundColor,
-                                                hoverBackgroundColor: hoverBackgroundColor
-                                            }]
+                                            datasets: [
+                                                {
+                                                    label: "Masculinos",
+                                                    data: male_data,
+                                                    backgroundColor: "#3e95cd",
+                                                },
+                                                {
+                                                    label: "Femeninos",
+                                                    data: female_data,
+                                                    backgroundColor: "#8e5ea2",
+                                                }
+                                            ]
                                         };
 
                                         var options = {
                                             title: {
                                                 display: true,
-                                                text: '<?php echo $pregunta[0]; ?>'
+                                                //text: '<?php echo $pregunta[0]; ?>'
+                                                text: pregunta
                                             }
                                         };
                                     </script>
@@ -983,7 +994,7 @@
                                     <canvas id="<?php echo $id ?>"></canvas>
 
                                     <script>
-                                        var type = "pie";
+                                        var type = "bar";
                                         var id   = document.getElementById('<?php echo $id; ?>');
                                         new_chart(id, type, data, options);
                                     </script>
