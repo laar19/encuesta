@@ -269,7 +269,7 @@ use App\otras_opciones_preguntas;
                 }
                 $tmp->put('M', $male_data);
                 $tmp->put('F', $female_data);
-                $tmp->put('labels', $opciones . ' '. $aux->count());
+                $tmp->put('labels', $opciones);
             }
             $respuestas_seleccion_simple->put($id_pregunta, $tmp);
         }
@@ -323,7 +323,8 @@ use App\otras_opciones_preguntas;
                         }
                         $tmp->put('M', $male_data);
                         $tmp->put('F', $female_data);
-                        $tmp->put('labels', $opciones . ' '. $aux->count());
+                        $tmp->put('labels', $opciones);
+                        $tmp->put('otras_opciones', $otras_opciones);
                     }
                     $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
                 }
@@ -360,7 +361,7 @@ use App\otras_opciones_preguntas;
                     }
                     $tmp->put('M', $male_data);
                     $tmp->put('F', $female_data);
-                    $tmp->put('labels', $opciones . ' '. $aux->count());
+                    $tmp->put('labels', $opciones);
                 }
                 $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
             }

@@ -850,23 +850,22 @@
                             $aux   = $stats->get($i);
                             $keys2 = $aux->keys();
 
-                            foreach($aux->get('labels') as $j){
-                                //$labels->push($j->opcion);
-                                $labels->push($j->opcion . ' ' . $j->total);
+                            foreach($aux->get('labels') as $j) {
+                                $labels->push($j->opcion);
                             }
 
-                            foreach($aux->get('M') as $j){
+                            foreach($aux->get('M') as $j) {
                                 $male_data->push(json_decode($j)->porcentaje);
                             }
 
-                            foreach($aux->get('F') as $j){
+                            foreach($aux->get('F') as $j) {
                                 $female_data->push(json_decode($j)->porcentaje);
                             }
                             ?>
 
                             <div class="col">
                                 <div class="card">
-                                    <script>
+                                    <script>                                        
                                         var male_data     = <?php echo json_encode($male_data); ?>;
                                         var female_data   = <?php echo json_encode($female_data); ?>;
                                         var labels        = <?php echo json_encode($labels); ?>;
@@ -932,75 +931,137 @@
                             $count++;
                             $id = 'porcentaje_respuestas_genero_seleccion_multiple'.$count;
 
-                            $male_data   = collect();
-                            $female_data = collect();
-                            $labels      = collect();
-                            $pregunta    = $i;
+                            $male_data      = collect();
+                            $female_data    = collect();
+                            $labels         = collect();
+                            $otras_opciones = collect();
+                            $pregunta       = $i;
                             
                             $aux   = $stats->get($i);
                             $keys2 = $aux->keys();
 
-                            foreach($aux->get('labels') as $j){
+                            foreach($aux->get('labels') as $j) {
                                 //$labels->push($j->opcion);
                                 $labels->push($j->opcion);
                             }
 
-                            foreach($aux->get('M') as $j){
+                            foreach($aux->get('M') as $j) {
                                 $male_data->push(json_decode($j)->porcentaje);
                             }
 
-                            foreach($aux->get('F') as $j){
+                            foreach($aux->get('F') as $j) {
                                 $female_data->push(json_decode($j)->porcentaje);
                             }
-                            ?>
 
-                            <div class="col">
-                                <div class="card">
-                                    <script>
-                                        var male_data     = <?php echo json_encode($male_data); ?>;
-                                        var female_data   = <?php echo json_encode($female_data); ?>;
-                                        var labels        = <?php echo json_encode($labels); ?>;
-                                        var pregunta      = <?php echo json_encode($pregunta); ?>;
-                                        
-                                        var colors               = fill_background_hover_color(data.length);
-                                        var backgroundColor      = colors[0];
-                                        var hoverBackgroundColor = colors[1];
+                            if($pregunta == 'pregunta1' || $pregunta == 'pregunta11') {
+                                foreach($aux->get('otras_opciones') as $j) {
+                                    $otras_opciones->push($j->opcion);
+                                }
 
-                                        var data = {
-                                            labels: labels,
-                                            datasets: [
-                                                {
-                                                    label: "Masculinos",
-                                                    data: male_data,
-                                                    backgroundColor: "#3e95cd",
-                                                },
-                                                {
-                                                    label: "Femeninos",
-                                                    data: female_data,
-                                                    backgroundColor: "#8e5ea2",
+                                $count2 = 0;
+                                foreach($labels as $i) {
+                                    $count2++;
+                                    $id2 = $id.$count2;
+                                    ?>
+                                    <div class="col">
+                                        <div class="card">
+                                            <script>
+                                                var male_data     = <?php echo json_encode($male_data); ?>;
+                                                var female_data   = <?php echo json_encode($female_data); ?>;
+                                                var labels        = <?php echo json_encode($otras_opciones); ?>;
+                                                <?php $title = $pregunta . '. ' . 'Opción: ' . $i; ?>;
+                                                var title         = <?php echo json_encode($title); ?>;
+                                                
+                                                var colors               = fill_background_hover_color(data.length);
+                                                var backgroundColor      = colors[0];
+                                                var hoverBackgroundColor = colors[1];
+
+                                                var data = {
+                                                    labels: labels,
+                                                    datasets: [
+                                                        {
+                                                            label: "Masculinos",
+                                                            data: male_data,
+                                                            backgroundColor: "#3e95cd",
+                                                        },
+                                                        {
+                                                            label: "Femeninos",
+                                                            data: female_data,
+                                                            backgroundColor: "#8e5ea2",
+                                                        }
+                                                    ]
+                                                };
+
+                                                var options = {
+                                                    title: {
+                                                        display: true,
+                                                        //text: '<?php echo $pregunta[0]; ?>'
+                                                        text: title
+                                                    }
+                                                };
+                                            </script>
+                                            
+                                            <canvas id="<?php echo $id2 ?>"></canvas>
+
+                                            <script>
+                                                var type = "bar";
+                                                var id   = document.getElementById('<?php echo $id2; ?>');
+                                                new_chart(id, type, data, options);
+                                            </script>
+                                        </div>
+                                    </div>
+                                <?php }
+                            }
+                            else {
+                                ?>
+                                <div class="col">
+                                    <div class="card">
+                                        <script>
+                                            var male_data     = <?php echo json_encode($male_data); ?>;
+                                            var female_data   = <?php echo json_encode($female_data); ?>;
+                                            var labels        = <?php echo json_encode($labels); ?>;
+                                            var pregunta      = <?php echo json_encode($pregunta); ?>;
+                                            
+                                            var colors               = fill_background_hover_color(data.length);
+                                            var backgroundColor      = colors[0];
+                                            var hoverBackgroundColor = colors[1];
+
+                                            var data = {
+                                                labels: labels,
+                                                datasets: [
+                                                    {
+                                                        label: "Masculinos",
+                                                        data: male_data,
+                                                        backgroundColor: "#3e95cd",
+                                                    },
+                                                    {
+                                                        label: "Femeninos",
+                                                        data: female_data,
+                                                        backgroundColor: "#8e5ea2",
+                                                    }
+                                                ]
+                                            };
+
+                                            var options = {
+                                                title: {
+                                                    display: true,
+                                                    //text: '<?php echo $pregunta[0]; ?>'
+                                                    text: pregunta
                                                 }
-                                            ]
-                                        };
+                                            };
+                                        </script>
+                                        
+                                        <canvas id="<?php echo $id ?>"></canvas>
 
-                                        var options = {
-                                            title: {
-                                                display: true,
-                                                //text: '<?php echo $pregunta[0]; ?>'
-                                                text: pregunta
-                                            }
-                                        };
-                                    </script>
-                                  
-                                    <canvas id="<?php echo $id ?>"></canvas>
-
-                                    <script>
-                                        var type = "bar";
-                                        var id   = document.getElementById('<?php echo $id; ?>');
-                                        new_chart(id, type, data, options);
-                                    </script>
+                                        <script>
+                                            var type = "bar";
+                                            var id   = document.getElementById('<?php echo $id; ?>');
+                                            new_chart(id, type, data, options);
+                                        </script>
+                                    </div>
                                 </div>
-                            </div>
-                    <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
                 </div>
                 
 
