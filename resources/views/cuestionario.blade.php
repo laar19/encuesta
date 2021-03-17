@@ -412,14 +412,13 @@
                         11.-
                         @foreach($datas['pregunta11'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
+                            <?php $id_pregunta = $i->id ?>
                         @endforeach
                     </h2>
-                    <hr>
                     <div class="row text-center">
-                        <div class="col-md-3"><p id="titulo">Organismo</p></div>
+                        <div class="col"><p id="titulo">Organismo</p></div>
                         @foreach($datas['otras_opciones11'] as $i)
-                            <div class="col-md-3"><p id="titulo">{{ $i->opcion }}</p></div>
+                            <div class="col"><p id="titulo">{{ $i->opcion }}</p></div>
                         @endforeach
                     </div>
                     <hr>
@@ -427,9 +426,9 @@
                     @foreach($datas['opciones11'] as $i)
                         <?php $row++; ?>
                         <div class="row text-center">
-                            <div class="col-md-3 text-left">{{ $i->opcion }}</div>
+                            <div class="col text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones11'] as $j)
-                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                                <div class="col"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
                             @endforeach
                         </div>
                     @endforeach
@@ -467,6 +466,8 @@
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
                 </fieldset>
+
+                
                 <fieldset>
                     <h2>
                         <!--

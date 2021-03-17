@@ -15,13 +15,13 @@ class opciones_preguntas_seeder extends Seeder
     {
         /* GÉNERO */
         opciones_preguntas::create([
-            'opcion'        => 'Masculino',
+            'opcion'        => 'M',
             'numero_opcion' => '1',
             'id_preguntas'  => 'genero'
         ]);
 
         opciones_preguntas::create([
-            'opcion'        => 'Femenino',
+            'opcion'        => 'F',
             'numero_opcion' => '2',
             'id_preguntas'  => 'genero'
         ]);
