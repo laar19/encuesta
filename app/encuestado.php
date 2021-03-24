@@ -12,7 +12,6 @@ class encuestado extends Model
         'segundo_nombre',
         'primer_apellido',
         'segundo_apellido',
-        'genero',
         'fecha_nacimiento',
         'region',
         'nivel_instruccion',

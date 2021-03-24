@@ -20,6 +20,7 @@ class CreateControlEncuestadosTable extends Migration
             $table->integer('region');
             $table->integer('nivel_instruccion');
             $table->integer('rango_edad');
+            $table->integer('genero');
             
             $table->integer('id_encuestado')->unsigned();
             $table->foreign('id_encuestado')->references('id')->on('encuestados')->onUpdate('cascade')->onDelete('cascade');

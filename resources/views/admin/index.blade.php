@@ -435,6 +435,7 @@
                                     <input type="submit" name="submit" class="submit btn btn-success" value="Aperturar encuesta" />
                                 </form>
                                 <?php
+                                exit;
                             }
                         ?>
                     </div>
@@ -529,7 +530,7 @@
                                     labels: labels,
                                     datasets: [{
                                         label: "Porcentaje",
-                                        fillColor: "#2E3436",
+                                        //fillColor: "#2E3436",
                                         data: data,
                                         backgroundColor: backgroundColor,
                                         hoverBackgroundColor: hoverBackgroundColor
@@ -582,7 +583,7 @@
                                     labels: labels,
                                     datasets: [{
                                         label: "Porcentaje",
-                                        fillColor: "#2E3436",
+                                        //fillColor: "#2E3436",
                                         data: data,
                                         backgroundColor: backgroundColor,
                                         hoverBackgroundColor: hoverBackgroundColor
@@ -637,7 +638,7 @@
                                     labels: labels,
                                     datasets: [{
                                         label: "Porcentaje",
-                                        fillColor: "#2E3436",
+                                        //fillColor: "#2E3436",
                                         data: data,
                                         backgroundColor: backgroundColor,
                                         hoverBackgroundColor: hoverBackgroundColor
@@ -682,9 +683,6 @@
                     </div>
                 </div>
                 <div class="row">
-
-                    <!-- ### % Distribución de respuestas por preguntas de selección simple ###  -->
-
                     <?php
                         $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_simple');
                         $keys   = $stats->keys();
@@ -743,7 +741,9 @@
                                     </script>
                                 </div>
                             </div>
-                    <?php } ?>
+                    <?php
+                        }
+                    ?>
                 </div>
                 <div class="row">
                     <div class="col">                        
@@ -753,9 +753,6 @@
                     </div>
                 </div>
                 <div class="row">
-
-                    <!-- ### % Distribución de respuestas por preguntas de selección múltiple ###  -->
-
                     <?php
                         $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
                         $keys   = $stats->keys();
@@ -772,7 +769,8 @@
 
                             foreach($aux as $j) {
                                 $data->push($j->porcentaje);
-                                $labels->push($j->opcion . ' ' . $j->total);
+                                //$labels->push($j->opcion . ' ' . $j->total);
+                                $labels->push($j->opcion);
                                 $pregunta->push($j->pregunta);
                             }
                             ?>
@@ -813,7 +811,9 @@
                                     </script>
                                 </div>
                             </div>
-                    <?php } ?>
+                    <?php
+                        }
+                    ?>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -927,7 +927,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por género masculino</h2>
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por genero</h2>
                         </div>
                     </div>
                 </div>
@@ -935,59 +935,17 @@
                     <div class="col">
                         <div class="card">
                             <?php
-                                $id = 'porcentaje_si_pregunta10_correcta_e_incorrectamente_msculino';
-                                $correctamente = $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('M');
-                                $incocorrectamente = 100 - $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('M');
-                                $total_m = $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('total_m');
+                                $id = 'porcentaje_si_pregunta10_correctamente_genero';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_genero');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
                             ?>
-                            <script>
-                                var correctamente   = <?php echo json_encode($correctamente); ?>;
-                                var incorrectamente = <?php echo json_encode($incorrectamente); ?>;
-                                var total           = <?php echo json_encode($total_m); ?>;
-
-                                var labels = [
-                                    'Correctamente',
-                                    'Incorrectamente'
-                                ];
-
-                                var data = [correctamente, incorrectamente];
-
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
-
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        //text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
-                                        text: 'Masculinos: ' + total
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
-
-                            <script>
-                                var type = "pie";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por género femenino</h2>
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por genero</h2>
                         </div>
                     </div>
                 </div>
@@ -995,52 +953,118 @@
                     <div class="col">
                         <div class="card">
                             <?php
-                                $id = 'porcentaje_si_pregunta10_correcta_e_incorrectamente_femenino';
-                                $correctamente = $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('F');
-                                $incocorrectamente = 100 - $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('F');
-                                $total_f = 100 - $estadisticas->get('porcentaje_si_pregunta10_correcta_e_incorrectamente_genero')->get('total_f');
+                                $id = 'porcentaje_si_pregunta10_incorrectamente_genero';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_genero');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
                             ?>
-                            <script>
-                                var correctamente   = <?php echo json_encode($correctamente); ?>;
-                                var incorrectamente = <?php echo json_encode($incorrectamente); ?>;
-                                var total           = <?php echo json_encode($total_f); ?>;
-
-                                var labels = [
-                                    'Correctamente',
-                                    'Incorrectamente'
-                                ];
-
-                                var data = [correctamente, incorrectamente];
-
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
-
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        //text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
-                                        text: 'Femeninos: ' + total
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
-
-                            <script>
-                                var type = "pie";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por rango de edad</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_correctamente_rango_edad';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_rango_edad');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por rango de edad</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_incorrectamente_rango_edad';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_rango_edad');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por nivel de instruccion</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_correctamente_nivel_instruccion';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_nivel_instruccion');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por nivel de instruccion</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_incorrectamente_nivel_instruccion';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_nivel_instruccion');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por region</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_correctamente_region';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_region');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por region</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <?php
+                                $id = 'porcentaje_si_pregunta10_incorrectamente_region';
+                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_region');
+                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
+                            ?>
                         </div>
                     </div>
                 </div>

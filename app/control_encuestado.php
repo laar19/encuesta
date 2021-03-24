@@ -11,6 +11,7 @@ class control_encuestado extends Model
         'region',
         'nivel_instruccion',
         'rango_edad',
+        'genero',
         'id_encuestado',
         'id_control_encuesta'
     ];

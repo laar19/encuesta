@@ -85,7 +85,13 @@
                         <div class="col-md-2">
                               <label>Género: </label>
                               <p>{{ $datas['saime']['genero'] }}</p>
-                            <input type="hidden" name="genero" value="{{ $datas['saime']['genero'] }}">
+                              <?php
+                                $genero = 1;
+                                if($datas['saime']['genero'] == 'F') {
+                                    $genero = 2;
+                                }
+                              ?>
+                            <input type="hidden" name="genero" value="{{ $genero }}">
                         </div>
                     </div>
                     <br><hr><br>

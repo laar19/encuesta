@@ -103,7 +103,6 @@ class PreguntasController extends Controller
         $datos_personales->put('primer_apellido', $request->input('primer_apellido'));
         $datos_personales->put('segundo_apellido', $request->input('segundo_apellido'));
         $datos_personales->put('fecha_nacimiento', $request->input('fecha_nacimiento'));
-        $datos_personales->put('genero', $request->input('genero'));
 
         // Guarda los datos personales
         $id_encuestado = encuestado::create(json_decode(json_encode($datos_personales), true))->id;
@@ -114,6 +113,7 @@ class PreguntasController extends Controller
         $control_encuestado->put('region', $request->input('region'));
         $control_encuestado->put('nivel_instruccion', $request->input('nivel_instruccion'));
         $control_encuestado->put('rango_edad', $request->input('rango_edad'));
+        $control_encuestado->put('genero', $request->input('genero'));
         $control_encuestado->put('id_encuestado', $id_encuestado);
         $control_encuestado->put('id_control_encuesta', $id_control_encuesta);
         control_encuestado::create(json_decode(json_encode($control_encuestado), true));
