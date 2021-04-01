@@ -488,6 +488,21 @@
                                     title: {
                                         display: true,
                                         text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }],
+                                        xAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }]
                                     }
                                 };
                             </script>
@@ -511,8 +526,8 @@
                                 $id     = 'porcentaje_rango_edades';
                                 $stats  = $estadisticas['porcentaje_rango_edades'];
                                 $keys   = $stats->keys();
-                                $values = collect();
 
+                                $values = collect();
                                 for($i=0; $i<=(count($keys)-1); $i++) {
                                     $values->push($stats->get($keys[$i]));
                                 }
@@ -541,6 +556,21 @@
                                     title: {
                                         display: true,
                                         text: "Distribucón por rango de edades"
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }],
+                                        xAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }]
                                     }
                                 };
                             </script>
@@ -564,8 +594,8 @@
                                 $id     = 'porcentaje_nivel_instruccion';
                                 $stats  = $estadisticas['porcentaje_nivel_instruccion'];
                                 $keys   = $stats->keys();
-                                $values = collect();
 
+                                $values = collect();
                                 for($i=0; $i<=(count($keys)-1); $i++) {
                                     $values->push($stats->get($keys[$i]));
                                 }
@@ -594,6 +624,21 @@
                                     title: {
                                         display: true,
                                         text: "Distribucón por nivel de instrucción"
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }],
+                                        xAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }]
                                     }
                                 };
                             </script>
@@ -619,8 +664,8 @@
                                 $id     = 'porcentaje_region';
                                 $stats  = $estadisticas['porcentaje_region'];
                                 $keys   = $stats->keys();
-                                $values = collect();
 
+                                $values = collect();
                                 for($i=0; $i<=(count($keys)-1); $i++) {
                                     $values->push($stats->get($keys[$i]));
                                 }
@@ -649,6 +694,21 @@
                                     title: {
                                         display: true,
                                         text: "Distribucón por región"
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }],
+                                        xAxes: [{
+                                            ticks: {
+                                                beginAtZero: true,
+                                                max: 100
+                                            }
+                                        }]
                                     }
                                 };
                             </script>
@@ -725,6 +785,7 @@
                                         };
 
                                         var options = {
+                                            responsive: true,
                                             title: {
                                                 display: true,
                                                 text: '<?php echo $pregunta[0]; ?>'
@@ -754,64 +815,64 @@
                 </div>
                 <div class="row">
                     <?php
-                        $stats  = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
-                        $keys   = $stats->keys();
+                        $stats = $estadisticas['porcentaje_respuestas']->get('respuestas_seleccion_multiple');
+                        $keys  = $stats->keys();
 
                         $count = 0;
                         foreach($keys as $i) {
                             $count++;
-                            $id = 'porcentaje_respuestas_seleccion_multiple'.$count;
                             $aux = json_decode($stats->get($i));
 
-                            $data     = collect();
-                            $labels   = collect();
-                            $pregunta = collect();
-
+                            $count2 = 0;
                             foreach($aux as $j) {
-                                $data->push($j->porcentaje);
-                                //$labels->push($j->opcion . ' ' . $j->total);
-                                $labels->push($j->opcion);
-                                $pregunta->push($j->pregunta);
-                            }
-                            ?>
-                            <div class="col">
-                                <div class="card">
-                                    <script>
-                                        var data   = <?php echo json_encode($data); ?>;
-                                        var labels = <?php echo json_encode($labels); ?>;
+                                
+                                $count2++;
+                                $id = 'porcentaje_respuestas_seleccion_multiple'.$count.$count2;
 
-                                        var colors               = fill_background_hover_color(data.length);
-                                        var backgroundColor      = colors[0];
-                                        var hoverBackgroundColor = colors[1];
+                                $data     = $j->value[0]->porcentajes;
+                                $labels   = $j->value[0]->labels;
+                                $pregunta = $j->key;
+                                ?>
+                                <div class="col">
+                                    <div class="card">
+                                        <script>
+                                            var data   = <?php echo json_encode($data); ?>;
+                                            var labels = <?php echo json_encode($labels); ?>;
 
-                                        var data = {
-                                            labels: labels,
-                                            datasets: [{
-                                                label: "Porcentaje",
-                                                data: data,
-                                                backgroundColor: backgroundColor,
-                                                hoverBackgroundColor: hoverBackgroundColor
-                                            }]
-                                        };
+                                            var colors               = fill_background_hover_color(data.length);
+                                            var backgroundColor      = colors[0];
+                                            var hoverBackgroundColor = colors[1];
 
-                                        var options = {
-                                            title: {
-                                                display: true,
-                                                text: '<?php echo $pregunta[0]; ?>'
-                                            }
-                                        };
-                                    </script>
-                                  
-                                    <canvas id="<?php echo $id ?>"></canvas>
+                                            var data = {
+                                                labels: labels,
+                                                datasets: [{
+                                                    label: "Porcentaje",
+                                                    data: data,
+                                                    backgroundColor: backgroundColor,
+                                                    hoverBackgroundColor: hoverBackgroundColor
+                                                }]
+                                            };
 
-                                    <script>
-                                        var type = "pie";
-                                        var id   = document.getElementById('<?php echo $id; ?>');
-                                        new_chart(id, type, data, options);
-                                    </script>
+                                            var options = {
+                                                responsive: true,
+                                                title: {
+                                                    display: true,
+                                                    text: '<?php echo $pregunta; ?>'
+                                                }
+                                            };
+                                        </script>
+                                      
+                                        <canvas id="<?php echo $id ?>"></canvas>
+
+                                        <script>
+                                            var type = "pie";
+                                            var id   = document.getElementById('<?php echo $id; ?>');
+                                            new_chart(id, type, data, options);
+                                        </script>
+                                    </div>
                                 </div>
-                            </div>
-                    <?php
+                            <?php
+                            }
                         }
                     ?>
                 </div>
@@ -870,7 +931,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correcta e incorrectamente ABAE </h2>
+                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE </h2>
                         </div>
                     </div>
                 </div>
@@ -907,6 +968,7 @@
                                 };
 
                                 var options = {
+                                    responsive: true,
                                     title: {
                                         display: true,
                                         text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
@@ -945,24 +1007,6 @@
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por genero</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <?php
-                                $id = 'porcentaje_si_pregunta10_incorrectamente_genero';
-                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_genero');
-                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
                             <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por rango de edad</h2>
                         </div>
                     </div>
@@ -973,24 +1017,6 @@
                             <?php
                                 $id = 'porcentaje_si_pregunta10_correctamente_rango_edad';
                                 $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_rango_edad');
-                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por rango de edad</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <?php
-                                $id = 'porcentaje_si_pregunta10_incorrectamente_rango_edad';
-                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_rango_edad');
                                 draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
                             ?>
                         </div>
@@ -1017,24 +1043,6 @@
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por nivel de instruccion</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <?php
-                                $id = 'porcentaje_si_pregunta10_incorrectamente_nivel_instruccion';
-                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_nivel_instruccion');
-                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
                             <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por region</h2>
                         </div>
                     </div>
@@ -1045,24 +1053,6 @@
                             <?php
                                 $id = 'porcentaje_si_pregunta10_correctamente_region';
                                 $aux = $estadisticas->get('porcentaje_si_pregunta10_correctamente_region');
-                                draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <h2> % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por region</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <?php
-                                $id = 'porcentaje_si_pregunta10_incorrectamente_region';
-                                $aux = $estadisticas->get('porcentaje_si_pregunta10_incorrectamente_region');
                                 draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados);
                             ?>
                         </div>

@@ -76,85 +76,85 @@ function stats()
     
     // % Distribución por rango de edad
     
-    $aux1 = opciones_preguntas::select('opcion', 'numero_opcion')
+    $aux = opciones_preguntas::select('opcion', 'numero_opcion')
         ->where('id_preguntas', 'rango_edad')->get();
+        
     $aux2 = collect();
-    
-    foreach($aux1 as $i) {
-        $aux3 = control_encuestado::select('id')
+    foreach($aux as $i) {
+        $aux = control_encuestado::select('id')
             ->where([
                 ['rango_edad', $i->numero_opcion],
                 ['id_control_encuesta', $id_encuesta_abierta]
             ])->get();
-        $aux2->put($i->opcion, count($aux3));
+        $aux2->put($i->opcion, count($aux));
     }
 
-    $aux4 = collect();
+    $aux = collect();
     foreach($aux2->keys() as $i) {
         try {
-            $aux4->put($i, ($aux2[$i] * 100) / $numero_encuestados);
+            $aux->put($i, ($aux2[$i] * 100) / $numero_encuestados);
         }
         catch (Exception $e) {
-            $aux4->put($i, 0);
+            $aux->put($i, 0);
         }
     }
-    $estadisticas->put('porcentaje_rango_edades', $aux4);
+    $estadisticas->put('porcentaje_rango_edades', $aux);
 
     //----------------------------------------------------------------//
 
     // % Distribución por nivel de instrucción
     
-    $aux1 = opciones_preguntas::select('opcion', 'numero_opcion')
+    $aux = opciones_preguntas::select('opcion', 'numero_opcion')
         ->where('id_preguntas', 'nivel_instruccion')->get();
     
     $aux2 = collect();
-    foreach($aux1 as $i) {
-        $aux3 = control_encuestado::select('id')
+    foreach($aux as $i) {
+        $aux = control_encuestado::select('id')
             ->where([
                 ['nivel_instruccion', $i->numero_opcion],
                 ['id_control_encuesta', $id_encuesta_abierta]
             ])->get();
-        $aux2->put($i->opcion, count($aux3));
+        $aux2->put($i->opcion, count($aux));
     }
 
-    $aux4 = collect();
+    $aux = collect();
     foreach($aux2->keys() as $i) {
         try {
-            $aux4->put($i, ($aux2[$i] * 100) / $numero_encuestados);
+            $aux->put($i, ($aux2[$i] * 100) / $numero_encuestados);
         }
         catch (Exception $e) {
-            $aux4->put($i, 0);
+            $aux->put($i, 0);
         }
     }
-    $estadisticas->put('porcentaje_nivel_instruccion', $aux4);
+    $estadisticas->put('porcentaje_nivel_instruccion', $aux);
 
     //----------------------------------------------------------------//
 
     // % Distribución por región
     
-    $aux1 = opciones_preguntas::select('opcion', 'numero_opcion')
+    $aux = opciones_preguntas::select('opcion', 'numero_opcion')
         ->where('id_preguntas', 'region')->get();
     
     $aux2 = collect();
-    foreach($aux1 as $i) {
-        $aux3 = control_encuestado::select('id')
+    foreach($aux as $i) {
+        $aux = control_encuestado::select('id')
             ->where([
                 ['region', $i->numero_opcion],
                 ['id_control_encuesta', $id_encuesta_abierta]
             ])->get();
-        $aux2->put($i->opcion, count($aux3));
+        $aux2->put($i->opcion, count($aux));
     }
 
-    $aux4 = collect();
+    $aux = collect();
     foreach($aux2->keys() as $i) {
         try {
-            $aux4->put($i, ($aux2[$i] * 100) / $numero_encuestados);
+            $aux->put($i, ($aux2[$i] * 100) / $numero_encuestados);
         }
         catch (Exception $e) {
-            $aux4->put($i, 0);
+            $aux->put($i, 0);
         }
     }
-    $estadisticas->put('porcentaje_region', $aux4);
+    $estadisticas->put('porcentaje_region', $aux);
 
     //----------------------------------------------------------------//
 
@@ -165,13 +165,13 @@ function stats()
     // Selecciona las preguntas de selección simple
     $preguntas_seleccion_simple  = json_decode(preguntas::select('id')
         ->where('tipo_pregunta', 1)->get());
+        
     $respuestas_seleccion_simple = collect();
-    
-    // Selecciona todas las opciones disponibles de las preguntas de selección simple
-    foreach($preguntas_seleccion_simple as $i){
+    foreach($preguntas_seleccion_simple as $i) {
         $tmp = collect();
         $id_pregunta = $i->id;
-        
+
+        // Selecciona las opciones
         $opciones = opciones_preguntas::select('opcion', 'numero_opcion')
             ->where('id_preguntas', $id_pregunta)->get();
         
@@ -187,7 +187,6 @@ function stats()
             $aux2 = collect();
             $aux2->put('pregunta', $id_pregunta);
             $aux2->put('opcion', $opciones[$j]['opcion']);
-            //$aux2->put('numero_opcion', $opciones[$j]['numero_opcion']);
             $aux2->put('total', $aux->count());
             try {
                 $aux2->put('porcentaje', ($aux->count() * 100) / $numero_encuestados);
@@ -204,10 +203,9 @@ function stats()
     // Selecciona las preguntas de selección múltiple
     $preguntas_seleccion_multiple   = json_decode(preguntas::select('id')
         ->where('tipo_pregunta', 2)->get());
+        
     $respuestas_seleccion_multiple  = collect();
-
     foreach($preguntas_seleccion_multiple as $i) {
-        $tmp = collect();
         $id_pregunta = $i->id;
         
         // Selecciona las opciones
@@ -215,34 +213,52 @@ function stats()
             ->where('id_preguntas', $id_pregunta)->get());
         
         // Selecciona las sub opciones
-        $otras_opciones = json_decode(otras_opciones_preguntas::select('id')
+        $otras_opciones = json_decode(otras_opciones_preguntas::select('id', 'opcion', 'numero_opcion')
             ->where('id_preguntas', $id_pregunta)->get());
-        
+
+        $a_by_option = collect();
+
+        $porcentajes_else = collect();
+        $labels_else      = collect();
+
+        $flag = 0;
         foreach($opciones as $j) {
+            $cien_porciento = respuestas::select('id')
+            ->where('id_preguntas', $id_pregunta)->get();
+            
+            $tmp2 = collect();
+            
+            $porcentajes = collect();
+            $labels      = collect();
+            
             if(count($otras_opciones) > 0) {
+                $flag = 1;
+                
                 foreach($otras_opciones as $k) {
                     // Obtiene las respuestas
                     $aux = respuestas::select('id')
                         ->where([
                             ['id_preguntas', $id_pregunta],
                             ['opcion', $j->id],
-                            ['respuesta', $k->id],
+                            ['respuesta', $k->numero_opcion],
                             ['id_control_encuesta', $id_encuesta_abierta]
                         ])->get();
                         
-                    $aux2 = collect();
-                    $aux2->put('pregunta', $id_pregunta);
-                    $aux2->put('opcion', $j->opcion);
-                    $aux2->put('total', count($aux));
                     try {
-                        $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
+                        $porcentaje = (count($aux) * 100) / $numero_encuestados;
+                        $porcentajes->push($porcentaje);
+                        $labels->push($k->opcion);
                     }
                     catch (Exception $e) {
-                        $aux2->put('porcentaje', 0);
+                        $porcentaje = 0;
+                        $porcentajes->push($porcentaje);
+                        $labels->push($k->opcion);
                     }
-                    $tmp->push($aux2);
                 }
-                $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
+                $tmp = collect();
+                $tmp->put('porcentajes', $porcentajes);
+                $tmp->put('labels', $labels);
+                $tmp2->push($tmp);
             }
             else {
                 // Obtiene las respuestas
@@ -253,30 +269,45 @@ function stats()
                         ['respuesta', $j->numero_opcion],
                         ['id_control_encuesta', $id_encuesta_abierta]
                     ])->get();
-                        
-                $aux2 = collect();
-                $aux2->put('pregunta', $id_pregunta);
-                $aux2->put('opcion', $j->opcion);
-                $aux2->put('total', count($aux));
+                    
                 try {
-                    $aux2->put('porcentaje', (count($aux) * 100) / $numero_encuestados);
+                    $porcentaje = (count($aux) * 100) / count($cien_porciento);
+                    $porcentajes_else->push($porcentaje);
+                    $labels_else->push($j->opcion);
                 }
                 catch (Exception $e) {
-                    $aux2->put('porcentaje', 0);
+                    $porcentaje = 0;
+                    $porcentajes_else->push($porcentaje);
+                    $labels_else->push($j->opcion);
                 }
-                $tmp->push($aux2);
             }
-            $respuestas_seleccion_multiple->put($id_pregunta, $tmp);
+            if($flag == 1) {
+                $tmp = collect();
+                $tmp->put('key', $j->opcion);
+                $tmp->put('value', $tmp2);
+                $a_by_option->push($tmp);
+            }
         }
+        $tmp2 = collect();
+        $tmp2->put('porcentajes', $porcentajes_else);
+        $tmp2->put('labels', $labels_else);
+        $tmp3 = collect();
+        $tmp3->push($tmp2);
+        
+        $tmp = collect();
+        $tmp->put('key', $id_pregunta);
+        $tmp->put('value', $tmp3);
+        $a_by_option->push($tmp);
+        $respuestas_seleccion_multiple->put($id_pregunta, $a_by_option);
     }
     $respuestas->put('respuestas_seleccion_multiple', $respuestas_seleccion_multiple);
 
     // Selecciona las preguntas de redacción
     $preguntas_redaccion   = json_decode(preguntas::select('id')
         ->where('tipo_pregunta', 3)->get());
-    $respuestas_redaccion  = collect();
     
     // Selecciona las respuestas
+    $respuestas_redaccion  = collect();
     foreach($preguntas_redaccion as $i) {
         $id_pregunta = $i->id;
         $aux = respuestas::select('opcion', 'respuesta')
@@ -303,7 +334,26 @@ function stats()
 
     // % Districbución de respuestas por preguntas por genero
 
-    $condition = 'genero';
+    $rule = 'genero';
+
+    $conditions = json_decode(opciones_preguntas::select('numero_opcion')
+        ->where([
+            ['id_preguntas', $rule]
+        ])->get());
+
+    $population = collect();
+    foreach($conditions as $i) {
+        $aux = control_encuestado::select('id')
+            ->where([
+                [$rule, $i->numero_opcion]
+            ])->get();
+
+        $population->put($i->numero_opcion, count($aux));
+    }
+
+    $condition = collect();
+    $condition->put('condition', $rule);
+    $condition->put('population', $population);
     
     $join = [
         'control_encuestados',
@@ -323,8 +373,26 @@ function stats()
     //----------------------------------------------------------------//
 
     // % Districbución de respuestas por preguntas por rango de edad
+    $rule = 'rango_edad';
 
-    $condition = 'rango_edad';
+    $conditions = json_decode(opciones_preguntas::select('numero_opcion')
+        ->where([
+            ['id_preguntas', $rule]
+        ])->get());
+
+    $population = collect();
+    foreach($conditions as $i) {
+        $aux = control_encuestado::select('id')
+            ->where([
+                [$rule, $i->numero_opcion]
+            ])->get();
+
+        $population->put($i->numero_opcion, count($aux));
+    }
+
+    $condition = collect();
+    $condition->put('condition', $rule);
+    $condition->put('population', $population);
     
     $join = [
         'control_encuestados',
@@ -343,9 +411,28 @@ function stats()
     
     //----------------------------------------------------------------//
 
-    // % Districbución de respuestas por preguntas por nivel de instruccion
+    // % Districbución de respuestas por preguntas por nivel de instrucción
 
-    $condition = 'nivel_instruccion';
+    $rule = 'nivel_instruccion';
+
+    $conditions = json_decode(opciones_preguntas::select('numero_opcion')
+        ->where([
+            ['id_preguntas', $rule]
+        ])->get());
+
+    $population = collect();
+    foreach($conditions as $i) {
+        $aux = control_encuestado::select('id')
+            ->where([
+                [$rule, $i->numero_opcion]
+            ])->get();
+
+        $population->put($i->numero_opcion, count($aux));
+    }
+
+    $condition = collect();
+    $condition->put('condition', $rule);
+    $condition->put('population', $population);
     
     $join = [
         'control_encuestados',
@@ -364,9 +451,28 @@ function stats()
     
     //----------------------------------------------------------------//
 
-    // % Districbución de respuestas por preguntas por region
+    // % Districbución de respuestas por preguntas por región
 
-    $condition = 'region';
+    $rule = 'region';
+
+    $conditions = json_decode(opciones_preguntas::select('numero_opcion')
+        ->where([
+            ['id_preguntas', $rule]
+        ])->get());
+
+    $population = collect();
+    foreach($conditions as $i) {
+        $aux = control_encuestado::select('id')
+            ->where([
+                [$rule, $i->numero_opcion]
+            ])->get();
+
+        $population->put($i->numero_opcion, count($aux));
+    }
+
+    $condition = collect();
+    $condition->put('condition', $rule);
+    $condition->put('population', $population);
     
     $join = [
         'control_encuestados',
@@ -382,12 +488,11 @@ function stats()
     $respuestas = stats_by_question_by_condition($condition, $join, $where, $id_encuesta_abierta, $numero_encuestados);
 
     $estadisticas->put('porcentaje_respuestas_region', $respuestas);
-
+    
     //----------------------------------------------------------------//
 
     // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE
 
-    $count = 0;
     $aux = json_decode(respuestas::select('opcion', 'respuesta', 'id_encuestado')
         ->where([
             ['id_preguntas', 'pregunta10'],
@@ -395,6 +500,7 @@ function stats()
             ['id_control_encuesta', $id_encuesta_abierta]
         ])->get());
 
+    $count = 0;
     foreach($aux as $i) {
         $aux2 = json_decode(respuestas::select('opcion', 'respuesta', 'id_encuestado')
             ->where([
@@ -421,7 +527,6 @@ function stats()
 
     // % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE
 
-    $count = 0;
     $aux = json_decode(respuestas::select('id_encuestado')
         ->where([
             ['id_preguntas', 'pregunta10'],
@@ -429,6 +534,7 @@ function stats()
             ['id_control_encuesta', $id_encuesta_abierta]
         ])->get());
 
+    $count = 0;
     foreach($aux as $i) {
         $aux2 = json_decode(respuestas::select('id_encuestado')
             ->where([
@@ -454,13 +560,14 @@ function stats()
 
     //----------------------------------------------------------------//
 
-    // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por genero
-
-    $condition   = 'genero';
     $question    = 'pregunta10';
     $condition2  = 'pregunta10-1';
     $answer      = 'abae';
     $comparison  = '=';
+
+    // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por genero
+
+    $condition   = 'genero';
 
     $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
 
@@ -468,101 +575,33 @@ function stats()
 
     //----------------------------------------------------------------//
 
-    // % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por genero
-
-    $condition   = 'genero';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '!=';
-
-    $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
-
-    $estadisticas->put('porcentaje_si_pregunta10_incorrectamente_genero', $respuestas);
-
-    //----------------------------------------------------------------//
-
     // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por rango de edad
 
     $condition   = 'rango_edad';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '=';
 
     $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
 
     $estadisticas->put('porcentaje_si_pregunta10_correctamente_rango_edad', $respuestas);
 
     //----------------------------------------------------------------//
-
-    // % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por rango de edad
-
-    $condition   = 'rango_edad';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '!=';
-
-    $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
-
-    $estadisticas->put('porcentaje_si_pregunta10_incorrectamente_rango_edad', $respuestas);
-
-    //----------------------------------------------------------------//
     
     // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por nivel de instrucción
 
     $condition   = 'nivel_instruccion';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '=';
 
     $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
 
     $estadisticas->put('porcentaje_si_pregunta10_correctamente_nivel_instruccion', $respuestas);
-
-    //----------------------------------------------------------------//
-    
-    // % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por nivel de instrucción
-
-    $condition   = 'nivel_instruccion';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '!=';
-
-    $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
-
-    $estadisticas->put('porcentaje_si_pregunta10_incorrectamente_nivel_instruccion', $respuestas);
     
     //----------------------------------------------------------------//
     
     // % De encuestados que respondieron SI en la pregunta 10 e indicaron correctamente ABAE por region
 
     $condition   = 'region';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '=';
 
     $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
 
     $estadisticas->put('porcentaje_si_pregunta10_correctamente_region', $respuestas);
-
-    //----------------------------------------------------------------//
-    
-    // % De encuestados que respondieron SI en la pregunta 10 e indicaron incorrectamente ABAE por region
-
-    $condition   = 'region';
-    $question    = 'pregunta10';
-    $condition2  = 'pregunta10-1';
-    $answer      = 'abae';
-    $comparison  = '!=';
-
-    $respuestas = stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta);
-
-    $estadisticas->put('porcentaje_si_pregunta10_incorrectamente_region', $respuestas);
     
     //----------------------------------------------------------------//
     
@@ -609,7 +648,7 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                     $tmp->put('key', $j);
                     $tmp->put('value', $aux->get('a_by_rule')->get($j));
                     $data->push($tmp);
-                }                
+                }
                 ?>
                 <div class="col">
                     <div class="card">
@@ -634,9 +673,24 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                             };
 
                             var options = {
+                                responsive: true,
                                 title: {
                                     display: true,
                                     text: pregunta
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            max: 100
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            max: 100
+                                        }
+                                    }]
                                 }
                             };
                         </script>
@@ -698,14 +752,14 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                             
                             if($opcion != $last_key) {
                                 $last_key = $opcion;
-                                $data     = collect();
-                            
-                                    foreach($k->get('value') as $l) {
-                                        $tmp = collect();
-                                        $tmp->put('key', $l->get('key'));
-                                        $tmp->put('value', json_decode($l->get('value')));
-                                        $data->push($tmp);
-                                    }
+                                
+                                $data = collect();
+                                foreach($k->get('value') as $l) {
+                                    $tmp = collect();
+                                    $tmp->put('key', $l->get('key'));
+                                    $tmp->put('value', json_decode($l->get('value')));
+                                    $data->push($tmp);
+                                }
                         
                                 $count2++;
                                 $id2 = $id.$count2;
@@ -735,9 +789,24 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                                             };
 
                                             var options = {
+                                                responsive: true,
                                                 title: {
                                                     display: true,
                                                     text: title
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true,
+                                                            max: 100
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true,
+                                                            max: 100
+                                                        }
+                                                    }]
                                                 }
                                             };
                                         </script>
@@ -763,7 +832,6 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                     }
 
                     $data = collect();
-                    
                     foreach($keys2 as $j) {
                         $aux2 = $aux->get($j);
 
@@ -831,9 +899,24 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
                                     };
 
                                     var options = {
+                                        responsive: true,
                                         title: {
                                             display: true,
                                             text: title
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                    max: 100
+                                                }
+                                            }],
+                                            xAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                    max: 100
+                                                }
+                                            }]
                                         }
                                     };
                             </script>
@@ -859,7 +942,7 @@ function draw_stats_by_questions_by_condition($estadisticas, $condition, $id1, $
 
 function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_abierta, $numero_encuestados) {
     $rules = json_decode(opciones_preguntas::select('opcion', 'numero_opcion')
-        ->where('id_preguntas', $condition)->get());
+        ->where('id_preguntas', $condition->get('condition'))->get());
     
     $rule   = collect();
     $labels = collect();        
@@ -873,12 +956,12 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
     // Selecciona las preguntas de selección simple
     $preguntas_seleccion_simple  = json_decode(preguntas::select('id')
         ->where('tipo_pregunta', 1)->get());
-    $respuestas_seleccion_simple = collect();
     
-    // Selecciona todas las opciones disponibles de las preguntas de selección simple
-    foreach($preguntas_seleccion_simple as $i){
+    $respuestas_seleccion_simple = collect();
+    foreach($preguntas_seleccion_simple as $i) {
         $id_pregunta = $i->id;
-        
+
+        // Selecciona las opciones
         $opciones = opciones_preguntas::select('opcion', 'numero_opcion')
             ->where('id_preguntas', $id_pregunta)->get();
 
@@ -888,10 +971,9 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
         }
 
         $a_by_rule = collect();
-
         foreach($rule as $k) {
-            $a_by_option = collect();
             
+            $a_by_option = collect();
             foreach($opciones as $j) {
                 // Obtiene las respuestas
                 $aux = respuestas::select('respuestas.id')
@@ -904,7 +986,7 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
                     ])->get();
 
                 try {
-                    $porcentaje = (count($aux) * 100) / $numero_encuestados;
+                    $porcentaje = (count($aux) * 100) / $condition->get('population')->get($k);
                 }
                 catch (Exception $e) {
                     $porcentaje = 0;
@@ -923,8 +1005,8 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
     // Selecciona las preguntas de selección múltiple
     $preguntas_seleccion_multiple  = json_decode(preguntas::select('id')
         ->where('tipo_pregunta', 2)->get());
+        
     $respuestas_seleccion_multiple = collect();
-
     foreach($preguntas_seleccion_multiple as $i) {
         $id_pregunta  = $i->id;
         
@@ -938,7 +1020,7 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
         }
         
         // Selecciona las sub opciones
-        $otras_opciones = json_decode(otras_opciones_preguntas::select('id', 'opcion', 'id_preguntas')
+        $otras_opciones = json_decode(otras_opciones_preguntas::select('id', 'opcion', 'numero_opcion', 'id_preguntas')
             ->where('id_preguntas', $id_pregunta)->get());
 
         $other_options = collect();
@@ -950,15 +1032,15 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
 
         $flag = 0;
         foreach($opciones as $j) {
+            
             $a_by_rule1 = collect();
             $a_by_rule2 = collect();
-
             foreach($rule as $m) {
                 $a_by_other_option = collect();
                 
                 if(count($otras_opciones) > 0) {
-                    $flag = 1;
                     
+                    $flag = 1;
                     foreach($otras_opciones as $k) {
                         // Obtiene las respuestas
                         $aux = respuestas::select('respuestas.id')
@@ -966,13 +1048,15 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
                             ->where([
                                 ['id_preguntas', $id_pregunta],
                                 ['opcion', $j->id],
-                                ['respuesta', $k->id],
+                                ['respuesta', $k->numero_opcion],
                                 [$where[0], '=', $m],
                                 [$where[1], $id_encuesta_abierta]
                             ])->get();
-                            
+
+                        $porcentaje = 0;
+                        
                         try {
-                            $porcentaje = (count($aux) * 100) / $numero_encuestados;
+                            $porcentaje = (count($aux) * 100) / $condition->get('population')->get($m);
                         }
                         catch (Exception $e) {
                             $porcentaje = 0;
@@ -987,6 +1071,15 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
                 }
                 else {
                     $flag = 0;
+
+                    $cien_porciento = respuestas::select('respuestas.id')
+                        ->join($join[0], $join[1], '=', $join[2])
+                        ->where([
+                            ['id_preguntas', $id_pregunta],
+                            [$where[0], '=', $m],
+                            [$where[1], $id_encuesta_abierta]
+                        ])->get();
+                    
                     // Obtiene las respuestas
                     $aux = respuestas::select('respuestas.id')
                         ->join($join[0], $join[1], '=', $join[2])
@@ -999,7 +1092,7 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
                         ])->get();
 
                     try {
-                        $porcentaje = (count($aux) * 100) / $numero_encuestados;
+                        $porcentaje = (count($aux) * 100) / count($cien_porciento);
                     }
                     catch (Exception $e) {
                         $porcentaje = 0;
@@ -1035,49 +1128,35 @@ function stats_by_question_by_condition($condition, $join, $where, $id_encuesta_
 // -------------------------------------------------------------------//
 
 function stats_by_answers_by_condition($condition, $question, $condition2, $answer, $comparison, $id_encuesta_abierta) {
+    $respuestas = collect();
+    
     $condition_result = json_decode(opciones_preguntas::select('opcion', 'numero_opcion')
         ->where('id_preguntas', $condition)->get());
 
-    $count = collect();
-    foreach($condition_result as $i) {
-        $count->put($i->opcion, 0);
-    }
-    
-    $aux = json_decode(respuestas::select('id_encuestado')
-        ->where([
-            ['id_preguntas', $question],
-            ['respuesta', 1],
-            ['id_control_encuesta', $id_encuesta_abierta]
-        ])->get());
+    foreach($condition_result as $j) {
+        $aux = json_decode(respuestas::select('respuestas.id_encuestado')
+            ->join('control_encuestados', 'control_encuestados.id_encuestado', '=', 'respuestas.id_encuestado')
+            ->where([
+                ['id_preguntas', $condition2],
+                ['respuesta', $comparison, $answer],
+                [$condition, $j->numero_opcion],
+                ['respuestas.id_control_encuesta', $id_encuesta_abierta]
+            ])->get());
 
-    foreach($aux as $i) {
-        foreach($condition_result as $j) {
-            $aux2 = json_decode(respuestas::select('respuestas.id_encuestado')
-                ->join('control_encuestados', 'control_encuestados.id_encuestado', '=', 'respuestas.id_encuestado')
-                ->where([
-                    ['id_preguntas', $condition2],
-                    ['respuesta', $comparison, $answer],
-                    [$condition, $j->numero_opcion],
-                    ['respuestas.id_encuestado', $i->id_encuestado],
-                    ['respuestas.id_control_encuesta', $id_encuesta_abierta]
-                ])->get());
+        $cien_porciento = respuestas::select('respuestas.id_encuestado')
+            ->join('control_encuestados', 'control_encuestados.id_encuestado', '=', 'respuestas.id_encuestado')
+            ->where([
+                ['id_preguntas', $question],
+                ['respuesta', 1],
+                [$condition, $j->numero_opcion],
+                ['respuestas.id_control_encuesta', $id_encuesta_abierta]
+            ])->get();
 
-            if(count($aux2) > 0) {
-                $aux3 = $count->get($j->opcion);
-                $count->put($j->opcion, ++$aux3);
-            }
-        }
-    }
-
-    $respuestas = collect();
-    
-    $keys = $count->keys();
-    foreach($keys as $i) {
         try {
-            $respuestas->put($i, ($count->get($i) * 100) / count($aux));
+            $respuestas->put($j->opcion, (count($aux) * 100) / count($cien_porciento));
         }
         catch (Exception $e) {
-            $respuestas->put($i, 0);
+            $respuestas->put($j->opcion, 0);
         }
     }
 
@@ -1107,6 +1186,7 @@ function draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados) {
         var data = {
             labels: labels,
             datasets: [{
+                label: 'porcentaje',
                 data: data,
                 backgroundColor: backgroundColor,
                 hoverBackgroundColor: hoverBackgroundColor
@@ -1114,9 +1194,24 @@ function draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados) {
         };
 
         var options = {
+            responsive: true,
             title: {
                 display: true,
                 text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }]
             }
         };
     </script>
@@ -1124,7 +1219,7 @@ function draw_stats_by_answers_by_condition($id, $aux, $numero_encuestados) {
     <canvas id="<?php echo $id ?>"></canvas>
 
     <script>
-        var type = "pie";
+        var type = "bar";
         var id   = document.getElementById('<?php echo $id; ?>');
         new_chart(id, type, data, options);
     </script>
