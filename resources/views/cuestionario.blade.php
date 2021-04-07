@@ -13,6 +13,8 @@
         <link href="{{ asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css') }}" rel="stylesheet">
         <!-- STYLE CSS -->
         <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
+
+        <script src="{{ asset('/assets/js/main.js') }}"></script>
     </head>
     <body>
     <style type="text/css">
@@ -140,21 +142,30 @@
                         @endforeach
                     </div>
                     <hr>
+                    
+                    <!-- script> var radios_question1 = Array(); </script -->
+                    
                     <?php $row = 0; ?>
                     @foreach($datas['opciones1'] as $i)
                         <?php $row++; ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones1'] as $j)
-                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}" checked></div>
                             @endforeach
+                            
+                            <!-- script>
+                                radios_question1.push(< ?php echo json_encode($row.$id_pregunta); ? >);
+                            </script -->
+                            
                         </div>
                     @endforeach
                     
                     <hr>
                     
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente"/>
+                    <!-- input type="button" name="next" class="next-form btn btn-info" value="Siguiente" onclick="validate_radios(radios_question1)"/ -->
                 </fieldset>
 
                 <fieldset>
@@ -172,7 +183,7 @@
                     @foreach($datas['opciones2'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -229,7 +240,7 @@
                     @foreach($datas['opciones4'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -256,7 +267,7 @@
                     @foreach($datas['opciones5'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -313,7 +324,7 @@
                     @foreach($datas['opciones7'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -340,7 +351,7 @@
                     @foreach($datas['opciones8'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -367,7 +378,7 @@
                     @foreach($datas['opciones9'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -394,7 +405,7 @@
                     @foreach($datas['opciones10'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -434,7 +445,7 @@
                         <div class="row text-center">
                             <div class="col text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones11'] as $j)
-                                <div class="col"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}"></div>
+                                <div class="col"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}" checked></div>
                             @endforeach
                         </div>
                     @endforeach
@@ -489,7 +500,7 @@
                     @foreach($datas['opciones13'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -516,7 +527,7 @@
                     @foreach($datas['opciones14'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -573,7 +584,7 @@
                     @foreach($datas['opciones16'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -600,7 +611,7 @@
                     @foreach($datas['opciones17'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -627,7 +638,7 @@
                     @foreach($datas['opciones18'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -654,7 +665,7 @@
                     @foreach($datas['opciones19'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -681,7 +692,7 @@
                     @foreach($datas['opciones20'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -708,7 +719,7 @@
                     @foreach($datas['opciones21'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -735,7 +746,7 @@
                     @foreach($datas['opciones22'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -762,7 +773,7 @@
                     @foreach($datas['opciones23'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}"" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}"" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -789,7 +800,7 @@
                     @foreach($datas['opciones24'] as $i)
                         <div class="row text-left">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
@@ -823,6 +834,7 @@
                 </fieldset>
             </form>
         </div>
+        
         <!-- jQuery -->
         <script src="{{ asset('/assets/js/jquery/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('/assets/js/jquery/jquery.steps.js') }}"></script>

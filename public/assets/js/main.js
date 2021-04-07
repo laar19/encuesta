@@ -1,21 +1,20 @@
-// Get random color
-function random_rgb_color() {
-    random_color = function() {
-        return Math.round(Math.random() * 255);
+function validate_radios(radios) {
+    var flag = false;
+
+    var i = 0;
+    while(i<radios.length) {
+        //if(document.getElementById(radios[i]).checked) {
+        if(document.getElementsByName(radios[i]).checked) {
+            flag = true;
+        }
+        else {
+            flag = false;
+        }
+        i++;
     }
-    
-    var r = random_color();
-    //var dark_r = r * (1/4);
 
-    var g = random_color();
-    //var dark_g = g * (1/2);
-
-    var b = random_color();
-    //var dark_b = b * (3/4);
-
-    var rgb = "rgb(" + r + "," + g + "," + b + ")";
-    //var dark_rgb = "rgb(" + dark_r + "," + dark_g + "," + dark_b + ")";
-
-    //return [rgb, dark_rgb];
-    return rgb;
+    if(!flag) {
+        alert("Por favor verifique que no quede ninguna selección vacía");
+        return false;
+    }
 }

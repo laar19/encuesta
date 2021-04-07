@@ -29,7 +29,6 @@
   <link href="{{ asset('/assets/admin/css/helper.css') }}" rel="stylesheet">
   <link href="{{ asset('/assets/admin/css/style.css') }}" rel="stylesheet">
 
-  <script src="{{ asset('/assets/js/main.js') }}"></script>
   <script src="{{ asset('/assets/chartjs/dist/Chart.js') }}"></script>
   <script src="{{ asset('/assets/js/stats/functions.js') }}"></script>
 </head>
@@ -439,289 +438,55 @@
                             }
                         ?>
                     </div>
-                </div>                
-                <div class="row">
-                    <div class="col">
-                        
-                        <!-- ### Número de encuestados ###  -->
-            
-                        <div class="card">
-                            <?php $estadisticas = stats(); ?>
-
-                            <?php
-                                $id = 'numero_encuestados';
-                                $numero_encuestados = $estadisticas['numero_encuestados'];
-                                $numero_encuestados_masculinos = $estadisticas['numero_encuestados_masculinos'];
-                                $numero_encuestados_femeninos = $estadisticas['numero_encuestados_femeninos'];
-                                $porcentaje_encuestados_masculinos = $estadisticas['porcentaje_encuestados_masculinos'];
-                                $porcentaje_encuestados_femeninos = $estadisticas['porcentaje_encuestados_femeninos'];
-                            ?>
-                            
-                            <script>
-                                var numero_encuestados_masculinos = <?php echo json_encode($numero_encuestados_masculinos); ?>;
-                                var numero_encuestados_femeninos  = <?php echo json_encode($numero_encuestados_femeninos); ?>;
-                                
-                                var porcentaje_encuestados_masculinos = <?php echo json_encode($porcentaje_encuestados_masculinos); ?>;
-                                var porcentaje_encuestados_femeninos  = <?php echo json_encode($porcentaje_encuestados_femeninos); ?>;
-
-                                var labels = [
-                                    'Masculinos ' + numero_encuestados_masculinos,
-                                    'Femeninos ' + numero_encuestados_femeninos
-                                ];
-
-                                var data = [porcentaje_encuestados_masculinos, porcentaje_encuestados_femeninos];
-
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
-
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        text: 'Encuestados: ' + <?php echo json_encode($numero_encuestados); ?>
-                                    },
-                                    responsive: true,
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }]
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
-
-                            <script>
-                                var type = "doughnut";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-
-                        <!-- ### % De distribucón por rango de edades ###  -->
-                        
-                        <div class="card">
-                            <?php
-                                $id     = 'porcentaje_rango_edades';
-                                $stats  = $estadisticas['porcentaje_rango_edades'];
-                                $keys   = $stats->keys();
-
-                                $values = collect();
-                                for($i=0; $i<=(count($keys)-1); $i++) {
-                                    $values->push($stats->get($keys[$i]));
-                                }
-                            ?>
-                            
-                            <script>
-                                var data   = <?php echo json_encode($values); ?>;
-                                var labels = <?php echo json_encode($keys); ?>;
-
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-                                
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: "Porcentaje",
-                                        //fillColor: "#2E3436",
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
-
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        text: "Distribucón por rango de edades"
-                                    },
-                                    responsive: true,
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }]
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
-
-                            <script>
-                                var type = "horizontalBar";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-
-                        <!-- ### % De distribucón por nivel de instrucción ###  -->
-                        
-                        <div class="card">
-                            <?php
-                                $id     = 'porcentaje_nivel_instruccion';
-                                $stats  = $estadisticas['porcentaje_nivel_instruccion'];
-                                $keys   = $stats->keys();
-
-                                $values = collect();
-                                for($i=0; $i<=(count($keys)-1); $i++) {
-                                    $values->push($stats->get($keys[$i]));
-                                }
-                            ?>
-                            
-                            <script>
-                                var data   = <?php echo json_encode($values); ?>;
-                                var labels = <?php echo json_encode($keys); ?>;
-
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-                                
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: "Porcentaje",
-                                        //fillColor: "#2E3436",
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
-
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        text: "Distribucón por nivel de instrucción"
-                                    },
-                                    responsive: true,
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }]
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
-
-                            <script>
-                                var type = "horizontalBar";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
-                        </div>
-                    </div>
                 </div>
+
+                <?php
+                    $estadisticas = stats();
+                    $numero_encuestados = $estadisticas['numero_encuestados'];
+                ?>
                 
                 <div class="row">
-                    <div class="col">
 
-                        <!-- ### % De distribucón por región ###  -->
-                        
-                        <div class="card">
-                            <?php
-                                $id     = 'porcentaje_region';
-                                $stats  = $estadisticas['porcentaje_region'];
-                                $keys   = $stats->keys();
+                    <!-- ### % De distribucón por género ###  -->
 
-                                $values = collect();
-                                for($i=0; $i<=(count($keys)-1); $i++) {
-                                    $values->push($stats->get($keys[$i]));
-                                }
-                            ?>
-                            
-                            <script>
-                                var data   = <?php echo json_encode($values); ?>;
-                                var labels = <?php echo json_encode($keys); ?>;
+                    <?php
+                        $id          = 'porcentaje_genero';
+                        $stat = $estadisticas[$id];
+                        $title       = 'género';
+                        $type_chart  = 'doughnut';
+                        draw_stats_by_condition($id, $stat, $title, $numero_encuestados, $type_chart);
+                    ?>
+                    
+                    <!-- ### % De distribucón por rango de edades ###  -->
 
-                                var colors               = fill_background_hover_color(data.length);
-                                var backgroundColor      = colors[0];
-                                var hoverBackgroundColor = colors[1];
-                                
-                                var data = {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: "Porcentaje",
-                                        //fillColor: "#2E3436",
-                                        data: data,
-                                        backgroundColor: backgroundColor,
-                                        hoverBackgroundColor: hoverBackgroundColor
-                                    }]
-                                };
+                    <?php
+                        $id          = 'porcentaje_rango_edad';
+                        $stat = $estadisticas[$id];
+                        $title       = 'rango de edades';
+                        $type_chart  = 'doughnut';
+                        draw_stats_by_condition($id, $stat, $title, $numero_encuestados, $type_chart);
+                    ?>
+                    
+                    <!-- ### % De distribucón por nivel de instrucción ###  -->
 
-                                var options = {
-                                    title: {
-                                        display: true,
-                                        text: "Distribucón por región"
-                                    },
-                                    responsive: true,
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }],
-                                        xAxes: [{
-                                            ticks: {
-                                                beginAtZero: true,
-                                                max: 100
-                                            }
-                                        }]
-                                    }
-                                };
-                            </script>
-                          
-                            <canvas id="<?php echo $id ?>"></canvas>
+                    <?php
+                        $id          = 'porcentaje_nivel_instruccion';
+                        $stat = $estadisticas[$id];
+                        $title       = 'nivel de instrucción';
+                        $type_chart  = 'doughnut';
+                        draw_stats_by_condition($id, $stat, $title, $numero_encuestados, $type_chart);
+                    ?>
+                    
+                    <!-- ### % De distribucón por región ###  -->
 
-                            <script>
-                                var type = "horizontalBar";
-                                var id   = document.getElementById('<?php echo $id; ?>');
-                                new_chart(id, type, data, options);
-                            </script>
-                        </div>
-                    </div>
+                    <?php
+                        $id          = 'porcentaje_region';
+                        $stat = $estadisticas[$id];
+                        $title       = 'región';
+                        $type_chart  = 'doughnut';
+                        draw_stats_by_condition($id, $stat, $title, $numero_encuestados, $type_chart);
+                    ?>
+                </div>
                     <div class="col">                        
                         <div class="card">
                             <h2>AQUÍ PUEDE IR OTRA COSA</h2>
@@ -768,7 +533,7 @@
                                 <div class="card">
                                     <script>
                                         var data   = <?php echo json_encode($data); ?>;
-                                        var labels = <?php echo json_encode($labels); ?>;                                        
+                                        var labels = <?php echo json_encode($labels); ?>;
 
                                         var colors               = fill_background_hover_color(data.length);
                                         var backgroundColor      = colors[0];
@@ -793,7 +558,7 @@
                                         };
                                     </script>
                                   
-                                    <canvas id="<?php echo $id ?>"></canvas>
+                                    <canvas id="<?php echo $id; ?>"></canvas>
 
                                     <script>
                                         var type = "pie";
@@ -862,7 +627,7 @@
                                             };
                                         </script>
                                       
-                                        <canvas id="<?php echo $id ?>"></canvas>
+                                        <canvas id="<?php echo $id; ?>"></canvas>
 
                                         <script>
                                             var type = "pie";
@@ -976,7 +741,7 @@
                                 };
                             </script>
                           
-                            <canvas id="<?php echo $id ?>"></canvas>
+                            <canvas id="<?php echo $id; ?>"></canvas>
 
                             <script>
                                 var type = "pie";
