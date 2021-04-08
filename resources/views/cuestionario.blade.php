@@ -130,7 +130,6 @@
                         1.-
                         @foreach($datas['pregunta1'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
 
@@ -143,21 +142,14 @@
                     </div>
                     <hr>
                     
-                    <!-- script> var radios_question1 = Array(); </script -->
-                    
                     <?php $row = 0; ?>
                     @foreach($datas['opciones1'] as $i)
                         <?php $row++; ?>
                         <div class="row text-center">
                             <div class="col-md-3 text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones1'] as $j)
-                                <div class="col-md-3"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}" checked></div>
-                            @endforeach
-                            
-                            <!-- script>
-                                radios_question1.push(< ?php echo json_encode($row.$id_pregunta); ? >);
-                            </script -->
-                            
+                                <div class="col-md-3"><input type="radio" id="{{ $row.$i->id }}" name="{{ $row.$i->id }}" value="{{ $j->numero_opcion }}" checked></div>
+                            @endforeach                            
                         </div>
                     @endforeach
                     
@@ -165,7 +157,6 @@
                     
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
                     <input type="button" name="next" class="next-form btn btn-info" value="Siguiente"/>
-                    <!-- input type="button" name="next" class="next-form btn btn-info" value="Siguiente" onclick="validate_radios(radios_question1)"/ -->
                 </fieldset>
 
                 <fieldset>
@@ -203,27 +194,31 @@
                         3.-
                         @foreach($datas['pregunta3'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
+
+                    <script> var checks_question3 = Array(); </script>
 
                     <?php $row = 0; ?>
                     @foreach($datas['opciones3'] as $i)
                         <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" id="{{ $i->id }}" name="{{ $row.$i->id }}" value="{{ $i->numero_opcion }}" class="" onclick="validate_checks(checks_question3, 'next3')"/></div>
                             <div class="col-md-11">
                                 <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
                             </div>
                             </div>
+                            <script>
+                                checks_question3.push(<?php echo json_encode($i->id); ?>);
+                            </script>
                         </div>
                     @endforeach
                     
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" id="next3" name="next" class="next-form btn btn-info" value="Siguiente" disabled/>
                 </fieldset>
                 <fieldset>
                     <h2>
@@ -287,27 +282,31 @@
                         6.-
                         @foreach($datas['pregunta6'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
+
+                    <script> var checks_question6 = Array(); </script>
 
                     <?php $row = 0; ?>
                     @foreach($datas['opciones6'] as $i)
                         <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" id="{{ $i->id }}" name="{{ $row.$i->id }}" value="{{ $i->numero_opcion }}" class="" onclick="validate_checks(checks_question6, 'next6')"/></div>
                             <div class="col-md-11">
                                 <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
                             </div>
                             </div>
+                            <script>
+                                checks_question6.push(<?php echo json_encode($i->id); ?>);
+                            </script>
                         </div>
                     @endforeach
                     
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" id="next6" name="next" class="next-form btn btn-info" value="Siguiente" disabled/>
                 </fieldset>
                 <fieldset>
                     <h2>
@@ -429,7 +428,7 @@
                         11.-
                         @foreach($datas['pregunta11'] as $i)
                             {{ $i->pregunta }}
-                            <?php $id_pregunta = $i->id ?>
+                            <?php $i->id = $i->id ?>
                         @endforeach
                     </h2>
                     <div class="row text-center">
@@ -445,7 +444,7 @@
                         <div class="row text-center">
                             <div class="col text-left">{{ $i->opcion }}</div>
                             @foreach($datas['otras_opciones11'] as $j)
-                                <div class="col"><input type="radio" id="{{ $row.$id_pregunta }}" name="{{ $row.$id_pregunta }}" value="{{ $j->numero_opcion }}" checked></div>
+                                <div class="col"><input type="radio" id="{{ $row.$i->id }}" name="{{ $row.$i->id }}" value="{{ $j->numero_opcion }}" checked></div>
                             @endforeach
                         </div>
                     @endforeach
@@ -461,27 +460,31 @@
                         12.-
                         @foreach($datas['pregunta12'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
+
+                    <script> var checks_question12 = Array(); </script>
                     
                     <?php $row = 0; ?>
                     @foreach($datas['opciones12'] as $i)
                         <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" id="{{ $i->id }}" name="{{ $row.$i->id }}" value="{{ $i->numero_opcion }}" class="" onclick="validate_checks(checks_question12, 'next12')"/></div>
                             <div class="col-md-11">
                                 <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
                             </div>
                             </div>
+                            <script>
+                                checks_question12.push(<?php echo json_encode($i->id); ?>);
+                            </script>
                         </div>
                     @endforeach
                     
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" id="next12" name="next" class="next-form btn btn-info" value="Siguiente" disabled/>
                 </fieldset>
 
                 
@@ -547,27 +550,31 @@
                         15.-
                          @foreach($datas['pregunta15'] as $i)
                             {{ $i->pregunta }}
-                            {{ $id_pregunta = $i->id }}
                         @endforeach
                     </h2>
                     <hr>
+
+                    <script> var checks_question15 = Array(); </script>
                     
                     <?php $row = 0; ?>
                     @foreach($datas['opciones15'] as $i)
                         <?php $row++; ?>
                         <div class="row text-left">
-                            <div class="col-md-1"><input type="checkbox" name="{{ $row.$id_pregunta }}" value="{{ $i->numero_opcion }}" class="" /></div>
+                            <div class="col-md-1"><input type="checkbox" id="{{ $i->id }}" name="{{ $row.$i->id }}" value="{{ $i->numero_opcion }}" class="" onclick="validate_checks(checks_question15, 'next15')"/></div>
                             <div class="col-md-11">
                                 <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
                             </div>
                             </div>
+                            <script>
+                                checks_question15.push(<?php echo json_encode($i->id); ?>);
+                            </script>
                         </div>
                     @endforeach
                     
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" id="next15" name="next" class="next-form btn btn-info" value="Siguiente" disabled/>
                 </fieldset>
                 <fieldset>
                     <h2>

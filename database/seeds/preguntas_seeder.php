@@ -65,7 +65,7 @@ class preguntas_seeder extends Seeder
 
         preguntas::create([
             'id' => 'pregunta6',
-            'pregunta' => 'Considera usted que el conocimiento científico y tecnológico en el tema espacial es útil para:',
+            'pregunta' => 'Considera usted que el conocimiento científico y tecnológico en el tema espacial es útil para: (Seleccione máximo dos)',
             'tipo_pregunta' => 2
         ]);
 
@@ -107,7 +107,7 @@ class preguntas_seeder extends Seeder
 
         preguntas::create([
             'id' => 'pregunta12',
-            'pregunta' => '¿A qué atribuye usted que en nuestro país no exista mayor avance en el tema espacial?',
+            'pregunta' => '¿A qué atribuye usted que en nuestro país no exista mayor avance en el tema espacial?. (Seleccione máximo dos)',
             'tipo_pregunta' => 2
         ]);
 
@@ -125,7 +125,7 @@ class preguntas_seeder extends Seeder
 
         preguntas::create([
             'id' => 'pregunta15',
-            'pregunta' => '¿En qué aspectos de la ciencia espacial usted se interesaría?',
+            'pregunta' => '¿En qué aspectos de la ciencia espacial usted se interesaría?. (Seleccione máximo dos)',
             'tipo_pregunta' => 2
         ]);
 
