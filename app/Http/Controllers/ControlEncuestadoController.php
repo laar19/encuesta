@@ -93,7 +93,7 @@ class ControlEncuestadoController extends Controller
         $cedula = $request->input('cedula');
 
         // Verifica si la cédula existe en la BD del saime
-        $saime = DB::connection('pgsql2')->table("tsaime")->where('tpers_cedul', '=', $cedula)->get();
+        $saime = DB::connection('second')->table("tsaime")->where('tpers_cedul', '=', $cedula)->get();
 
         // Si no existe
         if($saime->count() == 0) {

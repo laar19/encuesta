@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(preguntas_seeder::class);
         $this->call(opciones_preguntas_seeder::class);
         $this->call(otras_opciones_preguntas_seeder::class);
+        $this->call(users_seeder::class);
     }
 }

@@ -9,8 +9,10 @@
   <!-- MATERIAL DESIGN ICONIC FONT -->
   <link href="{{ asset('/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.css') }}" rel="stylesheet">
   <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
   <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap-datepicker.css.css') }}" rel="stylesheet">
+
+  <!-- JQUERY -->
+  <script src="{{ asset('/assets/js/jquery/jquery-3.3.1.min.js') }}"></script>
 
   <script type="text/javascript">
     $('fecha').on('changeDate', function(ev){
@@ -96,9 +98,6 @@
     </form>
   </div>
 
-  <!-- JQUERY -->
-  <script src="{{ asset('/assets/js/jquery/jquery-3.3.1.min.js') }}"></script>
-
   <!-- JQUERY STEP -->
   <script src="{{ asset('/assets/js/jquery/jquery.steps.js') }}"></script>
 
@@ -108,6 +107,3 @@
   <!-- Template created and distributed by Colorlib -->
 </body>
 </html>
-
-
-

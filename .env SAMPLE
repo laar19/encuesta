@@ -1,0 +1,14 @@
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=main_database
+DB_USERNAME=username
+DB_PASSWORD=secret
+
+DB_CONNECTION_2=pgsql
+DB_HOST_2=127.0.0.1
+DB_PORT_2=5432
+DB_DATABASE_2=second_database
+DB_USERNAME_2=username
+DB_PASSWORD_2=secret
+

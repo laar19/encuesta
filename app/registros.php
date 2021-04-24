@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class registros extends Model
 {
-    protected $connection = 'pgsql2';
+    protected $connection = 'pgsql';
+    protected $connection = 'second';
 }

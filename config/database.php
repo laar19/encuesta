@@ -78,9 +78,9 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'pgsql2' => [
-            'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
+        'second' => [
+            'driver' => env('DB_CONNECTION_2'),
+            //'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_2', '127.0.0.1'),
             'port' => env('DB_PORT_2', '5432'),
             'database' => env('DB_DATABASE_2', 'forge'),

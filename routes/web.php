@@ -25,3 +25,11 @@ Route::get('admin', ['as' => 'admin', 'uses' => 'ControlEncuestaController@index
 Route::post('store_quest', ['as' => 'store_quest', 'uses' => 'ControlEncuestaController@store_quest']);
 Route::post('close_quest', ['as' => 'close_quest', 'uses' => 'ControlEncuestaController@close_quest']);
 Route::get('stats', ['as' => 'stats', 'uses' => 'ControlEncuestaController@stats']);
+
+Route::get('login', ['as' => 'login', 'uses' => 'LoginController@login']);
+Route::post('checklogin', ['as' => 'checklogin', 'uses' => 'LoginController@checklogin']);
+Route::get('successlogin', ['as' => 'successlogin', 'uses' => 'LoginController@successlogin']);
+Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+
+Route::resource('user', 'UserController');
+Route::get('search_user', ['as' => 'search_user', 'uses' => 'UserController@search']);

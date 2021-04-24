@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\control_encuesta;
 use Illuminate\Http\Request;
 
+use Auth;
+
 class ControlEncuestaController extends Controller
 {
     /**
@@ -14,15 +16,13 @@ class ControlEncuestaController extends Controller
      */
     public function index()
     {
+        if(!isset(Auth::user()->email)) {
+            return view('login.index');
+        }
+        
         $data = control_encuesta::select('fecha_apertura', 'fecha_cierre')->where('aperturada', 1)->get();
         
         return view('admin.index')->with('data', $data);
-    }
-
-    public function stats()
-    {
-        //return view('admin.stats')->with('estadisticas', $estadisticas);
-        return view('admin.stats');
     }
 
     /**
