@@ -24,6 +24,15 @@ class ControlEncuestaController extends Controller
         
         return view('admin.index')->with('data', $data);
     }
+    
+    public function open()
+    {
+        if(!isset(Auth::user()->email)) {
+            return view('login.index');
+        }
+        
+        return view('admin.open');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +59,7 @@ class ControlEncuestaController extends Controller
         // Apertura una nueva encuesta, si ya hay una aperturada devuelve error
         $aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
         if(count($aperturada) == 1) {
-            return 'Ya existe una encuesta aperturada. No puede aperturar otra, debe finalizar la primera';
+            return redirect()->back()->with(['message' => 'Ya existe una encuesta aperturada. No puede aperturar otra, debe finalizar la primera', 'alert' => 'alert-danger']);
         }
         else {
             $control_encuesta = collect();
@@ -59,7 +68,7 @@ class ControlEncuestaController extends Controller
             $control_encuesta->put('aperturada', 1);
             control_encuesta::create(json_decode(json_encode($control_encuesta), true));
             
-            return 'Encuesta aperturada con éxito';
+            return redirect()->back()->with(['message' => 'Encuesta aperturada con éxito', 'alert' => 'alert-success']);
         }
     }
 

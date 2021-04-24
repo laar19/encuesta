@@ -20,40 +20,12 @@
         <div class="col">
             <?php
                 if(count($data) > 0) {
-                    print_r('Existe una encuesta abierta');
-                    echo '<br>';
-                    print_r('Fecha de apertura: ' . $data[0]->fecha_apertura);
-                    echo '<br>';
-                    print_r('Fecha de cierre: ' . $data[0]->fecha_apertura);
                     ?>
+                    <p> Encuesta aperturada el {{ $data[0]->fecha_apertura }} </p>
                     <form id="" method="post" action="{{ route('close_quest') }}">
                         {!! csrf_field() !!}
                         <input type="submit" name="submit" class="submit btn btn-outline-danger" value="Cerrar encuesta" />
                     </form>
-                    <?php
-                }
-                else {
-                    ?>
-                    <form id="" method="post" action="{{ route('store_quest') }}">
-
-                        {!! csrf_field() !!}
-                        
-                        <label for="fecha_apertura">Fecha de apertura</label>
-                        <input type="date" name="fecha_apertura">
-                        
-                        <br>
-                        
-                        <label for="fecha_cierre">Fecha de cierre</label>        
-                        <input type="date" name="fecha_cierre">
-                        
-                        <br>
-                        
-                        <input type="submit" name="submit" class="submit btn btn-success" value="Aperturar encuesta" />
-                    </form>
-                    <?php
-                    exit;
-                }
-            ?>
         </div>
     </div>
 
@@ -441,6 +413,21 @@
             </div>
         </div>
     </div>
+
+    <?php
+        }
+        else {
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p> No existe ninguna encuesta aperturada </p>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+    ?>
 </div>
 
 <script src="{{ asset('/assets/js/jquery/jquery-3.3.1.min.js') }}"></script>

@@ -17,9 +17,9 @@ class CreateEncuestadosTable extends Migration
             $table->id();
             $table->integer('cedula');
             $table->string('primer_nombre');
-            $table->string('segundo_nombre');
+            $table->string('segundo_nombre')->nullable();
             $table->string('primer_apellido');
-            $table->string('segundo_apellido');
+            $table->string('segundo_apellido')->nullable();
             $table->date('fecha_nacimiento');
             $table->timestamps();
         });

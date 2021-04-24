@@ -22,6 +22,7 @@ Route::get('preguntas/{cedula}/{primer_nombre}/{segundo_nombre}/{primer_apellido
 Route::post('preguntas_store', ['as' => 'preguntas_store', 'uses' => 'PreguntasController@store']);
 
 Route::get('admin', ['as' => 'admin', 'uses' => 'ControlEncuestaController@index']);
+Route::get('open', ['as' => 'open', 'uses' => 'ControlEncuestaController@open']);
 Route::post('store_quest', ['as' => 'store_quest', 'uses' => 'ControlEncuestaController@store_quest']);
 Route::post('close_quest', ['as' => 'close_quest', 'uses' => 'ControlEncuestaController@close_quest']);
 Route::get('stats', ['as' => 'stats', 'uses' => 'ControlEncuestaController@stats']);

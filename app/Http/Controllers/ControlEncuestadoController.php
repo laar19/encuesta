@@ -97,7 +97,9 @@ class ControlEncuestadoController extends Controller
 
         // Si no existe
         if($saime->count() == 0) {
-            return view('registro');
+            return view('registro', [
+                'cedula' => $cedula
+            ]);
         }
         // Si existe
         elseif($saime->count() == 1) {
@@ -112,10 +114,18 @@ class ControlEncuestadoController extends Controller
 
             // Si ya la respondió
             if(count($control_encuestados) > 0) {
-                return 'USTED YA RESPONDIÓ ESTA ENCUESTA';
+                return redirect()->back()->with(['message' => 'Usted ya respondió esta encuesta', 'alert' => 'alert-danger']);
             }
             // Si no la ha respondido
             else {
+                // En caso de no poseer segundo nombre ni segundo apellido se rellena con vacío
+                if($saime[0]->tpers_snomb == NULL) {
+                    $saime[0]->tpers_snomb = " ";
+                }
+                if($saime[0]->tpers_sapel == NULL) {
+                    $saime[0]->tpers_sapel = " ";
+                }
+                
                 return redirect()->route('preguntas', [
                     'cedula'           => $saime[0]->tpers_cedul,
                     'primer_nombre'    => $saime[0]->tpers_pnomb,
@@ -133,13 +143,24 @@ class ControlEncuestadoController extends Controller
     }
 
     public function registro(Request $request)
-    {
+    {        
+        // En caso de no poseer segundo nombre ni segundo apellido se rellena con vacío
+        $segundo_nombre   = $request->input('segundo_nombre');
+        $segundo_apellido = $request->input('segundo_apellido');
+        
+        if($segundo_nombre == NULL) {
+            $segundo_nombre = " ";
+        }
+        if($segundo_apellido == NULL) {
+            $segundo_apellido = " ";
+        }
+        
         return redirect()->route('preguntas', [
-            'cedula'           => $request->input('cedula'),
+            'cedula'           => $request->input('ci'),
             'primer_nombre'    => $request->input('primer_nombre'),
-            'segundo_nombre'   => $request->input('segundo_nombre'),
+            'segundo_nombre'   => $segundo_nombre,
             'primer_apellido'  => $request->input('primer_apellido'),
-            'segundo_apellido' => $request->input('segundo_apellido'),
+            'segundo_apellido' => $segundo_apellido,
             'fecha_nacimiento' => $request->input('fecha_nacimiento'),
             'genero'           => $request->input('genero')
         ]);

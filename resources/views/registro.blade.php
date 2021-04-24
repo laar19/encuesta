@@ -43,17 +43,19 @@
             <p>Ingresa tus datos</p>
             <div class="form-row" id="nombre">
               <div class="form-holder">
-                <input type="text" placeholder="Primer nombre" class="form-control" name="primer_nombre">
+                <input type="text" placeholder="Primer nombre" class="form-control" name="primer_nombre" required >
                 <input type="text" placeholder="Segundo nombre" class="form-control" name="segundo_nombre">
               </div>
               <div class="form-holder">
-                <input type="text" placeholder="Primer apellido" class="form-control" name="primer_apellido">
+                <input type="text" placeholder="Primer apellido" class="form-control" name="primer_apellido" required >
                 <input type="text" placeholder="Segundo apellido" class="form-control" name="segundo_apellido">
               </div>
             </div>
             <div class="form-row">
               <div class="form-holder">
-                <input type="text" placeholder="Número de cédula" class="form-control" name="cedula">
+                <input type="text" placeholder="Número de cédula" class="form-control" name="cedula" value="{{ $cedula }}" disabled >
+
+                <input type="hidden" name="ci" value="{{ $cedula }}">
               </div>
 
             </div>

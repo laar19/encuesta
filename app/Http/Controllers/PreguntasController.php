@@ -161,7 +161,7 @@ class PreguntasController extends Controller
             ]);
         }
 
-        return 'Gracias por participar';
+        return redirect()->route('index')->with(['message' => 'Gracias por participar', 'alert' => 'alert-success']);
     }
 
     /**

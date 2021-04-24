@@ -33,6 +33,14 @@
             </div>
             <p>Ingresar</p>
 
+            <br>
+            @if(session()->has('message'))
+                <div class="alert {{session('alert') ?? 'alert-info'}}">
+                    {{ session('message') }}
+                </div>
+            @endif
+            <br>
+
             <div class="form-row">
               <div class="form-holder" id="cedula">
                 <input type="text" placeholder="Número de cédula" class="form-control" name="cedula">
@@ -65,6 +73,3 @@
   <!-- Template created and distributed by Colorlib -->
 </body>
 </html>
-
-
-

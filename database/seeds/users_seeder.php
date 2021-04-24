@@ -17,7 +17,6 @@ class users_seeder extends Seeder
             'name'           => 'admin',
             'email'          => 'admin@email',
             'password'       =>  Hash::make('admin'),
-            //'role'           => 'admin',
             'remember_token' =>  rand()
         ]);
     }
