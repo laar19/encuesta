@@ -6,7 +6,9 @@ use App\control_encuestado;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+
 use App\control_encuesta;
+use App\encuestado;
 
 class ControlEncuestadoController extends Controller
 {
@@ -138,31 +140,50 @@ class ControlEncuestadoController extends Controller
             }
         }
         else {
-            return "ERROR";
+            return redirect()->route('index')->with(['message' => 'Error', 'alert' => 'alert-danger']);
         }
     }
 
     public function registro(Request $request)
     {
-        // En caso de no poseer segundo nombre ni segundo apellido se rellena con vacío
-        $segundo_nombre   = $request->input('segundo_nombre');
-        $segundo_apellido = $request->input('segundo_apellido');
-        
-        if($segundo_nombre == NULL) {
-            $segundo_nombre = " ";
+        $data = [
+            'cedula'           => ' ',
+            'primer_nombre'    => ' ',
+            'segundo_nombre'   => ' ',
+            'primer_apellido'  => ' ',
+            'segundo_apellido' => ' ',
+            'fecha_nacimiento' => ' ',
+            'genero'           => ' '
+        ];
+
+        foreach(array_keys($data) as $key) {
+            $data[$key] = $request->input($key);
         }
-        if($segundo_apellido == NULL) {
-            $segundo_apellido = " ";
+        
+        $except = array('segundo_nombre', 'segundo_apellido');
+
+        foreach($except as $i) {
+            if($data[$i] == NULL) {
+                $data[$i] = ' ';
+            }
+        }
+
+        foreach($data as $i) {
+            if($i == NULL) {
+                return redirect()->route('index')->with(['message' => 'Ningún campo debe quedar vacío', 'alert' => 'alert-danger']);
+            }
         }
         
-        return redirect()->route('preguntas', [
-            'cedula'           => $request->input('cedula2'),
-            'primer_nombre'    => $request->input('primer_nombre'),
-            'segundo_nombre'   => $segundo_nombre,
-            'primer_apellido'  => $request->input('primer_apellido'),
-            'segundo_apellido' => $segundo_apellido,
-            'fecha_nacimiento' => $request->input('fecha_nacimiento'),
-            'genero'           => $request->input('genero')
-        ]);
+        $cedula = $data['cedula'];
+        
+        // Verifica si la cédula existe en la BD
+        $row = json_decode(encuestado::select('cedula')->where('cedula', $cedula)->get());
+
+        // Si existe
+        if(count($row) > 0) {
+            return redirect()->route('index')->with(['message' => 'Usted ya respondió esta encuesta', 'alert' => 'alert-danger']);
+        }
+        
+        return redirect()->route('preguntas', $data);
     }
 }
