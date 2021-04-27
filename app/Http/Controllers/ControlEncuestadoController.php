@@ -146,7 +146,7 @@ class ControlEncuestadoController extends Controller
 
     public function registro(Request $request)
     {
-        $data = [
+        $fields = [
             'cedula'           => ' ',
             'primer_nombre'    => ' ',
             'segundo_nombre'   => ' ',
@@ -156,34 +156,32 @@ class ControlEncuestadoController extends Controller
             'genero'           => ' '
         ];
 
-        foreach(array_keys($data) as $key) {
-            $data[$key] = $request->input($key);
+        foreach(array_keys($fields) as $key) {
+            $fields[$key] = $request->input($key);
         }
         
         $except = array('segundo_nombre', 'segundo_apellido');
 
         foreach($except as $i) {
-            if($data[$i] == NULL) {
-                $data[$i] = ' ';
+            if($fields[$i] == NULL) {
+                $fields[$i] = ' ';
             }
         }
 
-        foreach($data as $i) {
+        foreach($fields as $i) {
             if($i == NULL) {
                 return redirect()->route('index')->with(['message' => 'Ningún campo debe quedar vacío', 'alert' => 'alert-danger']);
             }
         }
         
-        $cedula = $data['cedula'];
-        
         // Verifica si la cédula existe en la BD
-        $row = json_decode(encuestado::select('cedula')->where('cedula', $cedula)->get());
+        $row = json_decode(encuestado::select('cedula')->where('cedula', $fields['cedula'])->get());
 
         // Si existe
         if(count($row) > 0) {
             return redirect()->route('index')->with(['message' => 'Usted ya respondió esta encuesta', 'alert' => 'alert-danger']);
         }
         
-        return redirect()->route('preguntas', $data);
+        return redirect()->route('preguntas', $fields);
     }
 }
