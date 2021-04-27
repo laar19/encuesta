@@ -143,7 +143,7 @@ class ControlEncuestadoController extends Controller
     }
 
     public function registro(Request $request)
-    {        
+    {
         // En caso de no poseer segundo nombre ni segundo apellido se rellena con vacío
         $segundo_nombre   = $request->input('segundo_nombre');
         $segundo_apellido = $request->input('segundo_apellido');
@@ -156,7 +156,7 @@ class ControlEncuestadoController extends Controller
         }
         
         return redirect()->route('preguntas', [
-            'cedula'           => $request->input('ci'),
+            'cedula'           => $request->input('cedula2'),
             'primer_nombre'    => $request->input('primer_nombre'),
             'segundo_nombre'   => $segundo_nombre,
             'primer_apellido'  => $request->input('primer_apellido'),

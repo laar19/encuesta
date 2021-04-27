@@ -19,6 +19,19 @@
       $(this).datepicker('hide');
     });
   </script>
+
+  <script>
+      function validate_ci(id1, id2) {
+          var true_ci = <?php echo json_encode($cedula); ?>;
+          var ci1     = document.getElementById(id1).value;
+          var ci2     = document.getElementById(id2).value;
+          
+          if (ci1!=true_ci || ci2!=true_ci) {
+              window.location.href = '{{ route("index") }}';
+              alert('No puede modificar el número de cédula');
+          }
+      }
+  </script>
   
   <!-- STYLE CSS -->
     <link href="{{ asset('/assets/index/style.css') }}" rel="stylesheet">
@@ -53,9 +66,9 @@
             </div>
             <div class="form-row">
               <div class="form-holder">
-                <input type="text" placeholder="Número de cédula" class="form-control" name="cedula" value="{{ $cedula }}" disabled >
+                <input type="text" placeholder="Número de cédula" class="form-control" id="cedula1" value="{{ $cedula }}" disabled >
 
-                <input type="hidden" name="ci" value="{{ $cedula }}">
+                <input type="hidden" name="cedula2" id="cedula2" value="{{ $cedula }}">
               </div>
 
             </div>
@@ -78,7 +91,7 @@
             </div>
 
             <div class="col-2">
-              <div class="input-group">                 
+              <div class="input-group">
                 <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar">
                 <div class="input-group-icon">
                   <input class="form-control" autocomplete="off" id="fecha" name="fecha_nacimiento" data-provide="datepicker" data-date-format="dd-mm-yyyy" required="required" placeholder="Fecha de nacimiento"/>
@@ -89,9 +102,8 @@
             </div>
             <div class="checkbox-circle">
               <div class="col-12">
-                <button class="btn btn-primary" id="boton" type="submit">Continuar</button>
+                <button class="btn btn-primary" id="boton" type="submit" onClick="validate_ci('cedula1', 'cedula2')">Continuar</button>
               </div>
-
             </div>
           </div>
         </div>
