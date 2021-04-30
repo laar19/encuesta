@@ -90,9 +90,23 @@ class ControlEncuestadoController extends Controller
 
     public function verificacion(Request $request)
     {
+        // Verifica si existe alguna encuesta aperturada para direccionar al usuario
+        $encuesta_aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
+
+        if (count($encuesta_aperturada) == 0) {
+            return redirect()->route('closed');
+        }
 
         // Obtiene la cédula
         $cedula = $request->input('cedula');
+
+        if(!is_numeric($cedula)) {
+            return redirect()->route('index')->with(['message' => 'Error fatal', 'alert' => 'alert-danger']);
+        }
+        
+        if($cedula[0] == 0) {
+            return redirect()->route('index')->with(['message' => 'Error fatal', 'alert' => 'alert-danger']);
+        }
 
         // Verifica si la cédula existe en la BD del saime
         $saime = DB::connection('second')->table("tsaime")->where('tpers_cedul', '=', $cedula)->get();
@@ -146,42 +160,46 @@ class ControlEncuestadoController extends Controller
 
     public function registro(Request $request)
     {
-        $fields = [
-            'cedula'           => ' ',
-            'primer_nombre'    => ' ',
-            'segundo_nombre'   => ' ',
-            'primer_apellido'  => ' ',
-            'segundo_apellido' => ' ',
-            'fecha_nacimiento' => ' ',
-            'genero'           => ' '
-        ];
+        // Verifica si existe alguna encuesta aperturada para direccionar al usuario
+        $encuesta_aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
 
-        foreach(array_keys($fields) as $key) {
-            $fields[$key] = $request->input($key);
+        if (count($encuesta_aperturada) == 0) {
+            return redirect()->route('closed');
         }
         
-        $except = array('segundo_nombre', 'segundo_apellido');
+        // Validate inputs
+        $columns        = json_decode(json_encode(encuestado::find(1)), true);
+        $inputs         = $request->input();
+        $exclude_inputs = ['_token', 'genero'];
+        $route          = 'index';
+        $message        = 'Error fatal';
+        $alert_type     = 'alert-danger';
+        check_requests_input($exclude_inputs, $inputs, $columns, $route, $message, $alert_type);
 
+        // Except arbitrary null values
+        $except = array('segundo_nombre', 'segundo_apellido');
         foreach($except as $i) {
-            if($fields[$i] == NULL) {
-                $fields[$i] = ' ';
+            if($inputs[$i] == NULL) {
+                $inputs[$i] = ' ';
             }
         }
 
-        foreach($fields as $i) {
+        // Any other null value is not accepted
+        foreach($inputs as $i) {
             if($i == NULL) {
                 return redirect()->route('index')->with(['message' => 'Ningún campo debe quedar vacío', 'alert' => 'alert-danger']);
             }
         }
         
         // Verifica si la cédula existe en la BD
-        $row = json_decode(encuestado::select('cedula')->where('cedula', $fields['cedula'])->get());
+        $row = json_decode(encuestado::select('cedula')->where('cedula', $inputs['cedula'])->get());
 
         // Si existe
         if(count($row) > 0) {
             return redirect()->route('index')->with(['message' => 'Usted ya respondió esta encuesta', 'alert' => 'alert-danger']);
         }
-        
-        return redirect()->route('preguntas', $fields);
+
+        $inputs['_token'] = NULL; // Remove _token value from url bar
+        return redirect()->route('preguntas', $inputs);
     }
 }

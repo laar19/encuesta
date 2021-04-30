@@ -41,6 +41,7 @@
             "database/factories"
         ],
         "files": [
+            "app/helpers/main.php",
             "app/helpers/stats.php"
         ]
     },

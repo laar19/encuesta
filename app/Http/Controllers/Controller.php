@@ -22,7 +22,7 @@ class Controller extends BaseController
             return view('index');
         }
         else {
-            return 'ERROR. NO HAY ENCUESTA';
+            return redirect()->route('closed');
         }
     }
 }

@@ -117,19 +117,19 @@ class ControlEncuestaController extends Controller
         //
     }
 
+    // Cierra la encuesta aperturada
     public function close_quest()
     {
-        // Cierra la encuesta aperturada
         $id_aperturada = control_encuesta::select('id')->where('aperturada', 1);
-        if(count($id_aperturada) == 0) {
-            return 'No hay encuesta aperturada para cerrar';
+        if($id_aperturada->count() == 0) {
+            return redirect()->route('open')->with(['message' => 'No hay encuesta aperturada para cerrar', 'alert' => 'alert-danger']);
         }
         else {
             $control_encuesta = control_encuesta::find($id_aperturada->get()[0]->id);
             $control_encuesta->aperturada = 0;
             $control_encuesta->save();
             
-            return 'La encuesta se ha cerrado';
+            return redirect()->route('open')->with(['message' => 'La encuesta se ha cerrado', 'alert' => 'alert-success']);
         }
     }
 }

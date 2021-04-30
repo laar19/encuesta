@@ -15,6 +15,29 @@
         <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
 
         <script src="{{ asset('/assets/js/main.js') }}"></script>
+
+        <script>
+            function check_question_10_1(element_id) {
+                var radio   = document.getElementById(element_id);
+                var target  = document.getElementById('pregunta10-1');
+
+                if(radio.checked==true && radio.value==2) {
+                    target.value    = null;
+                    target.disabled = true;
+                }
+                else {
+                    target.disabled = false;
+                }
+            }
+
+            function fix_null(element_id) {
+                var input = document.getElementById(element_id);
+
+                if(target.value.length < 2) {
+                    input.value = ' ';
+                }
+            }
+        </script>
     </head>
     <body>
     <style type="text/css">
@@ -401,24 +424,29 @@
                     </h2>
                     <hr>
 
+                    <script> var ids_pregunta10_1 = Array(); </script>
+
                     @foreach($datas['opciones10'] as $i)
-                        <div class="row text-left">
+                        <script> ids_pregunta10_1.push('{{ $i->id }}'); </script>
+                        <div class="row text-left" onClick="check_question_10_1(ids_pregunta10_1[1])">
                             <div class="col-md-1">
-                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}" checked>
+                                <input type="radio" id="{{ $i->id }}" name="{{ $i->id_preguntas }}" value="{{ $i->numero_opcion }}">
                             </div>
                             <div class="col-md-11">
                                 <label for="{{ $i->id }}">{{ $i->opcion }}</label>
                             </div>
                         </div>
                     @endforeach
+
+                    <script> document.getElementById(ids_pregunta10_1[1]).checked = true; </script>
                     
                     <br>
                     <div class="row text-left">
-                        <input type="" name="pregunta10-1" id="" class="form-control" placeholder="Indique el organismo">
+                        <input type="text" name="pregunta10-1" id="pregunta10-1" class="form-control" placeholder="Indique el organismo" disabled>
                     </div>
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" onClick="fix_null('pregunta10-1');"/>
                 </fieldset>
                 <fieldset>
                     <h2>
@@ -832,12 +860,12 @@
                      <hr>
                     <div class="row">
                           <div class="col-md-12">
-                              <textarea name="pregunta25" id="" class="form-control" style="width:100%; height: 100px;"></textarea>
+                              <textarea name="pregunta25" id="pregunta25" class="form-control" style="width:100%; height: 100px;"></textarea>
                           </div>
                     </div>
                     <hr>
                     <input type="button" name="previous" class="previous-form btn btn-default" value="Anterior" />
-                    <input type="submit" name="submit" class="submit btn btn-success" value="Enviar" />
+                    <input type="submit" name="submit" class="submit btn btn-success" value="Enviar" onClick="fix_null('pregunta25');"/>
                 </fieldset>
             </form>
         </div>

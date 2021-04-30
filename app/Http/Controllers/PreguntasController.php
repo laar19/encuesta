@@ -210,7 +210,14 @@ class PreguntasController extends Controller
     }
 
     public function preguntas($cedula, $primer_nombre, $segundo_nombre, $primer_apellido, $segundo_apellido, $fecha_nacimiento, $genero)
-    {        
+    {
+        // Verifica si existe alguna encuesta aperturada para direccionar al usuario
+        $encuesta_aperturada = control_encuesta::select('aperturada')->where('aperturada', 1)->get();
+
+        if (count($encuesta_aperturada) == 0) {
+            return redirect()->route('closed');
+        }
+        
         $saime = collect();
         $saime->put('cedula', $cedula);
         $saime->put('primer_nombre', $primer_nombre);

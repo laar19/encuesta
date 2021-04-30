@@ -16,12 +16,6 @@
 </head>
 <body>
   <div class="wrapper">
-    <form id="register_form" method="post" action="{{ route('verificacion') }}">
-
-        {!! csrf_field() !!}
-        
-      <!-- SECTION 1 -->
-      <h2></h2>
       <section>
         <div class="inner" id="fondo">
           <div class="image-holder">
@@ -29,36 +23,11 @@
           </div>
           <div class="form-content" >
             <div class="form-header">
-              <h3>Inicio</h3>
-            </div>
-            <p>Ingresar</p>
-
-            <br>
-            @if(session()->has('message'))
-                <div class="alert {{session('alert') ?? 'alert-info'}}">
-                    {{ session('message') }}
-                </div>
-            @endif
-            <br>
-
-            <div class="form-row">
-              <div class="form-holder" id="cedula">
-                <input type="text" placeholder="Número de cédula" class="form-control" name="cedula" pattern="[0-9]+">
-              </div>
-
-            </div>
-                    
-            <div class="checkbox-circle">
-              <div class="col-12">
-                <button class="btn btn-primary" id="boton" type="submit">Enviar</button>
-              </div>
-
+              <h3>Encuesta cerrada</h3>
             </div>
           </div>
         </div>
-      </section>                
-
-    </form>
+      </section>
   </div>
 
   <!-- JQUERY -->
