@@ -30,7 +30,7 @@
                         </tr>
                         <tr>
                             <th>
-                                {{ $users->links() }}
+                                {{ $encuesta->links() }}
                             </th>
                         </tr>
                     </table>
@@ -38,8 +38,8 @@
             </div>
 
             <div class="panel panel-primary">
-                <div class="panel-heading">         
-                    <h3 class="panel-title">Lista de usuarios</h3>
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lista de encuestas</h3>
                     <div id="loader" class="text-center"></div>
                 </div>
                 
@@ -49,33 +49,27 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Correo</th>
+                                <th>Fecha de apertura</th>
+                                <th>Fecha de cierre</th>
                             </tr>
                         </thead>
 
                         <tbody class="buscar">
-                            @foreach($users as $i)
+                            @foreach($encuesta as $i)
 
                                 <tr>
                                     <td>
-                                        {{ $i->name }}
+                                        {{ $i->fecha_apertura }}
                                     </td>
 
                                     <td>
-                                        {{ $i->email }}
+                                        {{ $i->fecha_cierre }}
                                     </td>
                                     
                                     <td>
-                                        <a href="{{ route('user.edit', $i->id) }}" class="btn btn-info btn-xs">
-                                            Editar
+                                        <a href="{{ route('show_stats', $i->id) }}" class="btn btn-info btn-xs">
+                                            Estadísticas
                                         </a>
-
-                                        <form style="display:inline" method="post" action="{{ route('user.destroy', $i->id) }}">
-                                            {!! method_field('DELETE') !!}
-                                            {!! csrf_field() !!}
-                                            <button type="submit" class="btn btn-danger btn-xs">Eliminar</button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -85,7 +79,7 @@
             </div>
             
             <div>
-                {{ $users->links() }}
+                {{ $encuesta->links() }}
             </div>
             <br>
 

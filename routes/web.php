@@ -26,6 +26,8 @@ Route::get('open', ['as' => 'open', 'uses' => 'ControlEncuestaController@open'])
 Route::post('store_quest', ['as' => 'store_quest', 'uses' => 'ControlEncuestaController@store_quest']);
 Route::post('close_quest', ['as' => 'close_quest', 'uses' => 'ControlEncuestaController@close_quest']);
 Route::get('stats', ['as' => 'stats', 'uses' => 'ControlEncuestaController@stats']);
+Route::get('search_stats', ['as' => 'search_stats', 'uses' => 'ControlEncuestaController@search']);
+Route::get('show_stats', ['as' => 'show_stats', 'uses' => 'ControlEncuestaController@show_stats']);
 
 // Login
 Route::get('login', ['as' => 'login', 'uses' => 'LoginController@login']);

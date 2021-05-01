@@ -12,9 +12,6 @@
 
 <link href="{{ asset('/assets/bootstrap-4.4.1-dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
-<script src="{{ asset('/assets/chartjs/dist/Chart.js') }}"></script>
-<script src="{{ asset('/assets/js/stats/functions.js') }}"></script>
-
 <div class="container">
     <div class="row">
         <div class="col">
@@ -49,6 +46,4 @@
 <script src="{{ asset('/assets/js/jquery/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('/assets/bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
 
-<script src="{{ asset('/assets/js/stats/main.js') }}"></script>
-        
 @endsection

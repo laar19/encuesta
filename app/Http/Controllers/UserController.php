@@ -17,12 +17,9 @@ class UserController extends Controller
     public function index()
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
-        //$users = User::all();
-        //$users = User::paginate(15);
-        //return view('user.index', compact('users'));
         return redirect()->route('search_user');
     }
 
@@ -34,7 +31,7 @@ class UserController extends Controller
     public function create()
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
         return view('user.create');
@@ -50,7 +47,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
         $array = array(
@@ -62,13 +59,13 @@ class UserController extends Controller
                 
         try {
             User::create($array);
-            return redirect()->back()->with('success', 'Datos guardados correctamente');
+            return redirect()->back()->with(['message' => 'Usuario creado correctamente', 'alert' => 'alert-success']);
         }
         catch(\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             
             if($errorCode == '7') {
-                return back()->with('error', 'El correo ya existe');
+                return redirect()->route('user.create')->with(['message' => 'El correo ya existe', 'alert' => 'alert-danger']);
             }
         }
     }
@@ -79,20 +76,6 @@ class UserController extends Controller
      * @param  \App\Datas  $datas
      * @return \Illuminate\Http\Response
      */
-    /*
-    public function show(User $user)
-    {
-        if(!isset(Auth::user()->email)) {
-            return view('login.login');
-        }
-        if(!(Auth::user()->role === 'admin')) {
-            return redirect()->route('logout');
-        }
-        
-        $user = User::findOrFail($id);
-        return view('user.show', compact('user'));
-    }
-    */
 
     /**
      * Show the form for editing the specified resource.
@@ -104,7 +87,7 @@ class UserController extends Controller
     public function edit($id)
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
         $user = User::findOrFail($id);
@@ -123,7 +106,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.login');
+            return redirect()->route('login');
         }
         
         $array = array(
@@ -150,7 +133,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
         $user = User::findOrFail($id);
@@ -161,7 +144,7 @@ class UserController extends Controller
     
     function search(Request $request) {
         if(!isset(Auth::user()->email)) {
-            return view('login.index');
+            return redirect()->route('login');
         }
         
         $search = $request->input('q');
@@ -170,7 +153,6 @@ class UserController extends Controller
             $users = User::where(function ($query) use ($search) {
                 $query->where('name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%')
-                    ->orWhere('role', 'like', '%'.$search.'%')
                     ->orderBy('created_at', 'desc');
             })->paginate(10);
             $users->appends(['q' => $search]);

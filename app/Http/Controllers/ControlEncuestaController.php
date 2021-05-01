@@ -78,10 +78,12 @@ class ControlEncuestaController extends Controller
      * @param  \App\Control_encuesta  $control_encuesta
      * @return \Illuminate\Http\Response
      */
+     /*
     public function show(Control_encuesta $control_encuesta)
     {
         //
     }
+    */
 
     /**
      * Show the form for editing the specified resource.
@@ -89,10 +91,25 @@ class ControlEncuestaController extends Controller
      * @param  \App\Control_encuesta  $control_encuesta
      * @return \Illuminate\Http\Response
      */
+
+     /*
     public function edit(Control_encuesta $control_encuesta)
     {
         //
     }
+    */
+
+    /*
+    public function edit($id)
+    {
+        if(!isset(Auth::user()->email)) {
+            return redirect()->route('login');
+        }
+        
+        $encuesta = User::findOrFail($id);
+        return view('admin.edit', compact('encuesta'));
+    }
+    */
 
     /**
      * Update the specified resource in storage.
@@ -131,5 +148,30 @@ class ControlEncuestaController extends Controller
             
             return redirect()->route('open')->with(['message' => 'La encuesta se ha cerrado', 'alert' => 'alert-success']);
         }
+    }
+
+    function search(Request $request) {
+        if(!isset(Auth::user()->email)) {
+            return redirect()->route('login');
+        }
+        
+        $search = $request->input('q');
+        
+        if($search != "") {
+            $encuesta = control_encuesta::where(function ($query) use ($search) {
+                $query->where('fecha_apertura', 'like', '%'.$search.'%')
+                    ->orWhere('fecha_cierre', 'like', '%'.$search.'%')
+                    ->orderBy('created_at', 'desc');
+            })->paginate(10);
+            $encuesta->appends(['q' => $search]);
+        }
+        else {
+            $encuesta = control_encuesta::paginate(10);
+        }
+        return view('admin.search')->with('encuesta', $encuesta);
+    }
+
+    function show_stats(Request $request) {
+        return 'ERROR';
     }
 }
